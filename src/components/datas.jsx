@@ -5,6 +5,7 @@ export const myDatas = [
     name: "humberger",
     source: "/src/items/1.jpg",
     value: 2500,
+    addToCart: false,
   },
   {
     id: 2,
@@ -12,6 +13,7 @@ export const myDatas = [
     name: "beer",
     source: "/src/items/2.jpg",
     value: 2600,
+    addToCart: false,
   },
   {
     id: 3,
@@ -19,6 +21,8 @@ export const myDatas = [
     name: "red apple",
     source: "/src/items/3.jpg",
     value: 300,
+
+    addToCart: false,
   },
   {
     id: 4,
@@ -26,6 +30,7 @@ export const myDatas = [
     name: "chocolate cake",
     source: "/src/items/4.jpg",
     value: 5000,
+    addToCart: false,
   },
   {
     id: 5,
@@ -33,6 +38,8 @@ export const myDatas = [
     name: "green apple",
     source: "/src/items/5.jpg",
     value: 400,
+
+    addToCart: false,
   },
   {
     id: 6,
@@ -40,6 +47,7 @@ export const myDatas = [
     name: "flavoured pizza",
     source: "/src/items/6.jpg",
     value: 9000,
+    addToCart: false,
   },
   {
     id: 7,
@@ -47,6 +55,8 @@ export const myDatas = [
     name: "banana",
     source: "/src/items/banana.jpg",
     value: 500,
+
+    addToCart: false,
   },
   {
     id: 8,
@@ -54,6 +64,7 @@ export const myDatas = [
     name: "bread",
     source: "/src/items/bread.jpg",
     value: 1000,
+    addToCart: false,
   },
   {
     id: 9,
@@ -61,6 +72,7 @@ export const myDatas = [
     name: "bread baked",
     source: "/src/items/bread1.jpg",
     value: 1400,
+    addToCart: false,
   },
   {
     id: 10,
@@ -68,6 +80,7 @@ export const myDatas = [
     name: "donut",
     source: "/src/items/donut.jpg",
     value: 1500,
+    addToCart: false,
   },
   {
     id: 11,
@@ -75,6 +88,7 @@ export const myDatas = [
     name: "donut",
     source: "/src/items/donutTriple.jpg",
     value: 1500,
+    addToCart: false,
   },
   {
     id: 12,
@@ -82,6 +96,7 @@ export const myDatas = [
     name: "style hat",
     source: "/src/items/hat1.jpg",
     value: 1500,
+    addToCart: false,
   },
   {
     id: 13,
@@ -89,6 +104,7 @@ export const myDatas = [
     name: "black hat",
     source: "/src/items/hatb.jpg",
     value: 1500,
+    addToCart: false,
   },
   {
     id: 14,
@@ -96,6 +112,7 @@ export const myDatas = [
     name: "hat",
     source: "/src/items/hatw.jpg",
     value: 1500,
+    addToCart: false,
   },
   {
     id: 15,
@@ -103,6 +120,7 @@ export const myDatas = [
     name: "Los hat",
     source: "/src/items/headLa.jpg",
     value: 1500,
+    addToCart: false,
   },
   {
     id: 16,
@@ -110,6 +128,7 @@ export const myDatas = [
     name: "Nike hat",
     source: "/src/items/headNike.jpg",
     value: 1500,
+    addToCart: false,
   },
   {
     id: 17,
@@ -117,6 +136,7 @@ export const myDatas = [
     name: "lemon",
     source: "/src/items/lemon.jpg",
     value: 1500,
+    addToCart: false,
   },
   {
     id: 18,
@@ -124,6 +144,7 @@ export const myDatas = [
     name: "pepsi",
     source: "/src/items/pepsi.jpg",
     value: 1500,
+    addToCart: false,
   },
   {
     id: 19,
@@ -131,6 +152,7 @@ export const myDatas = [
     name: "caned pepsi",
     source: "/src/items/pepsi1.jpg",
     value: 3000,
+    addToCart: false,
   },
   {
     id: 20,
@@ -138,6 +160,7 @@ export const myDatas = [
     name: "omalet pizza",
     source: "/src/items/pizz.jpg",
     value: 2400,
+    addToCart: false,
   },
   {
     id: 20,
@@ -145,6 +168,7 @@ export const myDatas = [
     name: "pile cake",
     source: "/src/items/snackS.jpg",
     value: 4000,
+    addToCart: false,
   },
 ];
 

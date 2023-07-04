@@ -13,22 +13,22 @@ export default function Carts({
 }) {
   return (
     <>
-      <div className="cart-table">
-        <div className="tableHead col-8">
-          <table className="table text-center">
-            <thead className="table-dark" style={{ height: "40px" }}>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">icon</th>
-                <th scope="col">name</th>
-                <th scope="col">price</th>
-                <th scope="col">quantity</th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {allCarts.length > 0 ? (
-                allCarts.map((cart, index) => (
+      <div className="mainDiv">
+        <div className=" row cart-table">
+          <div className="col itemTable">
+            <table className="table text-center">
+              <thead className="table-dark" style={{ height: "40px" }}>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">icon</th>
+                  <th scope="col">name</th>
+                  <th scope="col">price</th>
+                  <th scope="col">quantity</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {allCarts.map((cart, index) => (
                   <tr key={index}>
                     <td>{index + 1}</td>
                     <td className="img-column">
@@ -58,19 +58,18 @@ export default function Carts({
                       </button>
                     </td>
                   </tr>
-                ))
-              ) : (
-                <h1 className="container text-center ">
-                  nothing is in cart now :)
-                </h1>
-              )}
-            </tbody>
-          </table>
-        </div>
-        <div className="cashi col-sm-3">
-          {allCarts.length > 0 && (
+                ))}
+              </tbody>
+            </table>
+            {allCarts.length < 1 && (
+              <h1 className="container text-center ">
+                nothing is in cart now :)
+              </h1>
+            )}
+          </div>
+          <div className={allCarts.length > 0 ? "col" : "d-none"}>
             <Cashier totalPrice={totalPrice} payment={payment} />
-          )}
+          </div>
         </div>
       </div>
     </>

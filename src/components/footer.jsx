@@ -1,7 +1,7 @@
 function Footer() {
   return (
     <footer>
-      <div className="container fixed-bottom">
+      <div className="fixed-bottom ">
         <div className="footer">
           <div className="contact-us ">
             <h3>Contact Us</h3>

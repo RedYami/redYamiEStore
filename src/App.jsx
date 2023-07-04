@@ -43,10 +43,6 @@ function App() {
       initialPrice: object.value,
       icon: object.source,
     };
-    const isItemAdded = allCarts.some((item) => item.id === newCart.id);
-    if (isItemAdded) {
-      return alert(" You already added this item :)");
-    }
     setAllCarts([...allCarts, newCart]);
   }
   function priceUp(id) {
@@ -87,30 +83,33 @@ function App() {
     setItemOrCart(Boolean);
     setIsPaying(false); //remove status when navigate
   }
-  const content = itemOrCart ? (
-    <Items
-      cataType={requestCata}
-      addCart={addNewCart}
-      removeCart={removeCart}
-    />
-  ) : (
-    <Carts
-      allCarts={allCarts}
-      removeCart={removeCart}
-      priceUp={priceUp}
-      priceDown={priceDown}
-      totalPrice={totalRef.current}
-      payment={payment}
-    />
-  );
+  console.log(itemOrCart);
   return (
     <>
       <Navbar carts={allCarts} navigate={navigation} />
-      <div className="components container-fluid">
-        <aside className="col-3">
+      <div className="components container-fluid row">
+        <aside className={"col-3" + (itemOrCart === false ? " d-none" : "")}>
           <Catagories onListClick={changeCata} Id={selectedLi} />
         </aside>
-        <div className="taskContainer col-8">{content}</div>
+        <div className="taskContainer col">
+          <div className={itemOrCart ? "" : "d-none"}>
+            <Items
+              cataType={requestCata}
+              addCart={addNewCart}
+              removeCart={removeCart}
+            />
+          </div>
+          <div className={itemOrCart ? "d-none" : ""} style={{ width: "100%" }}>
+            <Carts
+              allCarts={allCarts}
+              removeCart={removeCart}
+              priceUp={priceUp}
+              priceDown={priceDown}
+              totalPrice={totalRef.current}
+              payment={payment}
+            />
+          </div>
+        </div>
       </div>
       <div className="container-fluid">
         <h4 className="text-center text-success-emphasis">
