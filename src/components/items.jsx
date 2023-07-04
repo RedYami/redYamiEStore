@@ -15,12 +15,13 @@ export default function Items({ cataType, addCart, removeCart }) {
   return (
     <div className="container itemContainer rounded">
       <div className="row">
-        {typeFilter().map((data) => (
+        {myDatas.map((data) => (
           <Images
             imgData={data}
             key={data.id}
             addCart={addCart}
             removeCart={removeCart}
+            shouldHidden={cataType === data.type}
           />
         ))}
       </div>
@@ -28,7 +29,7 @@ export default function Items({ cataType, addCart, removeCart }) {
   );
 }
 
-function Images({ imgData, addCart, removeCart }) {
+function Images({ imgData, addCart, removeCart, shouldHidden }) {
   const [isHover, setIsHover] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isImageLoaded, setIsImageLoaded] = useState(false);
@@ -39,7 +40,7 @@ function Images({ imgData, addCart, removeCart }) {
       className="addToCart"
       title="add to cart"
       onClick={() => {
-        // setAddOrRemove(!addOrRemove);
+        setAddOrRemove(!addOrRemove);
         addCart(imgData);
       }}
     >
@@ -50,7 +51,7 @@ function Images({ imgData, addCart, removeCart }) {
       className="addToCart"
       title="remove from cart"
       onClick={() => {
-        // setAddOrRemove(!addOrRemove);
+        setAddOrRemove(!addOrRemove);
         removeCart(imgData);
       }}
     >
@@ -73,7 +74,7 @@ function Images({ imgData, addCart, removeCart }) {
 
   return (
     <>
-      <div className="col-4">
+      <div className={"col-4 " + (!shouldHidden ? "d-none" : "")}>
         <div className="image-container mb-3">
           {isLoading && (
             <FontAwesomeIcon icon={faFan} spin className="fanLogo" />
