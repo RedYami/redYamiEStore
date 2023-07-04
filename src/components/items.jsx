@@ -89,7 +89,10 @@ function Images({ imgData, addCart, removeCart, shouldHidden }) {
             />
           )}
           {isHover && isImageLoaded && (
-            <div className="itemDetail" onMouseEnter={() => setIsHover(true)}>
+            <div
+              className="itemDetail container-fluid"
+              onMouseEnter={() => setIsHover(true)}
+            >
               <div className="price">{imgData.value} kyats</div>
               {buttonDisplay}
             </div>

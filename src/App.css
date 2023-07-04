@@ -19,6 +19,8 @@
   padding: 10px;
   text-align: center;
   transition: opacity 0.3s ease-in-out;
+  max-width: 80%;
+  max-height: 90%;
 }
 
 .itemDetail .price {
