@@ -18,7 +18,7 @@ export default function Items({ cataType, addCart, removeCart }) {
   return (
     <div className="container itemContainer rounded">
       <div className="row">
-        {typeFilter().map((data, index) => (
+        {typeFilter().map((data) => (
           <Images
             imgData={data}
             key={data.id}

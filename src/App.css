@@ -120,6 +120,10 @@ table td.img-column {
   font-size: 60px;
   text-align: center;
 }
+.taskContainer{
+  max-height: 400px;
+  overflow: hidden;
+}
 
 
 

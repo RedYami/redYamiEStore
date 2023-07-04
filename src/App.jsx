@@ -107,7 +107,7 @@ function App() {
         <aside className="col-3">
           <Catagories onListClick={changeCata} Id={selectedLi} />
         </aside>
-        <div className="col-8">{content}</div>
+        <div className="col-8 taskContainer">{content}</div>
       </div>
       <div className="container-fluid">
         <h4 className="text-center text-success-emphasis">
