@@ -13,8 +13,8 @@ export default function Carts({
 }) {
   return (
     <>
-      <div className="row">
-        <div className="col-8">
+      <div className="cart-table">
+        <div className="tableHead col-8">
           <table className="table text-center">
             <thead className="table-dark" style={{ height: "40px" }}>
               <tr>
@@ -67,7 +67,7 @@ export default function Carts({
             </tbody>
           </table>
         </div>
-        <div className="col">
+        <div className="cashi col-sm-3">
           {allCarts.length > 0 && (
             <Cashier totalPrice={totalPrice} payment={payment} />
           )}

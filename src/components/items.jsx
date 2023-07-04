@@ -11,9 +11,6 @@ export default function Items({ cataType, addCart, removeCart }) {
     });
     return filteredList;
   }
-  useEffect(() => {
-    typeFilter();
-  }, [cataType]);
 
   return (
     <div className="container itemContainer rounded">
@@ -42,7 +39,7 @@ function Images({ imgData, addCart, removeCart }) {
       className="addToCart"
       title="add to cart"
       onClick={() => {
-        setAddOrRemove(!addOrRemove);
+        // setAddOrRemove(!addOrRemove);
         addCart(imgData);
       }}
     >
@@ -53,7 +50,7 @@ function Images({ imgData, addCart, removeCart }) {
       className="addToCart"
       title="remove from cart"
       onClick={() => {
-        setAddOrRemove(!addOrRemove);
+        // setAddOrRemove(!addOrRemove);
         removeCart(imgData);
       }}
     >

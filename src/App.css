@@ -114,17 +114,40 @@ table td.img-column {
 .cashier button{
   width: 100%;
 }
+
+
+
+/* css for main app */
+.components{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+/* CSS for cartOptions */
+.cart-table{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+/* 
+CSS for footer */
+
+.footer{
+  display: flex;
+  justify-content: space-evenly;
+  color: white;
+  background-color: black;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+/* CSS for items */
+.taskContainer{
+  max-height: 440px;
+  overflow: auto;
+  
+}
 .fanLogo{
   top: 50%;
   left: 50%;
   font-size: 60px;
   text-align: center;
 }
-.taskContainer{
-  max-height: 400px;
-  overflow: hidden;
-}
-
-
-
-

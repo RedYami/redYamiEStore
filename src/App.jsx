@@ -5,6 +5,7 @@ import Navbar from "./components/navBar";
 import Catagories from "./components/catagories";
 import Items from "./components/items";
 import Carts from "./components/cartOptions";
+import Footer from "./components/footer";
 
 function App() {
   const [selectedLi, setSelectedLi] = useState(0);
@@ -34,17 +35,19 @@ function App() {
   }
 
   function addNewCart(object) {
-    setAllCarts([
-      ...allCarts,
-      {
-        name: object.name,
-        price: object.value,
-        id: object.id,
-        quantity: 1,
-        initialPrice: object.value,
-        icon: object.source,
-      },
-    ]);
+    const newCart = {
+      name: object.name,
+      price: object.value,
+      id: object.id,
+      quantity: 1,
+      initialPrice: object.value,
+      icon: object.source,
+    };
+    const isItemAdded = allCarts.some((item) => item.id === newCart.id);
+    if (isItemAdded) {
+      return alert(" You already added this item :)");
+    }
+    setAllCarts([...allCarts, newCart]);
   }
   function priceUp(id) {
     setAllCarts(
@@ -103,17 +106,18 @@ function App() {
   return (
     <>
       <Navbar carts={allCarts} navigate={navigation} />
-      <div className="components container-fluid row">
+      <div className="components container-fluid">
         <aside className="col-3">
           <Catagories onListClick={changeCata} Id={selectedLi} />
         </aside>
-        <div className="col-8 taskContainer">{content}</div>
+        <div className="taskContainer col-8">{content}</div>
       </div>
       <div className="container-fluid">
         <h4 className="text-center text-success-emphasis">
           {isPaying && status}
         </h4>
       </div>
+      <Footer />
     </>
   );
 }
