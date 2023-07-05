@@ -1,30 +1,29 @@
 import { useRef, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import "./App.css";
-import Navbar, { Navbar1 } from "./components/navBar";
+import Navbar from "./components/navBar";
 import Catagories from "./components/catagories";
 import Items from "./components/items";
 import Carts from "./components/cartOptions";
-import Footer from "./components/footer";
 import { myDatas } from "./components/datas";
 
 function App() {
-  const [selectedLi, setSelectedLi] = useState(0);
-  const [requestCata, setRequestCata] = useState("fruit");
+  const [selectedLi, setSelectedLi] = useState(10);
+  const [requestCata, setRequestCata] = useState("all");
   const [allCarts, setAllCarts] = useState([]);
   const [itemOrCart, setItemOrCart] = useState(true); //default true to show item component
   const totalRef = useRef(0);
   const [isPaying, setIsPaying] = useState(false);
   const [pureData, setPureData] = useState(myDatas);
-  console.log("main data level " + pureData.length);
-  const lastItem = pureData[pureData.length - 1];
-  console.log(
-    "last added item " + lastItem.name + " " + lastItem.type + lastItem.value
-  );
+  const [filterText, setFilterText] = useState("");
+
   function payment() {
     setIsPaying(true);
     setAllCarts([]); //clear all carts when payment is done
     setPureData(myDatas);
+  }
+  function onSearch(text) {
+    setFilterText(text);
   }
   const status = isPaying && "We have sent Receipt to your email thank you :)";
 
@@ -101,6 +100,7 @@ function App() {
       addCart={addNewCart}
       removeCart={removeCart}
       pureData={pureData}
+      filterText={filterText}
     />
   ) : (
     <Carts
@@ -115,7 +115,7 @@ function App() {
   console.log(itemOrCart);
   return (
     <>
-      <Navbar1 carts={allCarts} navigate={navigation} />
+      <Navbar carts={allCarts} navigate={navigation} onSearch={onSearch} />
       <div className="components container-fluid row">
         <aside className={"col-4" + (itemOrCart === false ? " d-none" : "")}>
           <Catagories onListClick={changeCata} Id={selectedLi} />

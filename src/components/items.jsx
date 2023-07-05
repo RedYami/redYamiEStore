@@ -1,20 +1,45 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@fortawesome/fontawesome-svg-core/styles.css";
-import { faCartShopping, faFan } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCartShopping,
+  faFan,
+  faSpinner,
+} from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
-import { myDatas } from "./datas";
 
-export default function Items({ cataType, addCart, removeCart, pureData }) {
+export default function Items({
+  cataType,
+  addCart,
+  removeCart,
+  pureData,
+  filterText,
+}) {
+  const filteredImages = [];
+
+  pureData.forEach((data) => {
+    if (data.name.toLowerCase().indexOf(filterText.toLowerCase()) !== -1) {
+      filteredImages.push(data);
+    }
+  });
+  function shouldHiddenOrAll(type) {
+    console.log("catagories type " + cataType);
+    if (cataType === "all") {
+      return true;
+    } else {
+      return type === cataType;
+    }
+  }
+
   return (
     <div className="itemContainer rounded">
       <div className="row">
-        {pureData.map((data, index) => (
+        {filteredImages.map((data, index) => (
           <Images
             imgData={data}
             key={index}
             addCart={addCart}
             removeCart={removeCart}
-            shouldHidden={cataType === data.type}
+            hidden={shouldHiddenOrAll(data.type)}
           />
         ))}
       </div>
@@ -22,7 +47,7 @@ export default function Items({ cataType, addCart, removeCart, pureData }) {
   );
 }
 
-function Images({ imgData, addCart, shouldHidden }) {
+function Images({ imgData, addCart, hidden }) {
   const [isLoading, setIsLoading] = useState(true); //is image loading
   const [isImageLoaded, setIsImageLoaded] = useState(false); //is image loaded
   // const [addOrRemove, setAddOrRemove] = useState(true); // if true add to cart mode ,false is remove mode
@@ -55,14 +80,9 @@ function Images({ imgData, addCart, shouldHidden }) {
 
   return (
     <>
-      <div
-        className={"col-6 " + (!shouldHidden ? "d-none" : "")}
-        key={imgData.name}
-      >
+      <div className={"col-6 " + (!hidden ? "d-none" : "")} key={imgData.name}>
         <div className="image-container mb-3 input-group shadow-lg rounded">
-          {isLoading && (
-            <FontAwesomeIcon icon={faFan} spin className="fanLogo" />
-          )}
+          {isLoading && <FontAwesomeIcon icon={faSpinner} spin />}
           {isImageLoaded && (
             <img
               src={imgData.source}

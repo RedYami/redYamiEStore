@@ -13,13 +13,15 @@ export default function Catagories({ onListClick, Id }) {
   return (
     <>
       <div className="">
-        {/* <h5
-          className=" bg-dark text-center "
-          style={{ color: "white", height: "40px" }}
-        >
-          Catagories
-        </h5> */}
         <ul className="  list-group catagoriesList ">
+          <li
+            className={"list-group-item" + (Id === 10 ? " bg-secondary" : "")}
+            onClick={() => {
+              onListClick("all", 10);
+            }}
+          >
+            All
+          </li>
           <li
             className={"list-group-item" + (Id === 0 ? " bg-secondary" : "")}
             onClick={() => {
