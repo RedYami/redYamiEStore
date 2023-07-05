@@ -73,7 +73,7 @@ footer{
   overflow: auto;
 }
 .taskContainer{
-  max-height: 440px;
+  max-height: 500px;
   overflow: auto;
   
 }
@@ -109,13 +109,17 @@ footer{
   font-size: large;
 }
 /*/////////////CSS for navbar/////////////*/
-.nav-item{
-  margin-right: 10px;
-  margin-left: 10px;
-}
 .notification-container {
   position: relative;
   display: inline-block;
+}
+.cartButton{
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.nav-item{
+  margin:auto;
+  padding: 7px;
 }
 
 .notification-badge {

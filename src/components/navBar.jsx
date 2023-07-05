@@ -53,7 +53,7 @@ export function Navbar1({ carts, navigate }) {
     <>
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">
+          <a class="navbar-brand " href="#">
             Navbar
           </a>
           <button
@@ -67,26 +67,26 @@ export function Navbar1({ carts, navigate }) {
           >
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <div class="collapse navbar-collapse " id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <div className="nav-item">
-                  <button
-                    className="nav-item-link transparentButton"
-                    onClick={() => navigate(true)}
-                  >
-                    <FontAwesomeIcon
-                      icon={faHouse}
-                      style={{ fontSize: "24px", color: "gray" }}
-                    />
-                  </button>
-                </div>
+              <li class="nav-item ">
+                <button
+                  className="nav-item-link transparentButton "
+                  onClick={() => navigate(true)}
+                >
+                  <span>Home</span>
+                  <FontAwesomeIcon
+                    icon={faHouse}
+                    style={{ fontSize: "20px", color: "gray" }}
+                  />
+                </button>
               </li>
               <div className="notification-container nav-item">
-                <button onClick={() => navigate(false)}>
+                <button onClick={() => navigate(false)} className="cartButton">
+                  <span>Cart</span>
                   <FontAwesomeIcon
                     icon={faCartShopping}
-                    style={{ fontSize: "24px", color: "gray" }}
+                    style={{ fontSize: "20px", color: "gray" }}
                   />
                 </button>
                 {carts.length > 0 && (
