@@ -5,6 +5,9 @@ import Catagories from "./components/catagories";
 import Items from "./components/items";
 import Carts from "./components/cartOptions";
 import { myDatas } from "./components/datas";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import { faEnvelopeCircleCheck } from "@fortawesome/free-solid-svg-icons";
 
 function App() {
   const [selectedLi, setSelectedLi] = useState(10);
@@ -24,7 +27,12 @@ function App() {
   function onSearch(text) {
     setFilterText(text);
   }
-  const status = isPaying && "We have sent Receipt to your email thank you :)";
+  const status = isPaying && (
+    <span>
+      <FontAwesomeIcon icon={faEnvelopeCircleCheck} /> We have sent{" "}
+      <i className="receipt">Receipt</i> to your email thank your :)
+    </span>
+  );
 
   function addingRef() {
     for (let i = 0; i <= allCarts.length - 1; i++) {
@@ -122,7 +130,7 @@ function App() {
         <div className="taskContainer col">{postioner}</div>
       </div>
       <div className="container-fluid">
-        <h4 className="text-center text-success-emphasis">
+        <h4 className="text-center text-success-emphasis status">
           {isPaying && status}
         </h4>
       </div>

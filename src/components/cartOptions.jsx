@@ -1,6 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@fortawesome/fontawesome-svg-core/styles.css";
-import { faMinus, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCartShopping,
+  faMinus,
+  faPlus,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 
 export default function Carts({
@@ -63,7 +68,7 @@ export default function Carts({
             </table>
             {allCarts.length < 1 && (
               <h1 className="container text-center ">
-                nothing is in cart now :)
+                Cart <FontAwesomeIcon icon={faCartShopping} /> is empty :)
               </h1>
             )}
           </div>

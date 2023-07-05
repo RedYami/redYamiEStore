@@ -84,19 +84,10 @@ function Images({ imgData, addCart, hidden }) {
               className="img-fluid "
             />
           )}
-<<<<<<< HEAD
-          {isHover && isImageLoaded && (
-            <div
-              className="itemDetail container-fluid"
-              onMouseEnter={() => setIsHover(true)}
-            >
-              <div className="price">{imgData.value} kyats</div>
-=======
           {isImageLoaded && (
             <div className="itemDetail row text-center">
               <p className="name col">{imgData.name}</p>
               <div className="price col">{imgData.value} kyats</div>
->>>>>>> itemDetail
               {buttonDisplay}
             </div>
           )}
