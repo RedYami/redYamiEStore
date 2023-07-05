@@ -132,7 +132,7 @@ function Cashier({ totalPrice, payment }) {
           <h4>{totalPrice + parseInt(1000)}ks</h4>
         </div>
         <button className="btn btn-secondary " onClick={payment}>
-          Pay Now
+          Order Now
         </button>
       </div>
     </>

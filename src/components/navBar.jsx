@@ -8,8 +8,9 @@ import {
 import reactLogo from "/src/assets/react.svg";
 import { useState } from "react";
 
-export default function Navbar({ carts, navigate, onSearch }) {
+export default function Navbar({ carts, navigate, onSearch, Boolean }) {
   const [searchText, setSearchText] = useState("");
+  console.log(Boolean);
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -89,7 +90,7 @@ export default function Navbar({ carts, navigate, onSearch }) {
                 </ul>
               </li>
             </ul>
-            <form className="d-flex">
+            <form className={"d-flex" + (Boolean ? "" : " d-none")}>
               <input
                 className="form-control me-2"
                 value={searchText}

@@ -7,7 +7,11 @@ import Carts from "./components/cartOptions";
 import { myDatas } from "./components/datas";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@fortawesome/fontawesome-svg-core/styles.css";
-import { faEnvelopeCircleCheck } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEnvelopeCircleCheck,
+  faListUl,
+  faRectangleList,
+} from "@fortawesome/free-solid-svg-icons";
 
 function App() {
   const [selectedLi, setSelectedLi] = useState(10);
@@ -15,22 +19,21 @@ function App() {
   const [allCarts, setAllCarts] = useState([]);
   const [itemOrCart, setItemOrCart] = useState(true); //default true to show item component
   const totalRef = useRef(0);
-  const [isPaying, setIsPaying] = useState(false);
+  const [isOrdering, setisOrdering] = useState(false);
   const [pureData, setPureData] = useState(myDatas);
   const [filterText, setFilterText] = useState("");
 
   function payment() {
-    setIsPaying(true);
+    setisOrdering(true);
     setAllCarts([]); //clear all carts when payment is done
     setPureData(myDatas);
   }
   function onSearch(text) {
     setFilterText(text);
   }
-  const status = isPaying && (
+  const status = isOrdering && (
     <span>
-      <FontAwesomeIcon icon={faEnvelopeCircleCheck} /> We have sent{" "}
-      <i className="receipt">Receipt</i> to your email thank your :)
+      Your order is in the wait list <FontAwesomeIcon icon={faListUl} />
     </span>
   );
 
@@ -99,7 +102,7 @@ function App() {
   }
   function navigation(Boolean) {
     setItemOrCart(Boolean);
-    setIsPaying(false); //remove status when navigate
+    setisOrdering(false); //remove status when navigate
   }
   const postioner = itemOrCart ? (
     <Items
@@ -119,10 +122,15 @@ function App() {
       payment={payment}
     />
   );
-  console.log(itemOrCart);
+
   return (
     <>
-      <Navbar carts={allCarts} navigate={navigation} onSearch={onSearch} />
+      <Navbar
+        carts={allCarts}
+        navigate={navigation}
+        onSearch={onSearch}
+        Boolean={itemOrCart}
+      />
       <div className="components container-fluid row">
         <aside className={"col-4" + (itemOrCart === false ? " d-none" : "")}>
           <Catagories onListClick={changeCata} Id={selectedLi} />
@@ -131,7 +139,7 @@ function App() {
       </div>
       <div className="container-fluid">
         <h4 className="text-center text-success-emphasis status">
-          {isPaying && status}
+          {isOrdering && status}
         </h4>
       </div>
     </>
