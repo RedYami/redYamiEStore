@@ -4,21 +4,14 @@ import { faCartShopping, faFan } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import { myDatas } from "./datas";
 
-export default function Items({ cataType, addCart, removeCart }) {
-  function typeFilter() {
-    const filteredList = myDatas.filter((data) => {
-      return data.type === cataType;
-    });
-    return filteredList;
-  }
-
+export default function Items({ cataType, addCart, removeCart, pureData }) {
   return (
-    <div className="container itemContainer rounded">
+    <div className="itemContainer rounded">
       <div className="row">
-        {myDatas.map((data) => (
+        {pureData.map((data, index) => (
           <Images
             imgData={data}
-            key={data.id}
+            key={index}
             addCart={addCart}
             removeCart={removeCart}
             shouldHidden={cataType === data.type}
@@ -29,33 +22,21 @@ export default function Items({ cataType, addCart, removeCart }) {
   );
 }
 
-function Images({ imgData, addCart, removeCart, shouldHidden }) {
-  const [isHover, setIsHover] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isImageLoaded, setIsImageLoaded] = useState(false);
-  const [addOrRemove, setAddOrRemove] = useState(true); // by default set add to cart to true
+function Images({ imgData, addCart, shouldHidden }) {
+  const [isLoading, setIsLoading] = useState(true); //is image loading
+  const [isImageLoaded, setIsImageLoaded] = useState(false); //is image loaded
+  // const [addOrRemove, setAddOrRemove] = useState(true); // if true add to cart mode ,false is remove mode
 
-  const buttonDisplay = addOrRemove ? (
+  const buttonDisplay = (
     <button
-      className="addToCart"
+      className="addToCart col"
       title="add to cart"
       onClick={() => {
-        setAddOrRemove(!addOrRemove);
+        // setAddOrRemove(!addOrRemove);
         addCart(imgData);
       }}
     >
       <FontAwesomeIcon icon={faCartShopping} style={{ color: "gray" }} />
-    </button>
-  ) : (
-    <button
-      className="addToCart"
-      title="remove from cart"
-      onClick={() => {
-        setAddOrRemove(!addOrRemove);
-        removeCart(imgData);
-      }}
-    >
-      <FontAwesomeIcon icon={faCartShopping} style={{ color: "red" }} />
     </button>
   );
 
@@ -74,23 +55,25 @@ function Images({ imgData, addCart, removeCart, shouldHidden }) {
 
   return (
     <>
-      <div className={"col-4 " + (!shouldHidden ? "d-none" : "")}>
-        <div className="image-container mb-3">
+      <div
+        className={"col-6 " + (!shouldHidden ? "d-none" : "")}
+        key={imgData.name}
+      >
+        <div className="image-container mb-3 input-group shadow-lg rounded">
           {isLoading && (
             <FontAwesomeIcon icon={faFan} spin className="fanLogo" />
           )}
           {isImageLoaded && (
             <img
-              onMouseEnter={() => setIsHover(true)}
-              onMouseLeave={() => setIsHover(false)}
               src={imgData.source}
               alt={imgData.name}
-              className="img-fluid rounded"
+              className="img-fluid "
             />
           )}
-          {isHover && isImageLoaded && (
-            <div className="itemDetail" onMouseEnter={() => setIsHover(true)}>
-              <div className="price">{imgData.value} kyats</div>
+          {isImageLoaded && (
+            <div className="itemDetail row text-center">
+              <p className="name col">{imgData.name}</p>
+              <div className="price col">{imgData.value} kyats</div>
               {buttonDisplay}
             </div>
           )}
