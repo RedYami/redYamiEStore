@@ -1,10 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@fortawesome/fontawesome-svg-core/styles.css";
-import {
-  faCartShopping,
-  faFan,
-  faSpinner,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCartShopping, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 
 export default function Items({
@@ -50,14 +46,12 @@ export default function Items({
 function Images({ imgData, addCart, hidden }) {
   const [isLoading, setIsLoading] = useState(true); //is image loading
   const [isImageLoaded, setIsImageLoaded] = useState(false); //is image loaded
-  // const [addOrRemove, setAddOrRemove] = useState(true); // if true add to cart mode ,false is remove mode
 
   const buttonDisplay = (
     <button
       className="addToCart col"
       title="add to cart"
       onClick={() => {
-        // setAddOrRemove(!addOrRemove);
         addCart(imgData);
       }}
     >

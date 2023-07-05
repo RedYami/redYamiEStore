@@ -5,6 +5,7 @@ import {
   faHouse,
   faL,
 } from "@fortawesome/free-solid-svg-icons";
+import reactLogo from "/src/assets/react.svg";
 import { useState } from "react";
 
 export default function Navbar({ carts, navigate, onSearch }) {
@@ -14,7 +15,7 @@ export default function Navbar({ carts, navigate, onSearch }) {
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
           <a className="navbar-brand " href="#">
-            Navbar
+            <img src={reactLogo} />
           </a>
           <button
             className="navbar-toggler"
@@ -39,7 +40,7 @@ export default function Navbar({ carts, navigate, onSearch }) {
                 >
                   <FontAwesomeIcon
                     icon={faHouse}
-                    style={{ fontSize: "20px", color: "gray" }}
+                    style={{ fontSize: "20px", color: "aquamarine" }}
                     title="home"
                   />
                 </button>
@@ -48,7 +49,7 @@ export default function Navbar({ carts, navigate, onSearch }) {
                 <button onClick={() => navigate(false)} className="cartButton">
                   <FontAwesomeIcon
                     icon={faCartShopping}
-                    style={{ fontSize: "20px", color: "gray" }}
+                    style={{ fontSize: "20px", color: "aquamarine" }}
                     title="cart"
                   />
                 </button>

@@ -143,11 +143,6 @@ footer{
   border: none;
   cursor: pointer;
 }
-.homeButton{
-  background: none;
-  border: none;
-  cursor: pointer;
-}
 /* /////////catagories///////// */
 .catagoriesList{
   position: relative;
