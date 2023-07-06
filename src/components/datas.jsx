@@ -171,5 +171,3 @@ export const myDatas = [
     addToCart: false,
   },
 ];
-
-export const cartData = [];

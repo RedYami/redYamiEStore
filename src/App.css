@@ -155,3 +155,7 @@ footer{
   cursor: pointer;
   font-size: 24px;
 }
+/*////////error page////////*/
+.error-page{
+  margin:0;
+}

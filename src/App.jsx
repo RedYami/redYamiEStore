@@ -1,33 +1,28 @@
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCartShopping,
+  faHouse,
+  faListUl,
+  faMagnifyingGlass,
+} from "@fortawesome/free-solid-svg-icons";
+import reactLogo from "/src/assets/react.svg";
 import { useRef, useState } from "react";
 import "./App.css";
-import Navbar from "./components/navBar";
-import Catagories from "./components/catagories";
-import Items from "./components/items";
-import Carts from "./components/cartOptions";
 import { myDatas } from "./components/datas";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "@fortawesome/fontawesome-svg-core/styles.css";
-import {
-  faEnvelopeCircleCheck,
-  faListUl,
-  faRectangleList,
-} from "@fortawesome/free-solid-svg-icons";
 
-function App() {
+import { Link, Outlet, Route, Routes } from "react-router-dom";
+import Home from "./components/home";
+import Carts from "./components/cartOptions";
+export default function App() {
   const [selectedLi, setSelectedLi] = useState(10);
   const [requestCata, setRequestCata] = useState("all");
   const [allCarts, setAllCarts] = useState([]);
-  const [itemOrCart, setItemOrCart] = useState(true); //default true to show item component
   const totalRef = useRef(0);
   const [isOrdering, setisOrdering] = useState(false);
   const [pureData, setPureData] = useState(myDatas);
   const [filterText, setFilterText] = useState("");
-
-  function payment() {
-    setisOrdering(true);
-    setAllCarts([]); //clear all carts when payment is done
-    setPureData(myDatas);
-  }
+  console.log("filterText " + filterText);
   function onSearch(text) {
     setFilterText(text);
   }
@@ -37,36 +32,23 @@ function App() {
     </span>
   );
 
+  totalRef.current = 0;
+  addingRef();
+  /////////Carts Functions Start///////////
+  function payment() {
+    setisOrdering(true);
+    setAllCarts([]); //clear all carts when payment is done
+    setPureData(myDatas);
+  }
   function addingRef() {
     for (let i = 0; i <= allCarts.length - 1; i++) {
       totalRef.current += allCarts[i].price;
     }
   }
-  totalRef.current = 0;
-  addingRef();
-
-  function changeCata(cataType, Id) {
-    setRequestCata(cataType);
-    setSelectedLi(Id);
-    setItemOrCart(true);
-  }
-
-  function addNewCart(object) {
-    const newCart = {
-      name: object.name,
-      price: object.value,
-      id: object.id,
-      quantity: 1,
-      initialPrice: object.value,
-      icon: object.source,
-    };
-    setAllCarts([...allCarts, newCart]);
-    setPureData(pureData.filter((data) => data.id !== object.id));
-  }
-  function priceUp(id) {
+  function priceUp(cartObj) {
     setAllCarts(
       allCarts.map((cart) => {
-        if (cart.id === id) {
+        if (cart.id === cartObj.id) {
           return {
             ...cart,
             price: cart.price + parseInt(cart.initialPrice),
@@ -77,10 +59,10 @@ function App() {
       })
     );
   }
-  function priceDown(id) {
+  function priceDown(cartObjD) {
     setAllCarts(
       allCarts.map((cart) => {
-        if (cart.id === id) {
+        if (cart.id === cartObjD.id) {
           if (cart.quantity === 1) {
             return cart;
           }
@@ -100,50 +82,163 @@ function App() {
     const retrivedData = myDatas.find((data) => data.id === object.id);
     setPureData([...pureData, retrivedData]);
   }
-  function navigation(Boolean) {
-    setItemOrCart(Boolean);
-    setisOrdering(false); //remove status when navigate
+  /////////Carts Functions End///////////
+  /////////Catagories Functions Start///////////
+  function changeCata(cataType, Id) {
+    setRequestCata(cataType);
+    setSelectedLi(Id);
+    setItemOrCart(true);
   }
-  const postioner = itemOrCart ? (
-    <Items
-      cataType={requestCata}
-      addCart={addNewCart}
-      removeCart={removeCart}
-      pureData={pureData}
-      filterText={filterText}
-    />
-  ) : (
-    <Carts
-      allCarts={allCarts}
-      removeCart={removeCart}
-      priceUp={priceUp}
-      priceDown={priceDown}
-      totalPrice={totalRef.current}
-      payment={payment}
-    />
-  );
-
+  /////////Catagories Functions End/////
+  /////////Items Functions Start/////
+  function addNewCart(object) {
+    const newCart = {
+      name: object.name,
+      price: object.value,
+      id: object.id,
+      quantity: 1,
+      initialPrice: object.value,
+      icon: object.source,
+    };
+    setAllCarts([...allCarts, newCart]);
+    setPureData(pureData.filter((data) => data.id !== object.id));
+  }
+  /////////Items Functions End/////
   return (
     <>
-      <Navbar
-        carts={allCarts}
-        navigate={navigation}
-        onSearch={onSearch}
-        Boolean={itemOrCart}
-      />
-      <div className="components container-fluid row">
-        <aside className={"col-4" + (itemOrCart === false ? " d-none" : "")}>
-          <Catagories onListClick={changeCata} Id={selectedLi} />
-        </aside>
-        <div className="taskContainer col">{postioner}</div>
+      <nav className="navbar navbar-expand-lg bg-body-tertiary">
+        <div className="container-fluid">
+          <a className="navbar-brand " href="#">
+            <img src={reactLogo} />
+          </a>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div
+            className="collapse navbar-collapse "
+            id="navbarSupportedContent"
+          >
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              <li className="nav-item ">
+                <button className="nav-item-link transparentButton ">
+                  <Link to={"/"}>
+                    <FontAwesomeIcon
+                      icon={faHouse}
+                      style={{ fontSize: "20px", color: "aquamarine" }}
+                      title="home"
+                    />
+                    Home
+                  </Link>
+                </button>
+              </li>
+              <li className="notification-container nav-item">
+                <button className="cartButton">
+                  <Link to={"Cart"}>
+                    <FontAwesomeIcon
+                      icon={faCartShopping}
+                      style={{ fontSize: "20px", color: "aquamarine" }}
+                      title="cart"
+                    />
+                    Cart
+                  </Link>
+                </button>
+                {allCarts.length > 0 && (
+                  <span className="notification-badge">{allCarts.length}</span>
+                )}
+              </li>
+              <li className="nav-item dropdown">
+                <a
+                  className="nav-link dropdown-toggle"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Dropdown
+                </a>
+                <ul className="dropdown-menu">
+                  <li>
+                    <a className="dropdown-item" href="#">
+                      Action
+                    </a>
+                  </li>
+                  <li>
+                    <a className="dropdown-item" href="#">
+                      Another action
+                    </a>
+                  </li>
+                  <li>
+                    <hr className="dropdown-divider" />
+                  </li>
+                  <li>
+                    <a className="dropdown-item" href="#">
+                      Something else here
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <form className="d-flex">
+              <input
+                className="form-control me-2"
+                value={filterText}
+                onChange={(e) => setFilterText(e.target.value)}
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+              />
+
+              <button
+                className="btn btn-outline-success disabled"
+                type="button"
+              >
+                <FontAwesomeIcon icon={faMagnifyingGlass} />
+              </button>
+            </form>
+          </div>
+        </div>
+      </nav>
+      <div id="detail">
+        <Outlet />
       </div>
-      <div className="container-fluid">
-        <h4 className="text-center text-success-emphasis status">
-          {isOrdering && status}
-        </h4>
-      </div>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Home
+              requestCata={requestCata}
+              addNewCart={addNewCart}
+              removeCart={removeCart}
+              pureData={pureData}
+              filterText={filterText}
+              changeCata={changeCata}
+              selectedLi={selectedLi}
+            />
+          }
+        />
+
+        <Route
+          path="Cart"
+          element={
+            <Carts
+              allCarts={allCarts}
+              removeCart={removeCart}
+              priceUp={priceUp}
+              priceDown={priceDown}
+              totalPrice={totalRef.current}
+              payment={payment}
+            />
+          }
+        />
+      </Routes>
     </>
   );
 }
-
-export default App;

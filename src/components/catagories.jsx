@@ -5,7 +5,6 @@ import {
   faCakeCandles,
   faCarrot,
   faHatCowboy,
-  faLemon,
   faMartiniGlassCitrus,
   faPizzaSlice,
 } from "@fortawesome/free-solid-svg-icons";

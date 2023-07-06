@@ -88,7 +88,7 @@ function Modifier({ cart, onPlusClick, onMinusClick }) {
         <div className="input-group quantity-container ">
           <button
             className="btn btn-outline-info"
-            onClick={() => onMinusClick(cart.id)}
+            onClick={() => onMinusClick(cart)}
           >
             <FontAwesomeIcon icon={faMinus} />
           </button>
@@ -97,7 +97,7 @@ function Modifier({ cart, onPlusClick, onMinusClick }) {
           </span>
           <button
             className="btn btn-outline-info"
-            onClick={() => onPlusClick(cart.id)}
+            onClick={() => onPlusClick(cart)}
           >
             <FontAwesomeIcon icon={faPlus} />
           </button>
