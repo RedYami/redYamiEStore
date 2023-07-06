@@ -2,9 +2,13 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCartShopping,
+  faGear,
   faHouse,
   faListUl,
   faMagnifyingGlass,
+  faPaperPlane,
+  faRightFromBracket,
+  faRightToBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import reactLogo from "/src/assets/react.svg";
 import { useRef, useState } from "react";
@@ -14,6 +18,7 @@ import { myDatas } from "./components/datas";
 import { Link, Outlet, Route, Routes } from "react-router-dom";
 import Home from "./components/home";
 import Carts from "./components/cartOptions";
+import MessageBox from "./components/message";
 export default function App() {
   const [selectedLi, setSelectedLi] = useState(10);
   const [requestCata, setRequestCata] = useState("all");
@@ -22,10 +27,14 @@ export default function App() {
   const [isOrdering, setisOrdering] = useState(false);
   const [pureData, setPureData] = useState(myDatas);
   const [filterText, setFilterText] = useState("");
-  console.log("filterText " + filterText);
-  function onSearch(text) {
-    setFilterText(text);
+  const [isLogin, setIsLogin] = useState(false);
+  const [messages, setMessages] = useState([]);
+  const [user, setUser] = useState("yami");
+  console.log("messages' length " + messages.length);
+  {
+    messages.length > 0 && console.log("messages " + messages[0].message);
   }
+
   const status = isOrdering && (
     <span>
       Your order is in the wait list <FontAwesomeIcon icon={faListUl} />
@@ -34,6 +43,17 @@ export default function App() {
 
   totalRef.current = 0;
   addingRef();
+  /////////MessageBox Functions Start///////////
+  function onSendMessage(messageObj) {
+    setMessages((messages) => [
+      ...messages,
+      {
+        user_name: messageObj.name,
+        title: messageObj.title,
+        message: messageObj.message,
+      },
+    ]);
+  }
   /////////Carts Functions Start///////////
   function payment() {
     setisOrdering(true);
@@ -132,10 +152,9 @@ export default function App() {
                   <Link to={"/"}>
                     <FontAwesomeIcon
                       icon={faHouse}
-                      style={{ fontSize: "20px", color: "aquamarine" }}
+                      style={{ fontSize: "22px", color: "aqua" }}
                       title="home"
                     />
-                    Home
                   </Link>
                 </button>
               </li>
@@ -144,35 +163,54 @@ export default function App() {
                   <Link to={"Cart"}>
                     <FontAwesomeIcon
                       icon={faCartShopping}
-                      style={{ fontSize: "20px", color: "aquamarine" }}
+                      style={{ fontSize: "22px", color: "aqua" }}
                       title="cart"
                     />
-                    Cart
                   </Link>
                 </button>
                 {allCarts.length > 0 && (
                   <span className="notification-badge">{allCarts.length}</span>
                 )}
               </li>
+              <li className="nav-item ">
+                <button className="nav-item-link transparentButton ">
+                  <Link to={"Order-list"}>
+                    <FontAwesomeIcon
+                      icon={faListUl}
+                      style={{ fontSize: "22px", color: "aqua" }}
+                      title="order list"
+                    />
+                  </Link>
+                </button>
+              </li>
               <li className="nav-item dropdown">
-                <a
+                <div
                   className="nav-link dropdown-toggle"
                   href="#"
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  Dropdown
-                </a>
+                  <FontAwesomeIcon
+                    icon={faGear}
+                    style={{ fontSize: "22px", color: "aqua" }}
+                  />
+                </div>
                 <ul className="dropdown-menu">
                   <li>
-                    <a className="dropdown-item" href="#">
-                      Action
-                    </a>
+                    <Link to={"message"} className="dropdown-item " href="#">
+                      <span className="messageLink">message </span>
+                      <div>
+                        <FontAwesomeIcon
+                          icon={faPaperPlane}
+                          style={{ color: "green" }}
+                        />
+                      </div>
+                    </Link>
                   </li>
                   <li>
                     <a className="dropdown-item" href="#">
-                      Another action
+                      something
                     </a>
                   </li>
                   <li>
@@ -180,7 +218,23 @@ export default function App() {
                   </li>
                   <li>
                     <a className="dropdown-item" href="#">
-                      Something else here
+                      {isLogin ? (
+                        <>
+                          <span>Logout</span>
+                          <FontAwesomeIcon
+                            icon={faRightFromBracket}
+                            style={{ color: "red" }}
+                          />
+                        </>
+                      ) : (
+                        <>
+                          <span>Login</span>
+                          <FontAwesomeIcon
+                            icon={faRightToBracket}
+                            style={{ color: "green" }}
+                          />
+                        </>
+                      )}
                     </a>
                   </li>
                 </ul>
@@ -206,7 +260,7 @@ export default function App() {
           </div>
         </div>
       </nav>
-      <div id="detail">
+      <div id="detail" className="">
         <Outlet />
       </div>
       <Routes>
@@ -237,6 +291,10 @@ export default function App() {
               payment={payment}
             />
           }
+        />
+        <Route
+          path="message"
+          element={<MessageBox user={user} onSendMessage={onSendMessage} />}
         />
       </Routes>
     </>

@@ -72,7 +72,7 @@ footer{
 }
 /* /////////////items///////////// */
 .itemContainer{
-  margin-top: 7px;
+  /* margin-top: 7px; */
   overflow: auto;
 }
 .taskContainer{
@@ -112,6 +112,11 @@ footer{
   font-size: large;
 }
 /*/////////////CSS for navbar/////////////*/
+.dropdown-item{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 .notification-container {
   position: relative;
   display: inline-block;
@@ -158,4 +163,20 @@ footer{
 /*////////error page////////*/
 .error-page{
   margin:0;
+}
+/*/////////MessageBox///////*/
+.messageBox {
+  margin:auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.messageBox textarea{
+  height: 200px;
+}
+.messageLink{
+  text-decoration: none;
 }

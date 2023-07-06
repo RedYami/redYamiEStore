@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import {
   faCartShopping,
+  faListUl,
   faMinus,
   faPlus,
   faTrash,
@@ -69,6 +70,11 @@ export default function Carts({
             {allCarts.length < 1 && (
               <h1 className="container text-center ">
                 Cart <FontAwesomeIcon icon={faCartShopping} /> is empty :)
+                <br />
+                <span>
+                  Your orders my be in the order list{" "}
+                  <FontAwesomeIcon icon={faListUl} />
+                </span>
               </h1>
             )}
           </div>
