@@ -18,7 +18,6 @@ export default function Items({
     }
   });
   function shouldHiddenOrAll(type) {
-    console.log("catagories type " + cataType);
     if (cataType === "all") {
       return true;
     } else {

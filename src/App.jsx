@@ -31,24 +31,16 @@ export default function App() {
   const [isOrdering, setisOrdering] = useState(false);
   const [pureData, setPureData] = useState(myDatas);
   const [filterText, setFilterText] = useState("");
-  const [isLogin, setIsLogin] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
   const [messages, setMessages] = useState([]);
   const [user, setUser] = useState("yami");
   const [orderedList, setOrderedList] = useState([]);
-  {
-    messages.length > 0 && console.log("messages " + messages[0].message);
-  }
-
-  const status = isOrdering && (
-    <span>
-      Your order is in the wait list <FontAwesomeIcon icon={faListUl} />
-    </span>
-  );
 
   totalRef.current = 0;
   addingRef();
-  function successLogin() {
-    setIsLogin(true);
+  //when login is success successLogin()
+  function successLogin(userName) {
+    setCurrentUser(userDatas.find((user) => user.user_name === userName));
   }
   ///////////registration functions/////////
   function createUser(newUser) {
@@ -62,6 +54,7 @@ export default function App() {
         phone_number: newUser.phone_number,
       },
     ]);
+    setCurrentUser(newUser);
   }
 
   /////////MessageBox Functions Start///////////
@@ -78,7 +71,6 @@ export default function App() {
   /////////Carts Functions Start///////////
   function addNewOrder() {
     setOrderedList((orderedList) => [...orderedList, orderCodeGen(allCarts)]);
-    setisOrdering(true);
     setAllCarts([]); //clear all carts when addNewOrder is done
     setPureData(myDatas); //set all items to default mode (reset)
   }
@@ -274,9 +266,15 @@ export default function App() {
                   </li>
                   <li>
                     <div className="dropdown-item">
-                      {isLogin ? (
+                      {currentUser !== null ? (
                         <>
-                          <div onClick={setIsLogin(false)}>
+                          <div
+                            style={{ cursor: "pointer" }}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setCurrentUser(null);
+                            }}
+                          >
                             <span>Logout</span>
                             <FontAwesomeIcon
                               icon={faRightFromBracket}
@@ -366,13 +364,7 @@ export default function App() {
         />
         <Route
           path="login/register"
-          element={
-            <Register
-              userDatas={userDatas}
-              isLogin={isLogin}
-              createUser={createUser}
-            />
-          }
+          element={<Register userDatas={userDatas} createUser={createUser} />}
         />
       </Routes>
     </>

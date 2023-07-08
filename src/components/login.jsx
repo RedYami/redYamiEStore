@@ -23,7 +23,7 @@ export default function Login({ userDatas, isLogin }) {
     let isValid = loginValidator();
     if (isValid) {
       navigate("/");
-      isLogin();
+      isLogin(userName);
     } else {
       setLoginStatus("Your username or password is incorrect!!");
     }
@@ -55,7 +55,10 @@ export default function Login({ userDatas, isLogin }) {
         </button>
         <br />
         <i>
-          still haven't account <a onClick={onRegister}>register here</a>
+          still haven't account{" "}
+          <a onClick={onRegister} style={{ color: "blue", cursor: "pointer" }}>
+            register here
+          </a>
         </i>
         <span className="text-danger">{loginStatus}</span>
       </div>

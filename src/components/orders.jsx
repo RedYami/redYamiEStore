@@ -1,7 +1,4 @@
 export default function OrderList({ orderedList }) {
-  {
-    orderedList.length > 0 && console.log(orderedList[0].orderCode);
-  }
   return (
     <>
       <div className="orderList container-fluid ">
