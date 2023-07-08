@@ -13,14 +13,18 @@ import {
 import reactLogo from "/src/assets/react.svg";
 import { useRef, useState } from "react";
 import "./App.css";
-import { myDatas } from "./components/datas";
+import { alphabet, myDatas, user_datas } from "./components/datas";
 
 import { Link, Outlet, Route, Routes } from "react-router-dom";
 import Home from "./components/home";
 import Carts from "./components/cartOptions";
 import MessageBox from "./components/message";
+import OrderList from "./components/orders";
+import Login from "./components/login";
+import Register from "./components/register";
 export default function App() {
   const [selectedLi, setSelectedLi] = useState(10);
+  const [userDatas, setUserDatas] = useState(user_datas);
   const [requestCata, setRequestCata] = useState("all");
   const [allCarts, setAllCarts] = useState([]);
   const totalRef = useRef(0);
@@ -30,7 +34,7 @@ export default function App() {
   const [isLogin, setIsLogin] = useState(false);
   const [messages, setMessages] = useState([]);
   const [user, setUser] = useState("yami");
-  console.log("messages' length " + messages.length);
+  const [orderedList, setOrderedList] = useState([]);
   {
     messages.length > 0 && console.log("messages " + messages[0].message);
   }
@@ -43,6 +47,23 @@ export default function App() {
 
   totalRef.current = 0;
   addingRef();
+  function successLogin() {
+    setIsLogin(true);
+  }
+  ///////////registration functions/////////
+  function createUser(newUser) {
+    setUserDatas((userDatas) => [
+      ...userDatas,
+      {
+        user_name: newUser.user_name,
+        email: newUser.email,
+        password: newUser.password,
+        address: newUser.address,
+        phone_number: newUser.phone_number,
+      },
+    ]);
+  }
+
   /////////MessageBox Functions Start///////////
   function onSendMessage(messageObj) {
     setMessages((messages) => [
@@ -55,10 +76,11 @@ export default function App() {
     ]);
   }
   /////////Carts Functions Start///////////
-  function payment() {
+  function addNewOrder() {
+    setOrderedList((orderedList) => [...orderedList, orderCodeGen(allCarts)]);
     setisOrdering(true);
-    setAllCarts([]); //clear all carts when payment is done
-    setPureData(myDatas);
+    setAllCarts([]); //clear all carts when addNewOrder is done
+    setPureData(myDatas); //set all items to default mode (reset)
   }
   function addingRef() {
     for (let i = 0; i <= allCarts.length - 1; i++) {
@@ -122,6 +144,40 @@ export default function App() {
     };
     setAllCarts([...allCarts, newCart]);
     setPureData(pureData.filter((data) => data.id !== object.id));
+  }
+  function orderCodeGen(orderedList, min = 0, max = 10) {
+    let totalItems = 0;
+    let totalPrice = 0;
+    let user_name = "yami";
+    function simpleCodeGen() {
+      let code = "";
+      const numOrAlphabet = ["num", "alpha"]; //we dont want alternatvie codes so we toogle number and alphabet
+      min = Math.ceil(min); // Round up the minimum value
+      max = Math.floor(max); // Round down the maximum value
+      for (let i = 0; i < 7; i++) {
+        const alphaIndex = Math.floor(Math.random() * alphabet.length);
+        const randomInt = Math.floor(Math.random() * (max - min + 1)) + min;
+        const randomToogle = Math.floor(Math.random() * 2);
+        if (numOrAlphabet[randomToogle] === "alpha") {
+          code += alphabet[alphaIndex];
+        } else {
+          code += JSON.stringify(randomInt);
+        }
+      }
+      return code;
+    }
+
+    orderedList.forEach((cart) => {
+      totalItems += parseInt(1);
+      totalPrice += parseInt(cart.price);
+    });
+    return {
+      quantity: totalItems,
+      totalPrice: totalPrice + 1000,
+      user_name: user_name,
+      orderCode: simpleCodeGen(),
+      approved: false,
+    };
   }
   /////////Items Functions End/////
   return (
@@ -217,25 +273,29 @@ export default function App() {
                     <hr className="dropdown-divider" />
                   </li>
                   <li>
-                    <a className="dropdown-item" href="#">
+                    <div className="dropdown-item">
                       {isLogin ? (
                         <>
-                          <span>Logout</span>
-                          <FontAwesomeIcon
-                            icon={faRightFromBracket}
-                            style={{ color: "red" }}
-                          />
+                          <div onClick={setIsLogin(false)}>
+                            <span>Logout</span>
+                            <FontAwesomeIcon
+                              icon={faRightFromBracket}
+                              style={{ color: "red" }}
+                            />
+                          </div>
                         </>
                       ) : (
                         <>
-                          <span>Login</span>
-                          <FontAwesomeIcon
-                            icon={faRightToBracket}
-                            style={{ color: "green" }}
-                          />
+                          <Link to={"login"}>
+                            <span>Login</span>
+                            <FontAwesomeIcon
+                              icon={faRightToBracket}
+                              style={{ color: "green" }}
+                            />
+                          </Link>
                         </>
                       )}
-                    </a>
+                    </div>
                   </li>
                 </ul>
               </li>
@@ -288,13 +348,31 @@ export default function App() {
               priceUp={priceUp}
               priceDown={priceDown}
               totalPrice={totalRef.current}
-              payment={payment}
+              addNewOrder={addNewOrder}
             />
           }
         />
         <Route
           path="message"
           element={<MessageBox user={user} onSendMessage={onSendMessage} />}
+        />
+        <Route
+          path="Order-list"
+          element={<OrderList orderedList={orderedList} />}
+        />
+        <Route
+          path="login"
+          element={<Login userDatas={userDatas} isLogin={successLogin} />}
+        />
+        <Route
+          path="login/register"
+          element={
+            <Register
+              userDatas={userDatas}
+              isLogin={isLogin}
+              createUser={createUser}
+            />
+          }
         />
       </Routes>
     </>

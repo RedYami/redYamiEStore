@@ -14,7 +14,7 @@ export default function Catagories({ onListClick, Id }) {
       <div className="">
         <ul className="  list-group catagoriesList ">
           <li
-            className={"list-group-item"}
+            className={"list-group-item text-center"}
             onClick={() => {
               onListClick("all", 10);
             }}
@@ -27,7 +27,7 @@ export default function Catagories({ onListClick, Id }) {
             All
           </li>
           <li
-            className={"list-group-item"}
+            className={"list-group-item text-center"}
             onClick={() => {
               onListClick("fruit", 0);
             }}
@@ -40,7 +40,7 @@ export default function Catagories({ onListClick, Id }) {
             <FontAwesomeIcon icon={faCarrot} title="fruit" />
           </li>
           <li
-            className={"list-group-item"}
+            className={"list-group-item text-center"}
             onClick={() => {
               onListClick("snack", 1);
             }}
@@ -53,7 +53,7 @@ export default function Catagories({ onListClick, Id }) {
             <FontAwesomeIcon icon={faBurger} title="snack" />
           </li>
           <li
-            className={"list-group-item"}
+            className={"list-group-item text-center"}
             onClick={() => {
               onListClick("cake", 2);
             }}
@@ -66,7 +66,7 @@ export default function Catagories({ onListClick, Id }) {
             <FontAwesomeIcon icon={faCakeCandles} title="cake" />
           </li>
           <li
-            className={"list-group-item"}
+            className={"list-group-item text-center"}
             onClick={() => {
               onListClick("hat", 3);
             }}
@@ -79,7 +79,7 @@ export default function Catagories({ onListClick, Id }) {
             <FontAwesomeIcon icon={faHatCowboy} title="hat" />
           </li>
           <li
-            className={"list-group-item"}
+            className={"list-group-item text-center"}
             onClick={() => {
               onListClick("pizza", 4);
             }}
@@ -92,7 +92,7 @@ export default function Catagories({ onListClick, Id }) {
             <FontAwesomeIcon icon={faPizzaSlice} title="pizza" />
           </li>
           <li
-            className={"list-group-item"}
+            className={"list-group-item text-center"}
             onClick={() => {
               onListClick("beverage", 5);
             }}
