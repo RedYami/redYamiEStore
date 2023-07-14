@@ -15,6 +15,7 @@ export default function Home({
   filterText,
   changeCata,
   selectedLi,
+  currentUser,
 }) {
   return (
     <>
@@ -29,6 +30,7 @@ export default function Home({
             removeCart={removeCart}
             pureData={pureData}
             filterText={filterText}
+            currentUser={currentUser}
           />
         </div>
       </div>

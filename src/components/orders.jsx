@@ -4,7 +4,7 @@ export default function OrderList({ orderedList }) {
       <div className="orderList container-fluid ">
         <div className="orderTable ">
           <table className="table text-center">
-            <thead className="table-dark">
+            <thead className="table-dark" style={{ backgroundColor: "aqua" }}>
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">items quantity</th>
@@ -17,10 +17,17 @@ export default function OrderList({ orderedList }) {
             <tbody>
               {orderedList.map((list, index) => (
                 <tr key={index}>
-                  <td>#</td>
+                  <td>
+                    <div
+                      style={{ width: "25px", height: "25px", color: "white" }}
+                      className="bg-dark"
+                    >
+                      {index + 1}
+                    </div>
+                  </td>
                   <td>{list.quantity}</td>
                   <td>{list.orderCode}</td>
-                  <td>{list.totalPrice}</td>
+                  <td>{list.totalPrice} kyats</td>
                   <td>{list.user_name}</td>
                   <td>{list.approved ? "Approved" : "pending"}</td>
                 </tr>

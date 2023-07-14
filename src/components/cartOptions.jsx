@@ -21,6 +21,14 @@ export default function Carts({
   function isPaying(Boolean) {
     setPaying(Boolean);
   }
+  const confirmNoti = paying && (
+    <ConfirmWidget
+      isPaying={isPaying}
+      addNewOrder={addNewOrder}
+      allCarts={allCarts}
+      totalPrice={totalPrice}
+    />
+  ); //this widget pop up to confirm the user's order
   return (
     <>
       <div
@@ -89,14 +97,7 @@ export default function Carts({
             <Cashier totalPrice={totalPrice} isPaying={isPaying} />
           </div>
         </div>
-        {paying && (
-          <ConfirmWidget
-            isPaying={isPaying}
-            addNewOrder={addNewOrder}
-            allCarts={allCarts}
-            totalPrice={totalPrice}
-          />
-        )}
+        {confirmNoti}
       </div>
     </>
   );
@@ -169,9 +170,9 @@ function ConfirmWidget({ isPaying, addNewOrder, allCarts, totalPrice }) {
             <h4 className="text-center">Are you sure to order this</h4>
             <ul className="list-group">
               <li className="list-group-item row">
-                <span className="col b">name</span>
-                <span className="col">quantity</span>
-                <span className="col">total price</span>
+                <span className="col text-primary">Name</span>
+                <span className="col text-primary">Quantity</span>
+                <span className="col text-primary">Total price</span>
               </li>
               {allCarts.map((cart) => (
                 <li className="list-group-item row" key={cart.name}>

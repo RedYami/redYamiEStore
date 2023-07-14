@@ -1,16 +1,3 @@
-import "@fortawesome/fontawesome-svg-core/styles.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCartShopping,
-  faGear,
-  faHouse,
-  faListUl,
-  faMagnifyingGlass,
-  faPaperPlane,
-  faRightFromBracket,
-  faRightToBracket,
-} from "@fortawesome/free-solid-svg-icons";
-import reactLogo from "/src/assets/react.svg";
 import { useRef, useState } from "react";
 import "./App.css";
 import { alphabet, myDatas, user_datas } from "./components/datas";
@@ -22,25 +9,67 @@ import MessageBox from "./components/message";
 import OrderList from "./components/orders";
 import Login from "./components/login";
 import Register from "./components/register";
+import UserInbox from "./components/userInbox";
+import NavigationBar from "./components/navBar";
+import ItemDetail from "./components/itemDetail";
+import ErrorPage from "./error-page";
 export default function App() {
   const [selectedLi, setSelectedLi] = useState(10);
   const [userDatas, setUserDatas] = useState(user_datas);
   const [requestCata, setRequestCata] = useState("all");
   const [allCarts, setAllCarts] = useState([]);
   const totalRef = useRef(0);
-  const [isOrdering, setisOrdering] = useState(false);
   const [pureData, setPureData] = useState(myDatas);
   const [filterText, setFilterText] = useState("");
-  const [currentUser, setCurrentUser] = useState(null);
+  const [user, setUser] = useState(null);
   const [messages, setMessages] = useState([]);
-  const [user, setUser] = useState("yami");
+  const [myStaredItems, setMyStaredItems] = useState([]);
+  const [inboxMessage, setInboxMessage] = useState([
+    {
+      sender: "admin",
+      id: 1,
+      title: "noticing",
+      type: "primary",
+      message:
+        "dear user your order have been canceled due to unavailable products sorry for unconvinence of us ,thank you for your ordering",
+      watched: false,
+    },
+    {
+      sender: "admin",
+      id: 2,
+      type: "new item",
+      title: "new item",
+      message: "dear user there is new item we added check it out",
+      watched: false,
+    },
+  ]);
   const [orderedList, setOrderedList] = useState([]);
 
   totalRef.current = 0;
   addingRef();
   //when login is success successLogin()
   function successLogin(userName) {
-    setCurrentUser(userDatas.find((user) => user.user_name === userName));
+    setUser(userDatas.find((user) => user.user_name === userName));
+  }
+  function onLogout() {
+    setUser(null);
+  }
+  //////////userInbox message functions/////////
+  function watchedMessage(id) {
+    setInboxMessage((inboxMessage) =>
+      inboxMessage.map((message) => {
+        if (message.id === id) {
+          return {
+            ...message,
+            watched: true,
+          };
+        }
+        return message;
+      })
+    );
+  } //when the message is watched set "watched" key to true
+  function deleteMessage(id) {
+    setInboxMessage(inboxMessage.filter((message) => message.id !== id));
   }
   ///////////registration functions/////////
   function createUser(newUser) {
@@ -54,7 +83,7 @@ export default function App() {
         phone_number: newUser.phone_number,
       },
     ]);
-    setCurrentUser(newUser);
+    setUser(newUser);
   }
 
   /////////MessageBox Functions Start///////////
@@ -134,13 +163,22 @@ export default function App() {
       initialPrice: object.value,
       icon: object.source,
     };
+
+    const isAlreadyExist = allCarts.find((cart) => cart.id === newCart.id);
+    //above line for making sure the user doesnt add the same item twice
+    console.log("is already exist " + isAlreadyExist);
+    if (isAlreadyExist !== undefined) {
+      return;
+    }
     setAllCarts([...allCarts, newCart]);
     setPureData(pureData.filter((data) => data.id !== object.id));
   }
+
   function orderCodeGen(orderedList, min = 0, max = 10) {
+    //this function generate the orderlist with order code
     let totalItems = 0;
     let totalPrice = 0;
-    let user_name = "yami";
+    let user_name = user.user_name;
     function simpleCodeGen() {
       let code = "";
       const numOrAlphabet = ["num", "alpha"]; //we dont want alternatvie codes so we toogle number and alphabet
@@ -160,7 +198,7 @@ export default function App() {
     }
 
     orderedList.forEach((cart) => {
-      totalItems += parseInt(1);
+      totalItems += parseInt(cart.quantity);
       totalPrice += parseInt(cart.price);
     });
     return {
@@ -172,152 +210,17 @@ export default function App() {
     };
   }
   /////////Items Functions End/////
+  function changeFilterText(text) {
+    setFilterText(text);
+  }
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
-        <div className="container-fluid">
-          <a className="navbar-brand " href="#">
-            <img src={reactLogo} />
-          </a>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div
-            className="collapse navbar-collapse "
-            id="navbarSupportedContent"
-          >
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item ">
-                <button className="nav-item-link transparentButton ">
-                  <Link to={"/"}>
-                    <FontAwesomeIcon
-                      icon={faHouse}
-                      style={{ fontSize: "22px", color: "aqua" }}
-                      title="home"
-                    />
-                  </Link>
-                </button>
-              </li>
-              <li className="notification-container nav-item">
-                <button className="cartButton">
-                  <Link to={"Cart"}>
-                    <FontAwesomeIcon
-                      icon={faCartShopping}
-                      style={{ fontSize: "22px", color: "aqua" }}
-                      title="cart"
-                    />
-                  </Link>
-                </button>
-                {allCarts.length > 0 && (
-                  <span className="notification-badge">{allCarts.length}</span>
-                )}
-              </li>
-              <li className="nav-item ">
-                <button className="nav-item-link transparentButton ">
-                  <Link to={"Order-list"}>
-                    <FontAwesomeIcon
-                      icon={faListUl}
-                      style={{ fontSize: "22px", color: "aqua" }}
-                      title="order list"
-                    />
-                  </Link>
-                </button>
-              </li>
-              <li className="nav-item dropdown">
-                <div
-                  className="nav-link dropdown-toggle"
-                  href="#"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <FontAwesomeIcon
-                    icon={faGear}
-                    style={{ fontSize: "22px", color: "aqua" }}
-                  />
-                </div>
-                <ul className="dropdown-menu">
-                  <li>
-                    <Link to={"message"} className="dropdown-item " href="#">
-                      <span className="messageLink">message </span>
-                      <div>
-                        <FontAwesomeIcon
-                          icon={faPaperPlane}
-                          style={{ color: "green" }}
-                        />
-                      </div>
-                    </Link>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      something
-                    </a>
-                  </li>
-                  <li>
-                    <hr className="dropdown-divider" />
-                  </li>
-                  <li>
-                    <div className="dropdown-item">
-                      {currentUser !== null ? (
-                        <>
-                          <div
-                            style={{ cursor: "pointer" }}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setCurrentUser(null);
-                            }}
-                          >
-                            <span>Logout</span>
-                            <FontAwesomeIcon
-                              icon={faRightFromBracket}
-                              style={{ color: "red" }}
-                            />
-                          </div>
-                        </>
-                      ) : (
-                        <>
-                          <Link to={"login"}>
-                            <span>Login</span>
-                            <FontAwesomeIcon
-                              icon={faRightToBracket}
-                              style={{ color: "green" }}
-                            />
-                          </Link>
-                        </>
-                      )}
-                    </div>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-            <form className="d-flex">
-              <input
-                className="form-control me-2"
-                value={filterText}
-                onChange={(e) => setFilterText(e.target.value)}
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-
-              <button
-                className="btn btn-outline-success disabled"
-                type="button"
-              >
-                <FontAwesomeIcon icon={faMagnifyingGlass} />
-              </button>
-            </form>
-          </div>
-        </div>
-      </nav>
+      <NavigationBar
+        changeFilterText={changeFilterText}
+        allCarts={allCarts}
+        user={user}
+        onLogout={onLogout}
+      />
       <div id="detail" className="">
         <Outlet />
       </div>
@@ -333,8 +236,10 @@ export default function App() {
               filterText={filterText}
               changeCata={changeCata}
               selectedLi={selectedLi}
+              currentUser={user}
             />
           }
+          errorElement={<ErrorPage />}
         />
 
         <Route
@@ -365,6 +270,20 @@ export default function App() {
         <Route
           path="login/register"
           element={<Register userDatas={userDatas} createUser={createUser} />}
+        />
+        <Route
+          path="inbox"
+          element={
+            <UserInbox
+              messages={inboxMessage}
+              watchedMessage={watchedMessage}
+              deleteMessage={deleteMessage}
+            />
+          }
+        />
+        <Route
+          path="detail/:id"
+          element={<ItemDetail currentUser={user} addNewCart={addNewCart} />}
         />
       </Routes>
     </>

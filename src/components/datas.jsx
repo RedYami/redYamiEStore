@@ -8,6 +8,14 @@ export const myDatas = [
     addToCart: false,
   },
   {
+    id: 1,
+    type: "fruit",
+    name: "straw berry",
+    source: "/src/items/strawB.jpg",
+    value: 2500,
+    addToCart: false,
+  },
+  {
     id: 2,
     type: "beverage",
     name: "beer",
