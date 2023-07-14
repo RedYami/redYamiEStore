@@ -10,6 +10,8 @@ import {
   faPaperPlane,
   faRightFromBracket,
   faRightToBracket,
+  faPalette,
+  faStore,
 } from "@fortawesome/free-solid-svg-icons";
 import reactLogo from "/src/assets/react.svg";
 import { Link } from "react-router-dom";
@@ -19,6 +21,8 @@ export default function NavigationBar({
   filterText,
   changeFilterText,
   onLogout,
+  setTheme,
+  myTheme,
 }) {
   const loginOrOut =
     user !== null ? (
@@ -31,14 +35,17 @@ export default function NavigationBar({
           }}
         >
           <span>Logout </span>
-          <FontAwesomeIcon icon={faRightFromBracket} style={{ color: "red" }} />
+          <FontAwesomeIcon
+            icon={faRightFromBracket}
+            style={{ color: myTheme }}
+          />
         </div>
       </>
     ) : (
       <>
         <Link to={"login"} className="messageLink">
           <span className="messageLink">Login </span>
-          <FontAwesomeIcon icon={faRightToBracket} style={{ color: "green" }} />
+          <FontAwesomeIcon icon={faRightToBracket} style={{ color: myTheme }} />
         </Link>
       </>
     );
@@ -47,7 +54,10 @@ export default function NavigationBar({
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
           <a className="navbar-brand " href="#">
-            <img src={reactLogo} />
+            <FontAwesomeIcon
+              icon={faStore}
+              style={{ fontSize: "31px", color: myTheme }}
+            />
           </a>
           <button
             className="navbar-toggler"
@@ -70,7 +80,7 @@ export default function NavigationBar({
                   <Link to={"/"}>
                     <FontAwesomeIcon
                       icon={faHouse}
-                      style={{ fontSize: "22px", color: "aqua" }}
+                      style={{ fontSize: "22px", color: myTheme }}
                       title="Home"
                     />
                   </Link>
@@ -81,7 +91,7 @@ export default function NavigationBar({
                   <Link to={"Cart"}>
                     <FontAwesomeIcon
                       icon={faCartShopping}
-                      style={{ fontSize: "22px", color: "aqua" }}
+                      style={{ fontSize: "22px", color: myTheme }}
                       title="cart"
                     />
                   </Link>
@@ -95,7 +105,7 @@ export default function NavigationBar({
                   <Link to={"Order-list"}>
                     <FontAwesomeIcon
                       icon={faListUl}
-                      style={{ fontSize: "22px", color: "aqua" }}
+                      style={{ fontSize: "22px", color: myTheme }}
                       title="order list"
                     />
                   </Link>
@@ -106,7 +116,7 @@ export default function NavigationBar({
                   <Link to={"inbox"}>
                     <FontAwesomeIcon
                       icon={faEnvelope}
-                      style={{ fontSize: "22px", color: "aqua" }}
+                      style={{ fontSize: "22px", color: myTheme }}
                       title="inbox-message"
                     />
                   </Link>
@@ -123,7 +133,7 @@ export default function NavigationBar({
                 >
                   <FontAwesomeIcon
                     icon={faGear}
-                    style={{ fontSize: "22px", color: "aqua" }}
+                    style={{ fontSize: "22px", color: myTheme }}
                     title="setting"
                   />
                 </div>
@@ -152,7 +162,73 @@ export default function NavigationBar({
                   </li>
                 </ul>
               </li>
+              <li className="nav-item dropdown themeChanger">
+                <div
+                  className="nav-link dropdown-toggle"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <FontAwesomeIcon
+                    icon={faPalette}
+                    style={{ fontSize: "22px", color: myTheme }}
+                    title="setting"
+                  />
+                </div>
+                <ul className="dropdown-menu">
+                  <li className="dropdown-item ">
+                    <button
+                      className="transparentButton"
+                      onClick={() => setTheme("aqua")}
+                    >
+                      <FontAwesomeIcon
+                        icon={faPalette}
+                        style={{ fontSize: "22px", color: "aqua" }}
+                        title="setting"
+                      />
+                    </button>
+                  </li>
+                  <li className="dropdown-item ">
+                    <button
+                      className="transparentButton"
+                      onClick={() => setTheme("pink")}
+                    >
+                      <FontAwesomeIcon
+                        icon={faPalette}
+                        style={{ fontSize: "22px", color: "pink" }}
+                        title="setting"
+                      />
+                    </button>
+                  </li>
+                  <li className="dropdown-item ">
+                    <button
+                      className="transparentButton"
+                      onClick={() => setTheme("black")}
+                    >
+                      <FontAwesomeIcon
+                        icon={faPalette}
+                        style={{ fontSize: "22px", color: "black" }}
+                        title="setting"
+                      />
+                    </button>
+                  </li>
+                  <li className="dropdown-item ">
+                    <button
+                      className="transparentButton"
+                      onClick={() => setTheme("yellow")}
+                    >
+                      <FontAwesomeIcon
+                        icon={faPalette}
+                        style={{ fontSize: "22px", color: "yellow" }}
+                        title="setting"
+                      />
+                    </button>
+                  </li>
+                </ul>
+              </li>
             </ul>
+
             <form className="d-flex">
               <input
                 className="form-control me-2"

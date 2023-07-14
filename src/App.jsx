@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import "./App.css";
 import { alphabet, myDatas, user_datas } from "./components/datas";
+import { ThemeContext } from "./components/themeContext";
 
 import { Link, Outlet, Route, Routes } from "react-router-dom";
 import Home from "./components/home";
@@ -24,6 +25,7 @@ export default function App() {
   const [user, setUser] = useState(null);
   const [messages, setMessages] = useState([]);
   const [myStaredItems, setMyStaredItems] = useState([]);
+  const [myTheme, setMyTheme] = useState("aqua");
   const [inboxMessage, setInboxMessage] = useState([
     {
       sender: "admin",
@@ -44,6 +46,10 @@ export default function App() {
     },
   ]);
   const [orderedList, setOrderedList] = useState([]);
+
+  function setTheme(color) {
+    setMyTheme(color);
+  }
 
   totalRef.current = 0;
   addingRef();
@@ -166,7 +172,7 @@ export default function App() {
 
     const isAlreadyExist = allCarts.find((cart) => cart.id === newCart.id);
     //above line for making sure the user doesnt add the same item twice
-    console.log("is already exist " + isAlreadyExist);
+
     if (isAlreadyExist !== undefined) {
       return;
     }
@@ -213,79 +219,84 @@ export default function App() {
   function changeFilterText(text) {
     setFilterText(text);
   }
+
   return (
     <>
-      <NavigationBar
-        changeFilterText={changeFilterText}
-        allCarts={allCarts}
-        user={user}
-        onLogout={onLogout}
-      />
-      <div id="detail" className="">
-        <Outlet />
-      </div>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <Home
-              requestCata={requestCata}
-              addNewCart={addNewCart}
-              removeCart={removeCart}
-              pureData={pureData}
-              filterText={filterText}
-              changeCata={changeCata}
-              selectedLi={selectedLi}
-              currentUser={user}
-            />
-          }
-          errorElement={<ErrorPage />}
+      <ThemeContext.Provider value={myTheme}>
+        <NavigationBar
+          changeFilterText={changeFilterText}
+          allCarts={allCarts}
+          user={user}
+          onLogout={onLogout}
+          setTheme={setTheme}
+          myTheme={myTheme}
         />
 
-        <Route
-          path="Cart"
-          element={
-            <Carts
-              allCarts={allCarts}
-              removeCart={removeCart}
-              priceUp={priceUp}
-              priceDown={priceDown}
-              totalPrice={totalRef.current}
-              addNewOrder={addNewOrder}
-            />
-          }
-        />
-        <Route
-          path="message"
-          element={<MessageBox user={user} onSendMessage={onSendMessage} />}
-        />
-        <Route
-          path="Order-list"
-          element={<OrderList orderedList={orderedList} />}
-        />
-        <Route
-          path="login"
-          element={<Login userDatas={userDatas} isLogin={successLogin} />}
-        />
-        <Route
-          path="login/register"
-          element={<Register userDatas={userDatas} createUser={createUser} />}
-        />
-        <Route
-          path="inbox"
-          element={
-            <UserInbox
-              messages={inboxMessage}
-              watchedMessage={watchedMessage}
-              deleteMessage={deleteMessage}
-            />
-          }
-        />
-        <Route
-          path="detail/:id"
-          element={<ItemDetail currentUser={user} addNewCart={addNewCart} />}
-        />
-      </Routes>
+        <Outlet />
+
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Home
+                requestCata={requestCata}
+                addNewCart={addNewCart}
+                removeCart={removeCart}
+                pureData={pureData}
+                filterText={filterText}
+                changeCata={changeCata}
+                selectedLi={selectedLi}
+                currentUser={user}
+              />
+            }
+            errorElement={<ErrorPage />}
+          />
+
+          <Route
+            path="Cart"
+            element={
+              <Carts
+                allCarts={allCarts}
+                removeCart={removeCart}
+                priceUp={priceUp}
+                priceDown={priceDown}
+                totalPrice={totalRef.current}
+                addNewOrder={addNewOrder}
+              />
+            }
+          />
+          <Route
+            path="message"
+            element={<MessageBox user={user} onSendMessage={onSendMessage} />}
+          />
+          <Route
+            path="Order-list"
+            element={<OrderList orderedList={orderedList} />}
+          />
+          <Route
+            path="login"
+            element={<Login userDatas={userDatas} isLogin={successLogin} />}
+          />
+          <Route
+            path="login/register"
+            element={<Register userDatas={userDatas} createUser={createUser} />}
+          />
+          <Route
+            path="inbox"
+            element={
+              <UserInbox
+                messages={inboxMessage}
+                watchedMessage={watchedMessage}
+                deleteMessage={deleteMessage}
+              />
+            }
+          />
+          <Route
+            path="detail/:id"
+            element={<ItemDetail currentUser={user} addNewCart={addNewCart} />}
+          />
+        </Routes>
+      </ThemeContext.Provider>
     </>
   );
 }

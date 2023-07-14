@@ -1,5 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@fortawesome/fontawesome-svg-core/styles.css";
+import { useOutletContext } from "react-router-dom";
+import { ThemeContext } from "./themeContext";
 import {
   faBurger,
   faCakeCandles,
@@ -8,7 +10,9 @@ import {
   faMartiniGlassCitrus,
   faPizzaSlice,
 } from "@fortawesome/free-solid-svg-icons";
+import { useContext } from "react";
 export default function Catagories({ onListClick, Id }) {
+  const myTheme = useContext(ThemeContext);
   return (
     <>
       <div className="">
@@ -20,8 +24,8 @@ export default function Catagories({ onListClick, Id }) {
             }}
             style={
               Id === 10
-                ? { color: "white", backgroundColor: "aqua" }
-                : { color: "aqua" }
+                ? { color: "white", backgroundColor: myTheme }
+                : { color: myTheme }
             }
           >
             All
@@ -33,8 +37,8 @@ export default function Catagories({ onListClick, Id }) {
             }}
             style={
               Id === 0
-                ? { color: "white", backgroundColor: "aqua" }
-                : { color: "aqua" }
+                ? { color: "white", backgroundColor: myTheme }
+                : { color: myTheme }
             }
           >
             <FontAwesomeIcon icon={faCarrot} title="fruit" />
@@ -46,8 +50,8 @@ export default function Catagories({ onListClick, Id }) {
             }}
             style={
               Id === 1
-                ? { color: "white", backgroundColor: "aqua" }
-                : { color: "aqua" }
+                ? { color: "white", backgroundColor: myTheme }
+                : { color: myTheme }
             }
           >
             <FontAwesomeIcon icon={faBurger} title="snack" />
@@ -59,8 +63,8 @@ export default function Catagories({ onListClick, Id }) {
             }}
             style={
               Id === 2
-                ? { color: "white", backgroundColor: "aqua" }
-                : { color: "aqua" }
+                ? { color: "white", backgroundColor: myTheme }
+                : { color: myTheme }
             }
           >
             <FontAwesomeIcon icon={faCakeCandles} title="cake" />
@@ -72,8 +76,8 @@ export default function Catagories({ onListClick, Id }) {
             }}
             style={
               Id === 3
-                ? { color: "white", backgroundColor: "aqua" }
-                : { color: "aqua" }
+                ? { color: "white", backgroundColor: myTheme }
+                : { color: myTheme }
             }
           >
             <FontAwesomeIcon icon={faHatCowboy} title="hat" />
@@ -85,8 +89,8 @@ export default function Catagories({ onListClick, Id }) {
             }}
             style={
               Id === 4
-                ? { color: "white", backgroundColor: "aqua" }
-                : { color: "aqua" }
+                ? { color: "white", backgroundColor: myTheme }
+                : { color: myTheme }
             }
           >
             <FontAwesomeIcon icon={faPizzaSlice} title="pizza" />
@@ -98,8 +102,8 @@ export default function Catagories({ onListClick, Id }) {
             }}
             style={
               Id === 5
-                ? { color: "white", backgroundColor: "aqua" }
-                : { color: "aqua" }
+                ? { color: "white", backgroundColor: myTheme }
+                : { color: myTheme }
             }
           >
             <FontAwesomeIcon icon={faMartiniGlassCitrus} title="beverage" />

@@ -1,10 +1,14 @@
+import { useContext } from "react";
+import { useOutletContext } from "react-router-dom";
+import { ThemeContext } from "./themeContext";
 export default function OrderList({ orderedList }) {
+  const myTheme = useContext(ThemeContext);
   return (
     <>
       <div className="orderList container-fluid ">
         <div className="orderTable ">
           <table className="table text-center">
-            <thead className="table-dark" style={{ backgroundColor: "aqua" }}>
+            <thead className="table-dark" style={{ backgroundColor: myTheme }}>
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">items quantity</th>

@@ -5,8 +5,9 @@ import {
   faSpinner,
   faCircleInfo,
 } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Link, useOutletContext } from "react-router-dom";
+import { ThemeContext } from "./themeContext";
 
 export default function Items({
   cataType,
@@ -54,10 +55,13 @@ export default function Items({
 function Images({ imgData, addCart, hidden, currentUser }) {
   const [isLoading, setIsLoading] = useState(true); //is image loading
   const [isImageLoaded, setIsImageLoaded] = useState(false); //is image loaded
+  const myTheme = useContext(ThemeContext);
 
   const loginErrorLog =
     currentUser === null ? (
-      <i className="text-center text-danger">login first to purchase</i>
+      <i className="text-center text-danger">
+        <b>login first to purchase</b>
+      </i>
     ) : null;
   const buttonDisplay = currentUser && (
     <button
@@ -65,7 +69,7 @@ function Images({ imgData, addCart, hidden, currentUser }) {
       title="add to cart"
       onClick={() => addCart(imgData)}
     >
-      <FontAwesomeIcon icon={faCartShopping} style={{ color: "gray" }} />
+      <FontAwesomeIcon icon={faCartShopping} style={{ color: "whitesmoke" }} />
     </button>
   );
 
@@ -85,7 +89,10 @@ function Images({ imgData, addCart, hidden, currentUser }) {
   return (
     <>
       <div className={"col-6 " + (!hidden ? "d-none" : "")} key={imgData.name}>
-        <div className="image-container mb-3 input-group shadow-lg rounded">
+        <div
+          className="image-container mb-3 input-group shadow-lg rounded"
+          style={{ backgroundColor: myTheme }}
+        >
           {isLoading && <FontAwesomeIcon icon={faSpinner} spin />}
           {isImageLoaded && (
             <>
@@ -93,12 +100,16 @@ function Images({ imgData, addCart, hidden, currentUser }) {
                 src={imgData.source}
                 alt={imgData.name}
                 className="img-fluid "
-                style={{ position: "relative" }}
+                style={{
+                  position: "relative",
+                  // // border: "3px solid " + myTheme,
+                  // borderRadius: "2%",
+                }}
               />
               <span
                 style={{
                   position: "absolute",
-                  top: "0px",
+                  top: "2px",
                   right: "3px",
                   fontSize: "25px",
                   color: "white",
@@ -108,17 +119,40 @@ function Images({ imgData, addCart, hidden, currentUser }) {
               >
                 <Link
                   to={"detail/" + imgData.id}
-                  style={{ textDecoration: "none", color: "aqua" }}
+                  style={{
+                    textDecoration: "none",
+                    color: myTheme,
+                  }}
                 >
-                  <FontAwesomeIcon icon={faCircleInfo} />
+                  <FontAwesomeIcon
+                    icon={faCircleInfo}
+                    className="rounded-circle p-1"
+                    style={{ backgroundColor: "white" }}
+                  />
                 </Link>
               </span>
             </>
           )}
           {isImageLoaded && (
             <div className="itemDetail row text-center">
-              <p className="name col">{imgData.name}</p>
-              <div className="price col">{imgData.value} kyats</div>
+              <span
+                className="name col"
+                style={{
+                  fontFamily: "cursive",
+                  color: "white",
+                }}
+              >
+                {imgData.name}
+              </span>
+              <div
+                className="price col"
+                style={{
+                  fontFamily: "cursive",
+                  color: "white",
+                }}
+              >
+                {imgData.value} kyats
+              </div>
               {buttonDisplay}
             </div>
           )}

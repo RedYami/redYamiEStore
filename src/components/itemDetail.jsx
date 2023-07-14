@@ -1,17 +1,19 @@
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useParams } from "react-router-dom";
+import { useParams, useOutletContext } from "react-router-dom";
 import {
   faCartShopping,
   faCaretRight,
   faCaretLeft,
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { myDatas } from "./datas";
+import { ThemeContext } from "./themeContext";
 export default function ItemDetail({ currentUser, addNewCart }) {
   const { id } = useParams();
   const [index, setIndex] = useState(parseInt(id));
+  const myTheme = useContext(ThemeContext);
 
   const loginErrorLog =
     currentUser === null ? (
@@ -21,12 +23,13 @@ export default function ItemDetail({ currentUser, addNewCart }) {
   const decreaseButton =
     index === 0 ? null : (
       <button
-        className={"btn btn-outline-info rounded-5 "}
+        className={"transparentButton rounded-5 "}
         style={{
           height: "50px",
           width: "50px",
-          fontSize: "24px",
+          fontSize: "40px",
           marginRight: "4px",
+          color: myTheme,
         }}
         onClick={() => setIndex((index) => index - 1)}
       >
@@ -37,12 +40,13 @@ export default function ItemDetail({ currentUser, addNewCart }) {
   const increaseButton =
     index === myDatas.length - 1 ? null : (
       <button
-        className="btn btn-outline-info rounded-5"
+        className="transparentButton rounded-5"
         style={{
           height: "50px",
           width: "50px",
-          fontSize: "24px",
+          fontSize: "40px",
           marginLeft: "4px",
+          color: myTheme,
         }}
         onClick={() => setIndex((index) => index + 1)}
       >
@@ -92,7 +96,7 @@ export default function ItemDetail({ currentUser, addNewCart }) {
               >
                 <FontAwesomeIcon
                   icon={faCartShopping}
-                  style={{ color: "aqua", fontSize: "24px" }}
+                  style={{ color: myTheme, fontSize: "24px", color: myTheme }}
                 />
               </button>
             </a>

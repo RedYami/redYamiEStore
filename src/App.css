@@ -127,6 +127,10 @@ footer{
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 /* /////////////items///////////// */
+.itemDetailMain .transparentButton :hover{
+  font-size: 70px;
+}
+
 .itemContainer{
   /* margin-top: 7px; */
   overflow: auto;
@@ -292,4 +296,10 @@ footer{
 .unwatched{
   height: 7px;
   width: 7px;
+}
+::-webkit-scrollbar {
+  width: 10px; /* Set the width of the scroll bar */
+}
+::-webkit-scrollbar-thumb {
+  background-color: #888; /* Set the color of the scroll thumb */
 }

@@ -1,10 +1,12 @@
 import { faBookOpenReader, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@fortawesome/fontawesome-svg-core/styles.css";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { ThemeContext } from "./themeContext";
 
 export default function UserInbox({ messages, watchedMessage, deleteMessage }) {
   const [selectedNavType, setSelectedNavType] = useState("primary");
+  const myTheme = useContext(ThemeContext);
   const filteredMessage = messages.filter(
     (message) => message.type === selectedNavType
   );
@@ -44,7 +46,7 @@ export default function UserInbox({ messages, watchedMessage, deleteMessage }) {
             className="col messageNav d-flex justify-content-center"
             style={
               selectedNavType === "primary"
-                ? { borderBottom: "2px solid aqua", color: "aquamarine" }
+                ? { borderBottom: "2px solid " + myTheme, color: myTheme }
                 : null
             }
             onClick={() => setSelectedNavType("primary")}
@@ -55,7 +57,7 @@ export default function UserInbox({ messages, watchedMessage, deleteMessage }) {
             className="col messageNav d-flex justify-content-center"
             style={
               selectedNavType === "new item"
-                ? { borderBottom: "2px solid aqua", color: "aquamarine" }
+                ? { borderBottom: "2px solid " + myTheme, color: myTheme }
                 : null
             }
             onClick={() => setSelectedNavType("new item")}
@@ -66,7 +68,7 @@ export default function UserInbox({ messages, watchedMessage, deleteMessage }) {
             className="col messageNav d-flex justify-content-center"
             style={
               selectedNavType === "promotions"
-                ? { borderBottom: "2px solid aqua", color: "aquamarine" }
+                ? { borderBottom: "2px solid " + myTheme, color: myTheme }
                 : null
             }
             onClick={() => setSelectedNavType("promotions")}
