@@ -91,6 +91,7 @@ export default function UserInbox({ messages, watchedMessage, deleteMessage }) {
   );
 }
 function Message({ message, watchedMessage, deleteMessage }) {
+  const myTheme = useContext(ThemeContext);
   const [reading, setReading] = useState(false);
   const isNewMessage = message.watched ? null : (
     <i className="badge bg-success">new!</i>
@@ -105,7 +106,7 @@ function Message({ message, watchedMessage, deleteMessage }) {
             watchedMessage(message.id);
           }}
         >
-          <FontAwesomeIcon icon={faBookOpenReader} />
+          <FontAwesomeIcon icon={faBookOpenReader} style={{ color: myTheme }} />
           <i> {reading ? "close" : "read"}</i>
         </button>
         <button className="transparentButton " style={{ color: "gray" }}>

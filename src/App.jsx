@@ -14,6 +14,7 @@ import UserInbox from "./components/userInbox";
 import NavigationBar from "./components/navBar";
 import ItemDetail from "./components/itemDetail";
 import ErrorPage from "./error-page";
+import NavBarMobo from "./components/pureNav";
 export default function App() {
   const [selectedLi, setSelectedLi] = useState(10);
   const [userDatas, setUserDatas] = useState(user_datas);
@@ -29,11 +30,19 @@ export default function App() {
   const [inboxMessage, setInboxMessage] = useState([
     {
       sender: "admin",
-      id: 1,
+      id: 0,
       title: "noticing",
       type: "primary",
       message:
         "dear user your order have been canceled due to unavailable products sorry for unconvinence of us ,thank you for your ordering",
+      watched: false,
+    },
+    {
+      sender: "admin",
+      id: 1,
+      title: "success purchasement",
+      type: "primary",
+      message: "Dear user your your purchasement is success order code-6Y2D7UM",
       watched: false,
     },
     {
@@ -223,14 +232,7 @@ export default function App() {
   return (
     <>
       <ThemeContext.Provider value={myTheme}>
-        <NavigationBar
-          changeFilterText={changeFilterText}
-          allCarts={allCarts}
-          user={user}
-          onLogout={onLogout}
-          setTheme={setTheme}
-          myTheme={myTheme}
-        />
+        <NavBarMobo user={user} allCarts={allCarts} setTheme={setTheme} />
 
         <Outlet />
 

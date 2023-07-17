@@ -7,7 +7,8 @@ import {
   faPlus,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { ThemeContext } from "./themeContext";
 
 export default function Carts({
   allCarts,
@@ -18,9 +19,11 @@ export default function Carts({
   addNewOrder,
 }) {
   const [paying, setPaying] = useState(false);
+  const myTheme = useContext(ThemeContext);
   function isPaying(Boolean) {
     setPaying(Boolean);
   }
+  const tableTheme = { backgroundColor: myTheme, color: "white" };
   const confirmNoti = paying && (
     <ConfirmWidget
       isPaying={isPaying}
@@ -38,14 +41,24 @@ export default function Carts({
         <div className=" row cart-table">
           <div className="col itemTable">
             <table className="table text-center">
-              <thead className="table-dark" style={{ height: "40px" }}>
+              <thead className="" style={{ height: "40px" }}>
                 <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">icon</th>
-                  <th scope="col">name</th>
-                  <th scope="col">price</th>
-                  <th scope="col">quantity</th>
-                  <th scope="col"></th>
+                  <th scope="col" style={tableTheme}>
+                    #
+                  </th>
+                  <th scope="col" style={tableTheme}>
+                    icon
+                  </th>
+                  <th scope="col" style={tableTheme}>
+                    name
+                  </th>
+                  <th scope="col" style={tableTheme}>
+                    price
+                  </th>
+                  <th scope="col" style={tableTheme}>
+                    quantity
+                  </th>
+                  <th scope="col" style={tableTheme}></th>
                 </tr>
               </thead>
               <tbody>
@@ -83,7 +96,7 @@ export default function Carts({
               </tbody>
             </table>
             {allCarts.length < 1 && (
-              <h1 className="container text-center ">
+              <h1 className="container text-center " style={{ color: myTheme }}>
                 Cart <FontAwesomeIcon icon={faCartShopping} /> is empty :)
                 <br />
                 <span>
@@ -129,12 +142,13 @@ function Modifier({ cart, onPlusClick, onMinusClick }) {
   );
 }
 function Cashier({ totalPrice, isPaying }) {
+  const myTheme = useContext(ThemeContext);
   return (
     <>
       <div className="cashier">
         <h3
-          className="bg-dark text-center"
-          style={{ color: "white", height: "40px" }}
+          className=" text-center"
+          style={{ color: "white", height: "40px", backgroundColor: myTheme }}
         >
           Cashier
         </h3>
