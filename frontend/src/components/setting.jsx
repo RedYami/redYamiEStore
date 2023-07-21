@@ -1,17 +1,18 @@
 import {
   faChartLine,
   faCircleChevronDown,
-  faGear,
+  faCoins,
   faLock,
   faRightFromBracket,
   faRightToBracket,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext } from "react";
 import { ThemeContext } from "./themeContext";
 import { Link } from "react-router-dom";
+import { func } from "prop-types";
 
 export default function Setting({ currentUser, onLogout }) {
   const myTheme = useContext(ThemeContext);
@@ -42,6 +43,8 @@ export default function Setting({ currentUser, onLogout }) {
     );
   return (
     <>
+      <ReedemPoint />
+
       <div className="settingDiv bg-body-tertiary">
         <div className="settingOption ">
           <div className="options rounded shadow mb-5">
@@ -78,4 +81,52 @@ export default function Setting({ currentUser, onLogout }) {
       </div>
     </>
   );
+}
+
+function ReedemPoint() {
+  const myTheme = useContext(ThemeContext);
+  const [showRedeem, setShowRedeem] = useState(false);
+  const redeemCoin = (
+    <div className="d-flex flex-column p-3 justify-content-center">
+      <FontAwesomeIcon
+        icon={faCoins}
+        style={{ fontSize: "50px", color: "gold" }}
+      />
+      <span className="text-success text-center">79 points</span>
+      <button
+        className="btn btn-outline-warning mt-2"
+        style={{ maxWidth: "60px", margin: "auto" }}
+        onClick={(e) => {
+          e.stopPropagation();
+          setShowRedeem(false);
+        }}
+      >
+        hide
+      </button>
+    </div>
+  );
+  return (
+    <>
+      <div
+        className="reedemPoints rounded shadow"
+        style={{ padding: "10px" }}
+        onClick={() => {
+          setShowRedeem(true);
+        }}
+      >
+        <div className=" d-flex justify-content-center rounded">
+          <span style={{ marginRight: "4px" }}>my Redeem points</span>
+          <FontAwesomeIcon
+            icon={faCoins}
+            style={{ fontSize: "20px", color: myTheme }}
+          />
+        </div>
+        {showRedeem ? redeemCoin : null}
+      </div>
+    </>
+  );
+}
+
+function ChangeTheme() {
+  return <></>;
 }
