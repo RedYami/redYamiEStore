@@ -1,3 +1,4 @@
+import React from "react";
 import { useRef, useState } from "react";
 import "./App.css";
 import { alphabet, myDatas, user_datas } from "./components/datas";

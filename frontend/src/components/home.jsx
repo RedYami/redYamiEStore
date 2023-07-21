@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import React from "react";
 
 import Catagories from "/src/components/catagories";
 import Items from "/src/components/items";

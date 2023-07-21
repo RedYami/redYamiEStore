@@ -1,5 +1,6 @@
 import { useEffect, useReducer, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import React from "react";
 
 export default function Register({ userDatas, createUser }) {
   const [userName, setUserName] = useState("");

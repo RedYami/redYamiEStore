@@ -5,6 +5,7 @@ import Twitter from "/src/items/twitter.svg";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { useContext, useState } from "react";
 import { ThemeContext } from "./themeContext";
+import React from "react";
 
 export default function MessageBox({ onSendMessage, user }) {
   const myTheme = useContext(ThemeContext);

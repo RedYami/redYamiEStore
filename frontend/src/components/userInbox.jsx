@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { useContext, useState } from "react";
 import { ThemeContext } from "./themeContext";
+import React from "react";
 
 export default function UserInbox({ messages, watchedMessage, deleteMessage }) {
   const [selectedNavType, setSelectedNavType] = useState("primary");
