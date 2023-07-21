@@ -20,7 +20,7 @@ export default function Home({
   return (
     <>
       <div className="components container-fluid row">
-        <aside className="col-4">
+        <aside className="col-3">
           <Catagories onListClick={changeCata} Id={selectedLi} />
         </aside>
         <div className="taskContainer col">

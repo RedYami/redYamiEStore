@@ -73,7 +73,7 @@ function Images({ imgData, addCart, hidden, currentUser, handleIsLogin }) {
   const myTheme = useContext(ThemeContext);
   const buttonDisplay = (
     <button
-      className="addToCart col"
+      className="transparentButton"
       title="add to cart"
       onClick={() => userExist()}
     >
@@ -96,76 +96,71 @@ function Images({ imgData, addCart, hidden, currentUser, handleIsLogin }) {
 
   return (
     <>
-      <div className={"col-6 " + (!hidden ? "d-none" : "")} key={imgData.name}>
-        <div
-          className="image-container mb-3 input-group shadow-lg rounded"
-          style={{ backgroundColor: myTheme }}
-        >
-          {isLoading && <FontAwesomeIcon icon={faSpinner} spin />}
-          {isImageLoaded && (
-            <>
-              <img
-                src={imgData.source}
-                alt={imgData.name}
-                className="img-fluid "
+      <div
+        className={"col-4 mb-3 image-container" + (!hidden ? "d-none" : "")}
+        key={imgData.name}
+      >
+        {isLoading && <FontAwesomeIcon icon={faSpinner} spin />}
+        {isImageLoaded && (
+          <>
+            <img
+              src={imgData.source}
+              alt={imgData.name}
+              className="img-fluid itemImage col rounded"
+            />
+            <span
+              style={{
+                position: "absolute",
+                top: "2px",
+                right: "16px",
+                fontSize: "25px",
+                color: "white",
+                cursor: "pointer",
+              }}
+              title="item Detail"
+            >
+              <Link
+                to={"detail/" + imgData.id}
                 style={{
-                  position: "relative",
-                  height: "300px",
-                  // // border: "3px solid " + myTheme,
-                  // borderRadius: "2%",
-                }}
-              />
-              <span
-                style={{
-                  position: "absolute",
-                  top: "2px",
-                  right: "3px",
-                  fontSize: "25px",
-                  color: "white",
-                  cursor: "pointer",
-                }}
-                title="item Detail"
-              >
-                <Link
-                  to={"detail/" + imgData.id}
-                  style={{
-                    textDecoration: "none",
-                    color: myTheme,
-                  }}
-                >
-                  <FontAwesomeIcon
-                    icon={faCircleInfo}
-                    className="rounded-circle p-1"
-                    style={{ backgroundColor: "white" }}
-                  />
-                </Link>
-              </span>
-            </>
-          )}
-          {isImageLoaded && (
-            <div className="itemDetail row text-center">
-              <span
-                className="name col"
-                style={{
-                  fontFamily: "cursive",
-                  color: "white",
+                  textDecoration: "none",
+                  color: myTheme,
                 }}
               >
-                {imgData.name}
-              </span>
-              <div
-                className="price col"
-                style={{
-                  fontFamily: "cursive",
-                  color: "white",
-                }}
-              >
-                {imgData.value} kyats
-              </div>
-              {buttonDisplay}
+                <FontAwesomeIcon
+                  icon={faCircleInfo}
+                  className="rounded-circle p-1"
+                  style={{ backgroundColor: "white" }}
+                />
+              </Link>
+            </span>
+          </>
+        )}
+        {isImageLoaded && (
+          <div
+            className="cartingFunction rounded mt-1 text-center"
+            style={{ backgroundColor: myTheme }}
+          >
+            <div
+              className="name "
+              style={{
+                fontFamily: "cursive",
+                color: "white",
+              }}
+            >
+              {imgData.name}
             </div>
-          )}
-        </div>
+            <div
+              className="price "
+              style={{
+                fontFamily: "cursive",
+                color: "white",
+              }}
+            >
+              {imgData.value} kyats
+            </div>
+            <div className="theee">{buttonDisplay}</div>
+          </div>
+        )}
       </div>
     </>
   );
