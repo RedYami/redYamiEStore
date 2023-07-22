@@ -395,3 +395,7 @@ Link{
   text-decoration: none;
   font-family: cursive;
 }
+.policyTerms{
+  max-width: 700px;
+  margin: auto;
+}

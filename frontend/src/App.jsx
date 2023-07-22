@@ -17,6 +17,7 @@ import ItemDetail from "./components/itemDetail";
 import ErrorPage from "./error-page";
 import NavBarMobo from "./components/pureNav";
 import Setting from "./components/setting";
+import PolicyTerms from "./components/eStorePolicy";
 let orderId = 0;
 export default function App() {
   const [selectedLi, setSelectedLi] = useState(10);
@@ -312,6 +313,7 @@ export default function App() {
               />
             }
           />
+          <Route path="setting/policy" element={<PolicyTerms />} />
         </Routes>
       </ThemeContext.Provider>
     </>

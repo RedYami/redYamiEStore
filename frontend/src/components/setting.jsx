@@ -67,13 +67,13 @@ export default function Setting({ currentUser, onLogout, changeApptheme }) {
         </div>
         <div className="settingOption  ">
           <div className="options rounded shadow mb-5">
-            <div className="fontAwesome">
+            <Link to={"/setting/policy"} className="fontAwesome ">
               <FontAwesomeIcon
                 icon={faUser}
                 style={{ fontSize: "40px", color: myTheme }}
               />
-              <span>About us</span>
-            </div>
+              <span style={{ textDecoration: "none" }}>policy terms</span>
+            </Link>
           </div>
           <div className="options rounded shadow">{logMode}</div>
         </div>
