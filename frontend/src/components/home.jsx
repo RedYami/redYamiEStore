@@ -12,7 +12,6 @@ export default function Home({
   addNewCart,
   removeCart,
   pureData,
-  filterText,
   changeCata,
   selectedLi,
   currentUser,
@@ -29,7 +28,6 @@ export default function Home({
             addCart={addNewCart}
             removeCart={removeCart}
             pureData={pureData}
-            filterText={filterText}
             currentUser={currentUser}
           />
         </div>

@@ -25,7 +25,7 @@ export default function App() {
   const [allCarts, setAllCarts] = useState([]);
   const totalRef = useRef(0);
   const [pureData, setPureData] = useState(myDatas);
-  const [filterText, setFilterText] = useState("");
+
   const [user, setUser] = useState(null);
   const [messages, setMessages] = useState([]);
   const [myStaredItems, setMyStaredItems] = useState([]);
@@ -231,9 +231,6 @@ export default function App() {
     };
   }
   /////////Items Functions End/////
-  function changeFilterText(text) {
-    setFilterText(text);
-  }
 
   return (
     <>
@@ -252,7 +249,6 @@ export default function App() {
                 addNewCart={addNewCart}
                 removeCart={removeCart}
                 pureData={pureData}
-                filterText={filterText}
                 changeCata={changeCata}
                 selectedLi={selectedLi}
                 currentUser={user}
