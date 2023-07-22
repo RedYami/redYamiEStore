@@ -22,6 +22,7 @@ import { ThemeContext } from "./themeContext";
 export default function NavBarMobo({ user, allCarts, setTheme }) {
   const [currentNav, setCurrentNav] = useState("home");
   const myTheme = useContext(ThemeContext);
+  const userName = user !== null ? user.user_name : <span>guest</span>;
 
   function selectedNav(nav) {
     if (currentNav === nav) {
@@ -53,7 +54,7 @@ export default function NavBarMobo({ user, allCarts, setTheme }) {
         <h3>Hyena comerce store</h3>
         <div className="d-flex justify-content-center">
           <span className="" style={{ fontSize: "24px" }}>
-            {user.user_name}
+            {userName}
           </span>
           <FontAwesomeIcon
             icon={faCircleUser}
