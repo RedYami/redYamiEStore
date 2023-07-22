@@ -310,7 +310,13 @@ export default function App() {
           />
           <Route
             path="setting"
-            element={<Setting currentUser={user} onLogout={onLogout} />}
+            element={
+              <Setting
+                currentUser={user}
+                onLogout={onLogout}
+                changeApptheme={setTheme}
+              />
+            }
           />
         </Routes>
       </ThemeContext.Provider>
