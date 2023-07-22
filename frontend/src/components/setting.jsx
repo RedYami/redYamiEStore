@@ -1,7 +1,7 @@
 import {
-  faChartLine,
   faCircleChevronDown,
   faCoins,
+  faDroplet,
   faLock,
   faRightFromBracket,
   faRightToBracket,
@@ -12,9 +12,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext } from "react";
 import { ThemeContext } from "./themeContext";
 import { Link } from "react-router-dom";
-import { func } from "prop-types";
 
-export default function Setting({ currentUser, onLogout }) {
+export default function Setting({ currentUser, onLogout, changeApptheme }) {
   const myTheme = useContext(ThemeContext);
   const logMode =
     currentUser === null ? (
@@ -44,7 +43,7 @@ export default function Setting({ currentUser, onLogout }) {
   return (
     <>
       <ReedemPoint />
-
+      <ChangeTheme changeApptheme={changeApptheme} />
       <div className="settingDiv bg-body-tertiary">
         <div className="settingOption ">
           <div className="options rounded shadow mb-5">
@@ -127,6 +126,77 @@ function ReedemPoint() {
   );
 }
 
-function ChangeTheme() {
-  return <></>;
+function ChangeTheme({ changeApptheme }) {
+  const [showColors, setShowColors] = useState(false);
+  const themeColors = [
+    "aqua",
+    "red",
+    "blue",
+    "black",
+    "yellow",
+    "pink",
+    "green",
+    "orange",
+    "gray",
+    "gold",
+  ];
+  const myTheme = useContext(ThemeContext);
+  const themeSelection = (
+    <div className="d-flex flex-column p-3 justify-content-center">
+      <div className="row">
+        {themeColors.map((theme) => (
+          <ColorButton
+            theme={theme}
+            key={theme}
+            changeApptheme={changeApptheme}
+          />
+        ))}
+      </div>
+      <button
+        className="btn btn-outline-warning mt-2"
+        style={{ maxWidth: "60px", margin: "auto" }}
+        onClick={(e) => {
+          e.stopPropagation();
+          setShowColors(false);
+        }}
+      >
+        hide
+      </button>
+    </div>
+  );
+  return (
+    <>
+      <div
+        className="reedemPoints rounded shadow"
+        style={{ padding: "10px" }}
+        onClick={() => setShowColors(true)}
+      >
+        <div className=" d-flex justify-content-center rounded">
+          <span style={{ marginRight: "4px" }}>Choose Theme</span>
+          <FontAwesomeIcon
+            icon={faDroplet}
+            style={{ fontSize: "20px", color: myTheme }}
+          />
+        </div>
+        {showColors ? themeSelection : null}
+      </div>
+    </>
+  );
+}
+
+function ColorButton({ theme, changeApptheme }) {
+  return (
+    <>
+      <button
+        className="transparentButton col"
+        onClick={() => changeApptheme(theme)}
+      >
+        <FontAwesomeIcon
+          icon={faDroplet}
+          style={{ fontSize: "20px", color: theme }}
+          className=""
+        />
+      </button>
+    </>
+  );
 }
