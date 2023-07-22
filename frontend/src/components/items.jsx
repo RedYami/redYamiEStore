@@ -8,7 +8,7 @@ import {
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import { useContext, useEffect, useState } from "react";
-import { Link, useNavigate, useOutletContext } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ThemeContext } from "./themeContext";
 
 export default function Items({
@@ -115,7 +115,7 @@ function Images({ imgData, addCart, hidden, currentUser, handleIsLogin }) {
   return (
     <>
       <div
-        className={"col-4 mb-3 image-container" + (!hidden ? "d-none" : "")}
+        className={"col-4 mb-3 image-container " + (hidden ? null : "d-none")} //if hidden is true show image else display none image
         key={imgData.name}
       >
         {isLoading && <FontAwesomeIcon icon={faSpinner} spin />}

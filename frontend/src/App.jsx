@@ -171,7 +171,6 @@ export default function App() {
   function changeCata(cataType, Id) {
     setRequestCata(cataType);
     setSelectedLi(Id);
-    setItemOrCart(true);
   }
   /////////Catagories Functions End/////
   /////////Items Functions Start/////
@@ -222,7 +221,6 @@ export default function App() {
       totalItems += parseInt(cart.quantity);
       totalPrice += parseInt(cart.price);
     });
-    console.log(orderId);
     return {
       quantity: totalItems,
       totalPrice: totalPrice + 1000,
