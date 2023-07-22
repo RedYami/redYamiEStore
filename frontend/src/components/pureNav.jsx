@@ -14,6 +14,7 @@ import {
   faCircleUser,
   faFolderOpen,
   faAddressCard,
+  faPersonCircleCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
@@ -41,7 +42,7 @@ export default function NavBarMobo({ user, allCarts, setTheme }) {
   return (
     <>
       <div
-        className="navHeading"
+        className="navHeading "
         style={{
           backgroundColor: myTheme,
           color: "whitesmoke",
@@ -50,11 +51,17 @@ export default function NavBarMobo({ user, allCarts, setTheme }) {
         }}
       >
         <h3>Hyena comerce store</h3>
-        <FontAwesomeIcon
-          icon={faGear}
-          onClick={() => setCurrentNav("setting")}
-          style={{ fontSize: "30px", padding: "6px" }}
-        />
+        <div className="d-flex justify-content-center">
+          <span className="" style={{ fontSize: "24px" }}>
+            {user.user_name}
+          </span>
+          <FontAwesomeIcon
+            icon={faCircleUser}
+            onClick={() => setCurrentNav("setting")}
+            style={{ fontSize: "30px", padding: "6px" }}
+            className=""
+          />
+        </div>
       </div>
       <nav className="mainNav bg-body-tertiary">
         <div className="navContent">
@@ -71,7 +78,7 @@ export default function NavBarMobo({ user, allCarts, setTheme }) {
                 </Link>
               </button>
             </li>
-            <li className="col CartNav" style={selectedNav("cart")}>
+            <li className="col CartNav " style={selectedNav("cart")}>
               <button
                 className=" transparentButton"
                 style={{ position: "relative" }}
@@ -87,13 +94,13 @@ export default function NavBarMobo({ user, allCarts, setTheme }) {
               </button>
               {allCarts.length > 0 && (
                 <span
-                  className="bg-danger rounded-circle"
+                  className="bg-danger rounded-circle cartBadge"
                   style={{
                     width: "20px",
                     height: "20px",
                     fontSize: "15px",
                     position: "absolute",
-                    marginTop: "3px",
+                    right: "75%",
                     color: "white",
                   }}
                 >

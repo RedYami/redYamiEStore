@@ -241,7 +241,9 @@ export default function App() {
     <>
       <ThemeContext.Provider value={myTheme}>
         <NavBarMobo user={user} allCarts={allCarts} setTheme={setTheme} />
-        <Outlet />
+        <div className="">
+          <Outlet />
+        </div>
 
         <Routes>
           <Route

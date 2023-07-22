@@ -102,16 +102,16 @@ function Images({ imgData, addCart, hidden, currentUser, handleIsLogin }) {
       >
         {isLoading && <FontAwesomeIcon icon={faSpinner} spin />}
         {isImageLoaded && (
-          <>
+          <div className="">
             <img
               src={imgData.source}
               alt={imgData.name}
-              className="img-fluid itemImage col rounded"
+              className="img-fluid itemImage rounded"
             />
             <span
               style={{
                 position: "absolute",
-                top: "2px",
+                top: "2%",
                 right: "16px",
                 fontSize: "25px",
                 color: "white",
@@ -133,7 +133,7 @@ function Images({ imgData, addCart, hidden, currentUser, handleIsLogin }) {
                 />
               </Link>
             </span>
-          </>
+          </div>
         )}
         {isImageLoaded && (
           <div
@@ -150,10 +150,12 @@ function Images({ imgData, addCart, hidden, currentUser, handleIsLogin }) {
               {imgData.name}
             </div>
             <div
-              className="price "
+              className="price rounded"
               style={{
                 fontFamily: "cursive",
                 color: "white",
+                border: "1px solid white",
+                padding: "2px",
               }}
             >
               {imgData.value} kyats
