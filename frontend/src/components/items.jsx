@@ -5,6 +5,7 @@ import {
   faCartShopping,
   faSpinner,
   faCircleInfo,
+  faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
@@ -15,10 +16,11 @@ export default function Items({
   addCart,
   removeCart,
   pureData,
-  filterText,
   currentUser,
 }) {
   const [addWithoutLogin, setAddWithoutLogin] = useState(false);
+  const [filterText, setFilterText] = useState("");
+  const myTheme = useContext(ThemeContext);
 
   function handleIsLogin(boolean) {
     setAddWithoutLogin(boolean);
@@ -42,6 +44,22 @@ export default function Items({
 
   return (
     <div className="itemContainer rounded">
+      <div className="searchBar mb-2 p-2" style={{ backgroundColor: myTheme }}>
+        <form className="d-flex">
+          <input
+            className="form-control me-2"
+            value={filterText}
+            onChange={(e) => setFilterText(e.target.value)}
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+
+          <button className="btn btn-outline-success disabled" type="button">
+            <FontAwesomeIcon icon={faMagnifyingGlass} />
+          </button>
+        </form>
+      </div>
       <div className="row">
         {filteredImages.map((data, index) => (
           <Images
