@@ -14,7 +14,6 @@ export default function Home({
   pureData,
   changeCata,
   selectedLi,
-  currentUser,
 }) {
   return (
     <>
@@ -28,7 +27,6 @@ export default function Home({
             addCart={addNewCart}
             removeCart={removeCart}
             pureData={pureData}
-            currentUser={currentUser}
           />
         </div>
       </div>

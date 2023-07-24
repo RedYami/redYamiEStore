@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { ThemeContext } from "./themeContext";
+import { CurrentUser, ThemeContext } from "./themeContext";
 import {
   faCircleUser,
   faCoins,
@@ -10,25 +10,31 @@ import React from "react";
 import { profileSvgs } from "./datas";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default function Privacy({ currentUser, changeProfilePicture }) {
+export default function Privacy({ changeProfilePicture }) {
   const [selectedProfile, setSelectedProfile] = useState(null);
   const [selectingProfile, setSelectingProfile] = useState(false);
+  const currentUser = useContext(CurrentUser);
   const myTheme = useContext(ThemeContext);
   const profileItems = [
     {
       name: "New name",
       password: "Enter password to change",
-      type: "Yami",
+      type: currentUser.user_name,
     },
     {
       name: "New email",
       password: "Enter password to change",
-      type: "mesutkee@gmail.com",
+      type: currentUser.email,
     },
     {
       name: "New phone number",
       password: "Enter password to change",
-      type: "09423556754",
+      type: currentUser.phone_number,
+    },
+    {
+      name: "New address",
+      password: "Enter password to change",
+      type: currentUser.address,
     },
     { name: "Current password", password: "new password", type: "password" },
   ];
@@ -47,10 +53,18 @@ export default function Privacy({ currentUser, changeProfilePicture }) {
       </div>
     </>
   );
-  console.log(currentUser);
+
   return (
     <>
-      <div className="rounded" style={{ maxWidth: "500px", margin: "auto" }}>
+      <div
+        className="rounded"
+        style={{
+          maxWidth: "500px",
+          margin: "auto",
+          maxHeight: "600px",
+          overflow: "auto",
+        }}
+      >
         <div
           className="rounded border d-flex justify-content-center flex-column p-1"
           style={{ margin: "auto" }}
@@ -77,7 +91,7 @@ export default function Privacy({ currentUser, changeProfilePicture }) {
             }}
             onClick={() => setSelectingProfile(!selectingProfile)}
           >
-            {selectingProfile ? "cancel" : "edit profile"}
+            {selectingProfile ? "okay" : "edit profile"}
           </button>
           {selectingProfile ? profilesSelect : null}
         </div>
@@ -89,7 +103,6 @@ export default function Privacy({ currentUser, changeProfilePicture }) {
             key={item.name}
           />
         ))}
-        <DeleteAccount />
       </div>
     </>
   );
@@ -146,7 +159,7 @@ function EditMode({ firstLable, secondLable, thirdText }) {
               setIsEdit(!isEdit);
             }}
           >
-            edit
+            <i style={{ color: "yellow", marginRight: "4px" }}>Edit</i>
             <FontAwesomeIcon
               icon={faPenToSquare}
               style={{
@@ -160,20 +173,6 @@ function EditMode({ firstLable, secondLable, thirdText }) {
           </button>
         </div>
         {isEdit ? changeMode : null}
-      </div>
-    </>
-  );
-}
-
-function DeleteAccount() {
-  const myTheme = useContext(ThemeContext);
-  return (
-    <>
-      <div className="reedemPoints rounded shadow" style={{ padding: "10px" }}>
-        <div className=" d-flex justify-content-between rounded">
-          <span>Delete account</span>
-          <FontAwesomeIcon icon={faTrash} />
-        </div>
       </div>
     </>
   );

@@ -16,28 +16,30 @@ export default function MessageBox({ onSendMessage, user }) {
       <div className="socialMedia row  rounded p-2 shadow">
         <a
           href="https://www.facebook.com/profile.php?id=100089539521655"
-          className=" col d-flex justify-content-center"
+          className=" col d-flex justify-content-evenly"
           style={{ textDecoration: "none" }}
           target="_blank"
         >
-          <span style={{ color: "black" }}>contact us on </span>
-          <img
-            src={Facebook}
-            alt="faceBookLogo"
-            style={{ width: "30px", height: "30px" }}
-          />
+          <span style={{ color: "black" }}>contact us on</span>
+          <i
+            className="fa fa-facebook-f"
+            style={{
+              fontSize: "30px",
+              color: "blue",
+            }}
+          ></i>
         </a>
-        <div className=" col d-flex justify-content-center">
-          <span>contact us on</span>
-          <img
-            src={Twitter}
-            alt="TwitterLogo"
-            style={{ width: "30px", height: "30px" }}
-          />
+        <div className=" col d-flex justify-content-evenly">
+          <span>See us on</span>
+          <i
+            className="fa fa-twitter"
+            style={{ fontSize: "30px", color: "aqua" }}
+          ></i>
         </div>
       </div>
       <div className="messageBox shadow rounded p-3 mt-3">
-        <h5>Or message us directly in this app</h5>
+        <h5>- OR MESSAGE US HERE -</h5>
+        <hr />
         <div>
           <label>Title</label>
           <input

@@ -10,11 +10,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useContext, useState } from "react";
 import { myDatas } from "./datas";
-import { ThemeContext } from "./themeContext";
-export default function ItemDetail({ currentUser, addNewCart }) {
+import { CurrentUser, ThemeContext } from "./themeContext";
+export default function ItemDetail({ addNewCart }) {
   const { id } = useParams();
   const [index, setIndex] = useState(parseInt(id));
   const myTheme = useContext(ThemeContext);
+  const currentUser = useContext(CurrentUser);
 
   const loginErrorLog =
     currentUser === null ? (

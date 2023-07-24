@@ -15,6 +15,7 @@ import {
   faFolderOpen,
   faAddressCard,
   faPersonCircleCheck,
+  faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
@@ -42,7 +43,7 @@ export default function NavBarMobo({ user, allCarts, setTheme }) {
   }
   return (
     <>
-      <div
+      <nav
         className="navHeading "
         style={{
           backgroundColor: myTheme,
@@ -51,14 +52,25 @@ export default function NavBarMobo({ user, allCarts, setTheme }) {
           fontFamily: "cursive",
         }}
       >
-        <h3>Hyena comerce store</h3>
-        <div className="">
-          <span className="" style={{ fontSize: "24px" }}>
-            {userName}
-          </span>
-          <img src={user.profile_picture} className="img-fluid" />
+        <h3 className="">Hyena comerce store</h3>
+        <div className="profileStatus d-flex justify-content-center flex-column">
+          <img
+            src={user.profile_picture}
+            className="img-fluid rounded-circle"
+            style={{ maxWidth: "60px", maxHeight: "60px", cursor: "pointer" }}
+          />
+          <i>{userName}</i>
         </div>
-      </div>
+        {/* <div className="border border-danger d-flex">
+          <i className="border border-success" style={{ fontSize: "24px" }}>
+            {userName}
+          </i>
+          <img
+            src={user.profile_picture}
+            className="img-fluid border border-secondary"
+          />
+        </div> */}
+      </nav>
       <nav className="mainNav bg-body-tertiary">
         <div className="navContent">
           <ul>
@@ -144,7 +156,7 @@ export default function NavBarMobo({ user, allCarts, setTheme }) {
               <button className="transparentButton">
                 <Link to={"setting"}>
                   <FontAwesomeIcon
-                    icon={faGear}
+                    icon={faUserCircle}
                     onClick={() => setCurrentNav("setting")}
                     style={selectedNav("setting")}
                   />

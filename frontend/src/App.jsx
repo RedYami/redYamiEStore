@@ -2,7 +2,7 @@ import React from "react";
 import { useRef, useState } from "react";
 import "./App.css";
 import { alphabet, myDatas, user_datas } from "./components/datas";
-import { ThemeContext } from "./components/themeContext";
+import { CurrentUser, ThemeContext } from "./components/themeContext";
 
 import { Outlet, Route, Routes } from "react-router-dom";
 import Home from "./components/home";
@@ -243,94 +243,91 @@ export default function App() {
   return (
     <>
       <ThemeContext.Provider value={myTheme}>
-        <NavBarMobo user={user} allCarts={allCarts} setTheme={setTheme} />
-        <div className="">
-          <Outlet />
-        </div>
+        <CurrentUser.Provider value={user}>
+          <NavBarMobo user={user} allCarts={allCarts} setTheme={setTheme} />
+          <div className="">
+            <Outlet />
+          </div>
 
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Home
-                requestCata={requestCata}
-                addNewCart={addNewCart}
-                removeCart={removeCart}
-                pureData={pureData}
-                changeCata={changeCata}
-                selectedLi={selectedLi}
-                currentUser={user}
-              />
-            }
-            errorElement={<ErrorPage />}
-          />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Home
+                  requestCata={requestCata}
+                  addNewCart={addNewCart}
+                  removeCart={removeCart}
+                  pureData={pureData}
+                  changeCata={changeCata}
+                  selectedLi={selectedLi}
+                />
+              }
+              errorElement={<ErrorPage />}
+            />
 
-          <Route
-            path="Cart"
-            element={
-              <Carts
-                allCarts={allCarts}
-                removeCart={removeCart}
-                priceUp={priceUp}
-                priceDown={priceDown}
-                totalPrice={totalRef.current}
-                addNewOrder={addNewOrder}
-              />
-            }
-          />
-          <Route
-            path="message"
-            element={<MessageBox user={user} onSendMessage={onSendMessage} />}
-          />
-          <Route
-            path="order-list"
-            element={
-              <OrderList orderedList={orderedList} deleteOrder={deleteOrder} />
-            }
-          />
-          <Route
-            path="setting/login"
-            element={<Login userDatas={userDatas} isLogin={successLogin} />}
-          />
-          <Route
-            path="setting/login/register"
-            element={<Register userDatas={userDatas} createUser={createUser} />}
-          />
-          <Route
-            path="inbox"
-            element={
-              <UserInbox
-                messages={inboxMessage}
-                watchedMessage={watchedMessage}
-                deleteMessage={deleteMessage}
-              />
-            }
-          />
-          <Route
-            path="detail/:id"
-            element={<ItemDetail currentUser={user} addNewCart={addNewCart} />}
-          />
-          <Route
-            path="setting"
-            element={
-              <Setting
-                currentUser={user}
-                onLogout={onLogout}
-                changeApptheme={setTheme}
-              />
-            }
-          />
-          <Route path="setting/policy" element={<PolicyTerms />} />
-          <Route
-            path="setting/privacy"
-            element={
-              <Privacy
-                currentUser={user}
-                changeProfilePicture={changeProfilePicture}
-              />
-            }
-          />
-        </Routes>
+            <Route
+              path="Cart"
+              element={
+                <Carts
+                  allCarts={allCarts}
+                  removeCart={removeCart}
+                  priceUp={priceUp}
+                  priceDown={priceDown}
+                  totalPrice={totalRef.current}
+                  addNewOrder={addNewOrder}
+                />
+              }
+            />
+            <Route
+              path="message"
+              element={<MessageBox user={user} onSendMessage={onSendMessage} />}
+            />
+            <Route
+              path="order-list"
+              element={
+                <OrderList
+                  orderedList={orderedList}
+                  deleteOrder={deleteOrder}
+                />
+              }
+            />
+            <Route
+              path="setting/login"
+              element={<Login userDatas={userDatas} isLogin={successLogin} />}
+            />
+            <Route
+              path="setting/login/register"
+              element={
+                <Register userDatas={userDatas} createUser={createUser} />
+              }
+            />
+            <Route
+              path="inbox"
+              element={
+                <UserInbox
+                  messages={inboxMessage}
+                  watchedMessage={watchedMessage}
+                  deleteMessage={deleteMessage}
+                />
+              }
+            />
+            <Route
+              path="detail/:id"
+              element={<ItemDetail addNewCart={addNewCart} />}
+            />
+            <Route
+              path="setting"
+              element={
+                <Setting onLogout={onLogout} changeApptheme={setTheme} />
+              }
+            />
+            <Route path="setting/policy" element={<PolicyTerms />} />
+            <Route
+              path="setting/privacy"
+              element={<Privacy changeProfilePicture={changeProfilePicture} />}
+            />
+          </Routes>
+        </CurrentUser.Provider>
       </ThemeContext.Provider>
     </>
   );

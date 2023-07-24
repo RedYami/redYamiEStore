@@ -10,11 +10,12 @@ import {
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext } from "react";
-import { ThemeContext } from "./themeContext";
+import { CurrentUser, ThemeContext } from "./themeContext";
 import { Link } from "react-router-dom";
 
-export default function Setting({ currentUser, onLogout, changeApptheme }) {
+export default function Setting({ onLogout, changeApptheme }) {
   const myTheme = useContext(ThemeContext);
+  const currentUser = useContext(CurrentUser);
   const logMode =
     currentUser === null ? (
       <Link to={"/setting/login"} className="fontAwesome">

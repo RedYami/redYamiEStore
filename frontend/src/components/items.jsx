@@ -9,15 +9,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ThemeContext } from "./themeContext";
+import { CurrentUser, ThemeContext } from "./themeContext";
 
-export default function Items({
-  cataType,
-  addCart,
-  removeCart,
-  pureData,
-  currentUser,
-}) {
+export default function Items({ cataType, addCart, removeCart, pureData }) {
   const [addWithoutLogin, setAddWithoutLogin] = useState(false);
   const [filterText, setFilterText] = useState("");
   const myTheme = useContext(ThemeContext);
@@ -66,7 +60,6 @@ export default function Items({
             addCart={addCart}
             removeCart={removeCart}
             hidden={shouldHiddenOrAll(data.type)}
-            currentUser={currentUser}
             handleIsLogin={handleIsLogin}
           />
         ))}
@@ -76,9 +69,8 @@ export default function Items({
   );
 }
 
-function Images({ imgData, addCart, hidden, currentUser, handleIsLogin }) {
-  // const [isLoading, setIsLoading] = useState(true); //is image loading
-  // const [isImageLoaded, setIsImageLoaded] = useState(false); //is image loaded
+function Images({ imgData, addCart, hidden, handleIsLogin }) {
+  const currentUser = useContext(CurrentUser);
   function userExist() {
     if (currentUser !== null) {
       return addCart(imgData);
