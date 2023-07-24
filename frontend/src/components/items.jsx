@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@fortawesome/fontawesome-svg-core/styles.css";
-import React from "react";
+import React, { useMemo } from "react";
 import {
   faCartShopping,
   faSpinner,
@@ -25,14 +25,12 @@ export default function Items({
   function handleIsLogin(boolean) {
     setAddWithoutLogin(boolean);
   }
-  const filteredImages = [];
+  const filteredImages = useMemo(() => {
+    return pureData.filter((data) =>
+      data.name.toLowerCase().includes(filterText.toLowerCase())
+    );
+  }, [pureData, filterText]);
 
-  pureData.forEach((data) => {
-    //for showing the data that only match with the search bar input(words)
-    if (data.name.toLowerCase().indexOf(filterText.toLowerCase()) !== -1) {
-      filteredImages.push(data);
-    }
-  });
   function shouldHiddenOrAll(type) {
     //hiding the item in the coditions of the catagory type
     if (cataType === "all") {

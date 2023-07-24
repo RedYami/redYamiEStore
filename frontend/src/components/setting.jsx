@@ -1,8 +1,8 @@
 import {
   faCircleChevronDown,
+  faCircleUser,
   faCoins,
   faDroplet,
-  faLock,
   faRightFromBracket,
   faRightToBracket,
   faUser,
@@ -47,13 +47,13 @@ export default function Setting({ currentUser, onLogout, changeApptheme }) {
       <div className="settingDiv bg-body-tertiary">
         <div className="settingOption ">
           <div className="options rounded shadow mb-5">
-            <div className="fontAwesome">
+            <Link to={"/setting/privacy"} className="fontAwesome">
               <FontAwesomeIcon
-                icon={faLock}
+                icon={faCircleUser}
                 style={{ fontSize: "40px", color: myTheme }}
               />
-              <span>Privacy</span>
-            </div>
+              <span>Profile</span>
+            </Link>
           </div>
           <div className="options rounded shadow">
             <div className="fontAwesome">

@@ -18,6 +18,7 @@ import ErrorPage from "./error-page";
 import NavBarMobo from "./components/pureNav";
 import Setting from "./components/setting";
 import PolicyTerms from "./components/eStorePolicy";
+import Privacy from "./components/privacyEdit";
 let orderId = 0;
 export default function App() {
   const [selectedLi, setSelectedLi] = useState(10);
@@ -27,7 +28,7 @@ export default function App() {
   const totalRef = useRef(0);
   const [pureData, setPureData] = useState(myDatas);
 
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(user_datas[0]);
   const [messages, setMessages] = useState([]);
   const [myStaredItems, setMyStaredItems] = useState([]);
   const [myTheme, setMyTheme] = useState("aqua");
@@ -62,6 +63,12 @@ export default function App() {
 
   function setTheme(color) {
     setMyTheme(color);
+  }
+  function changeProfilePicture(picture) {
+    setUser((user) => ({
+      ...user,
+      profile_picture: picture,
+    }));
   }
 
   totalRef.current = 0;
@@ -314,6 +321,15 @@ export default function App() {
             }
           />
           <Route path="setting/policy" element={<PolicyTerms />} />
+          <Route
+            path="setting/privacy"
+            element={
+              <Privacy
+                currentUser={user}
+                changeProfilePicture={changeProfilePicture}
+              />
+            }
+          />
         </Routes>
       </ThemeContext.Provider>
     </>

@@ -215,6 +215,7 @@ export const user_datas = [
     password: "YAMI",
     address: "yamistreet",
     phone_number: "09425446711",
+    profile_picture: "/src/svgs/1.svg",
   },
   {
     user_name: "red",
@@ -222,6 +223,7 @@ export const user_datas = [
     password: "RED",
     address: "yamistreet",
     phone_number: "09425446711",
+    profile_picture: "/src/svgs/1.svg",
   },
   {
     user_name: "blue",
@@ -229,5 +231,18 @@ export const user_datas = [
     password: "BLUE",
     address: "yamistreet",
     phone_number: "09425446711",
+    profile_picture: "/src/svgs/1.svg",
   },
+];
+
+export const profileSvgs = [
+  "/src/svgs/1.svg",
+  "/src/svgs/2.svg",
+  "/src/svgs/3.svg",
+  "/src/svgs/4.svg",
+  "/src/svgs/5.svg",
+  "/src/svgs/6.svg",
+  "/src/svgs/7.svg",
+  "/src/svgs/8.svg",
+  "/src/svgs/9.svg",
 ];

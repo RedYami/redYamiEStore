@@ -52,16 +52,11 @@ export default function NavBarMobo({ user, allCarts, setTheme }) {
         }}
       >
         <h3>Hyena comerce store</h3>
-        <div className="d-flex justify-content-center">
+        <div className="">
           <span className="" style={{ fontSize: "24px" }}>
             {userName}
           </span>
-          <FontAwesomeIcon
-            icon={faCircleUser}
-            onClick={() => setCurrentNav("setting")}
-            style={{ fontSize: "30px", padding: "6px" }}
-            className=""
-          />
+          <img src={user.profile_picture} className="img-fluid" />
         </div>
       </div>
       <nav className="mainNav bg-body-tertiary">
