@@ -1,7 +1,5 @@
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Facebook from "/src/items/facebook.svg";
-import Twitter from "/src/items/twitter.svg";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { useContext, useState } from "react";
 import { ThemeContext } from "./themeContext";

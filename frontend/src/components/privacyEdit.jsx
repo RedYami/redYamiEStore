@@ -69,6 +69,8 @@ export default function Privacy({ changeProfilePicture }) {
         style={{
           maxWidth: "500px",
           margin: "auto",
+          maxHeight: "500px",
+          overflow: "auto",
         }}
       >
         <div

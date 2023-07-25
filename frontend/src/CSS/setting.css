@@ -1,0 +1,49 @@
+.settingDiv{
+    margin: auto;
+    max-width: 500px;
+    padding:5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+  
+  @media screen and  (max-width: 480px){
+    .settingDiv{
+      overflow: auto;
+    }
+  }
+  .settingOption {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .options{
+    cursor: pointer;
+  }
+  .reedemPoints{
+    margin: auto;
+    margin-bottom: 9px;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: cursive;
+  }
+  .reedemPoints div{
+    cursor: pointer;
+  }
+  /* .options{
+  
+  } */
+  .fontAwesome{
+    padding:50px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    text-decoration: none;
+    font-family: cursive;
+  }
+  .policyTerms{
+    max-width: 700px;
+    margin: auto;
+  }

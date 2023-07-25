@@ -1,0 +1,74 @@
+.itemDetailMain .transparentButton :hover{
+    font-size: 70px;
+  }
+  .itemImage {
+    position: relative;
+    height: 320px;
+  }
+  
+  @media screen and (max-width: 480px){
+    .itemImage{
+      max-height: 100px;
+      text-align: center;
+      overflow: auto;
+    }
+  }
+  .itemContainer{
+    /* margin-top: 7px; */
+    overflow: auto;
+  }
+  .taskContainer{
+    max-height: 500px;
+    overflow: auto;
+    
+  }
+  .image-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .fanLogo{
+    top: 50%;
+    left: 50%;
+    font-size: 60px;
+    text-align: center;
+  }
+  .cartingFunction{
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .searchBar{
+   display: flex;
+   justify-content: flex-end;
+  }
+  @media screen and (max-width: 480px) {
+    .cartingFunction{
+      font-size: 13px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: auto;
+    }
+    .rounded-circle{
+      font-size: 10px;
+    }
+  }
+  .imageDetailCart{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .itemDetailMain{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 3px;
+  }
+  .itemDetailMain img{
+    height: 300px;
+  }

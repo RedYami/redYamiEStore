@@ -1,6 +1,13 @@
 import React from "react";
 import { useRef, useState } from "react";
 import "./App.css";
+import "./CSS/home.css";
+import "./CSS/items.css";
+import "./CSS/message.css";
+import "./CSS/nav.css";
+import "./CSS/orders.css";
+import "./CSS/setting.css";
+import "./CSS/userInbox.css";
 import { alphabet, myDatas, user_datas } from "./components/datas";
 import { CurrentUser, ThemeContext } from "./components/themeContext";
 
@@ -12,7 +19,7 @@ import OrderList from "./components/orders";
 import Login from "./components/login";
 import Register from "./components/register";
 import UserInbox from "./components/userInbox";
-import NavigationBar from "./components/navBar";
+
 import ItemDetail from "./components/itemDetail";
 import ErrorPage from "./error-page";
 import NavBarMobo from "./components/pureNav";
@@ -261,7 +268,7 @@ export default function App() {
     <>
       <ThemeContext.Provider value={myTheme}>
         <CurrentUser.Provider value={user}>
-          <div className="mainApp border border-danger">
+          <div className="mainApp">
             <NavBarMobo
               allCarts={allCarts}
               currentNav={currentNav}

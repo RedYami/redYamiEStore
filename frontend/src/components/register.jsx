@@ -106,7 +106,7 @@ export default function Register({ userDatas, createUser }) {
         />
         {errorLogs.name !== null && (
           <>
-            <i>{errorLogs.name}</i>
+            <i style={{ color: "red" }}>{errorLogs.name}</i>
             <br />
           </>
         )}
