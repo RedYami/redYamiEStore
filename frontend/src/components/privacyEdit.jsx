@@ -65,7 +65,7 @@ export default function Privacy({ changeProfilePicture }) {
   return (
     <>
       <div
-        className="rounded"
+        className="rounded border "
         style={{
           maxWidth: "500px",
           margin: "auto",

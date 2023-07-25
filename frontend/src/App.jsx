@@ -252,6 +252,7 @@ export default function App() {
       orderCode: simpleCodeGen(),
       approved: false,
       id: orderId++,
+      originalOrder: orderedList,
     };
   }
   /////////Items Functions End/////
@@ -260,12 +261,13 @@ export default function App() {
     <>
       <ThemeContext.Provider value={myTheme}>
         <CurrentUser.Provider value={user}>
-          <NavBarMobo
-            allCarts={allCarts}
-            currentNav={currentNav}
-            setCurrentNav={changeNav}
-          />
-          <div className="">
+          <div className="mainApp border border-danger">
+            <NavBarMobo
+              allCarts={allCarts}
+              currentNav={currentNav}
+              setCurrentNav={changeNav}
+            />
+
             <Outlet />
           </div>
 

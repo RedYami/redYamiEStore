@@ -1,12 +1,24 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import React from "react";
 import { useOutletContext } from "react-router-dom";
 import { ThemeContext } from "./themeContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@fortawesome/fontawesome-svg-core/styles.css";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCircleInfo,
+  faEye,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 export default function OrderList({ orderedList, deleteOrder }) {
   const myTheme = useContext(ThemeContext);
+  // const [isChecking, setIsChecking] = useState(false);
+  const [detailId, setDetailId] = useState(null);
+  function handleBack() {
+    setDetailId(null);
+  }
+  function handleDelete(id) {
+    deleteOrder(id);
+  }
 
   return (
     <>
@@ -35,25 +47,87 @@ export default function OrderList({ orderedList, deleteOrder }) {
             </thead>
             <tbody>
               {orderedList.map((list, index) => (
-                <tr key={index}>
-                  <td>{list.quantity}</td>
-                  <td>{list.orderCode}</td>
-                  <td>{list.totalPrice} kyats</td>
-                  <td>{list.user_name}</td>
-                  <td>{list.approved ? "Approved" : "pending"}</td>
-                  <td>
-                    <button
-                      className="transparentButton"
-                      style={{ color: "red" }}
-                      onClick={() => deleteOrder(list.id)}
-                    >
-                      <FontAwesomeIcon icon={faXmark} />
-                    </button>
-                  </td>
-                </tr>
+                <>
+                  <tr key={index}>
+                    <td>{list.quantity}</td>
+                    <td>{list.orderCode}</td>
+                    <td>{list.totalPrice} kyats</td>
+                    <td>{list.user_name}</td>
+                    <td>{list.approved ? "Approved" : "pending"}</td>
+                    <td>
+                      <button
+                        className="transparentButton"
+                        style={{ color: myTheme, fontSize: "20px" }}
+                        onClick={() => setDetailId(index)}
+                      >
+                        <FontAwesomeIcon
+                          icon={faCircleInfo}
+                          className="transparentButton"
+                        />
+                      </button>
+                    </td>
+                  </tr>
+                  {detailId === index ? (
+                    <CheckOrder
+                      order={list}
+                      handleDelete={handleDelete}
+                      handleBack={handleBack}
+                    />
+                  ) : null}
+                </>
               ))}
             </tbody>
           </table>
+        </div>
+      </div>
+    </>
+  );
+}
+
+function CheckOrder({ order, handleBack, handleDelete }) {
+  const myTheme = useContext(ThemeContext);
+  return (
+    <>
+      <div className="confirmWidget-overlay">
+        <div
+          className="container confirmWidget"
+          style={{ border: "4px solid " + myTheme }}
+        >
+          <div className="reminder">
+            <h4 className="text-center">Order code {order.orderCode}</h4>
+            <ul className="list-group">
+              <li className="list-group-item row">
+                <span className="col text-primary">Name</span>
+                <span className="col text-primary">Quantity</span>
+                <span className="col text-primary">Total price</span>
+              </li>
+              {order.originalOrder.map((cart) => (
+                <li className="list-group-item row" key={cart.name}>
+                  <span className="col">{cart.name}</span>
+                  <span className="col">{cart.quantity}</span>
+                  <span className="col">{cart.price} kyats</span>
+                </li>
+              ))}
+              <li className="list-group-item active">
+                Total price + delivery fee = {order.totalPrice + parseInt(1000)}{" "}
+                kyats
+              </li>
+            </ul>
+            <div className="buttons mt-2 ">
+              <button
+                onClick={handleBack}
+                className="cancel btn btn-outline-warning"
+              >
+                back
+              </button>
+              <button
+                className="confirm btn btn-outline-danger"
+                onClick={() => handleDelete(order.id)}
+              >
+                cancel order
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </>
