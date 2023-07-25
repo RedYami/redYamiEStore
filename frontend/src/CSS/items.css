@@ -10,12 +10,7 @@
     .itemImage{
       max-height: 100px;
       text-align: center;
-      overflow: auto;
     }
-  }
-  .itemContainer{
-    /* margin-top: 7px; */
-    overflow: auto;
   }
   .taskContainer{
     max-height: 500px;
@@ -51,7 +46,6 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      overflow: auto;
     }
     .rounded-circle{
       font-size: 10px;

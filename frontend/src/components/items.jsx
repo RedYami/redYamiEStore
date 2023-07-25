@@ -1,11 +1,12 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@fortawesome/fontawesome-svg-core/styles.css";
-import React, { useMemo } from "react";
+import React, { useMemo, useTransition } from "react";
 import {
   faCartShopping,
   faSpinner,
   faCircleInfo,
   faMagnifyingGlass,
+  faArrowsRotate,
 } from "@fortawesome/free-solid-svg-icons";
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -15,16 +16,20 @@ import LoginError from "./loginFirstError";
 export default function Items({ cataType, addCart, removeCart, pureData }) {
   const [addWithoutLogin, setAddWithoutLogin] = useState(false);
   const [filterText, setFilterText] = useState("");
+
   const myTheme = useContext(ThemeContext);
+  const [filteredImages, setFilteredImages] = useState(pureData);
 
   function handleIsLogin(boolean) {
     setAddWithoutLogin(boolean);
   }
-  const filteredImages = useMemo(() => {
-    return pureData.filter((data) =>
-      data.name.toLowerCase().includes(filterText.toLowerCase())
+  function handleSearch() {
+    setFilteredImages(
+      pureData.filter((data) =>
+        data.name.toLowerCase().includes(filterText.toLowerCase())
+      )
     );
-  }, [pureData, filterText]);
+  }
 
   function shouldHiddenOrAll(type) {
     //hiding the item in the coditions of the catagory type
@@ -34,13 +39,25 @@ export default function Items({ cataType, addCart, removeCart, pureData }) {
       return type === cataType; //e.g cataType === fruits, show only the item that type is fruit
     }
   }
-
   return (
     <div className="itemContainer rounded">
-      <div className="searchBar mb-2 p-2" style={{ backgroundColor: myTheme }}>
+      <div
+        className="searchBar mb-2 p-2"
+        style={{ backgroundColor: myTheme, alignItems: "center" }}
+      >
         <form className="d-flex">
+          <button
+            className=" btn btn-outline-success me-1"
+            type="button"
+            onClick={() => {
+              setFilteredImages(pureData);
+              setFilterText("");
+            }}
+          >
+            <FontAwesomeIcon icon={faArrowsRotate} />
+          </button>
           <input
-            className="form-control me-2"
+            className="form-control me-1"
             value={filterText}
             onChange={(e) => setFilterText(e.target.value)}
             type="search"
@@ -48,12 +65,16 @@ export default function Items({ cataType, addCart, removeCart, pureData }) {
             aria-label="Search"
           />
 
-          <button className="btn btn-outline-success disabled" type="button">
+          <button
+            className="btn btn-outline-success"
+            type="button"
+            onClick={handleSearch}
+          >
             <FontAwesomeIcon icon={faMagnifyingGlass} />
           </button>
         </form>
       </div>
-      <div className="row">
+      <div className="row" style={{ overflowX: "hidden" }}>
         {filteredImages.map((data, index) => (
           <Images
             imgData={data}
@@ -64,6 +85,9 @@ export default function Items({ cataType, addCart, removeCart, pureData }) {
             handleIsLogin={handleIsLogin}
           />
         ))}
+        {filteredImages.length > 0 ? null : (
+          <i className="text-center">There is no such item</i>
+        )}
       </div>
       {addWithoutLogin ? (
         <LoginError
