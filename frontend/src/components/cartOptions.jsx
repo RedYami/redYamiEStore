@@ -205,7 +205,7 @@ function ConfirmWidget({ isPaying, addNewOrder, allCarts, totalPrice }) {
                 onClick={() => isPaying(false)}
                 className="cancel btn btn-outline-warning"
               >
-                cancel
+                back
               </button>
               <button
                 className="confirm btn btn-outline-success"
