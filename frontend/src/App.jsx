@@ -31,7 +31,7 @@ export default function App() {
 
   const [user, setUser] = useState(userDatas[0]);
   const [messages, setMessages] = useState([]);
-  const [myStaredItems, setMyStaredItems] = useState([]);
+  const [currentNav, setCurrentNav] = useState("home");
   const [myTheme, setMyTheme] = useState("aqua");
   const [inboxMessage, setInboxMessage] = useState([
     {
@@ -64,6 +64,9 @@ export default function App() {
   function setTheme(color) {
     setMyTheme(color);
   }
+  function changeNav(nav) {
+    setCurrentNav(nav);
+  }
   function changeProfilePicture(picture) {
     setUserDatas(
       userDatas.map((user_data) => {
@@ -87,6 +90,7 @@ export default function App() {
   //when login is success successLogin()
   function successLogin(userName) {
     setUser(userDatas.find((user) => user.user_name === userName));
+    setCurrentNav("home");
   }
   function onLogout() {
     setUser(null);
@@ -256,7 +260,11 @@ export default function App() {
     <>
       <ThemeContext.Provider value={myTheme}>
         <CurrentUser.Provider value={user}>
-          <NavBarMobo user={user} allCarts={allCarts} setTheme={setTheme} />
+          <NavBarMobo
+            allCarts={allCarts}
+            currentNav={currentNav}
+            setCurrentNav={changeNav}
+          />
           <div className="">
             <Outlet />
           </div>

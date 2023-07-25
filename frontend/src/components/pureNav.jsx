@@ -20,8 +20,7 @@ import {
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import { CurrentUser, ThemeContext } from "./themeContext";
-export default function NavBarMobo({ allCarts, setTheme }) {
-  const [currentNav, setCurrentNav] = useState("home");
+export default function NavBarMobo({ allCarts, currentNav, setCurrentNav }) {
   const myTheme = useContext(ThemeContext);
   const currentUser = useContext(CurrentUser);
   const userName =
