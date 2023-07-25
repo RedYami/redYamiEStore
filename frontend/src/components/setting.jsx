@@ -11,11 +11,14 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext } from "react";
 import { CurrentUser, ThemeContext } from "./themeContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import LoginError from "./loginFirstError";
 
 export default function Setting({ onLogout, changeApptheme }) {
   const myTheme = useContext(ThemeContext);
   const currentUser = useContext(CurrentUser);
+  const [loginError, setLoginError] = useState(false);
+  const navigate = useNavigate();
   const logMode =
     currentUser === null ? (
       <Link to={"/setting/login"} className="fontAwesome">
@@ -41,6 +44,15 @@ export default function Setting({ onLogout, changeApptheme }) {
         <span>Logout</span>
       </div>
     );
+  function handleProfileRoute() {
+    if (currentUser !== null) {
+      return navigate("/setting/privacy");
+    }
+    setLoginError(true);
+  }
+  function handleIsLogin(boolean) {
+    setLoginError(boolean);
+  }
   return (
     <>
       <ReedemPoint />
@@ -48,13 +60,13 @@ export default function Setting({ onLogout, changeApptheme }) {
       <div className="settingDiv bg-body-tertiary">
         <div className="settingOption ">
           <div className="options rounded shadow mb-5">
-            <Link to={"/setting/privacy"} className="fontAwesome">
+            <div className="fontAwesome" onClick={handleProfileRoute}>
               <FontAwesomeIcon
                 icon={faCircleUser}
                 style={{ fontSize: "40px", color: myTheme }}
               />
               <span>Profile</span>
-            </Link>
+            </div>
           </div>
           <div className="options rounded shadow">
             <div className="fontAwesome">
@@ -78,6 +90,12 @@ export default function Setting({ onLogout, changeApptheme }) {
           </div>
           <div className="options rounded shadow">{logMode}</div>
         </div>
+        {loginError ? (
+          <LoginError
+            handleIsLogin={handleIsLogin}
+            ErrorMessage={"Login first to view profile"}
+          />
+        ) : null}
       </div>
     </>
   );

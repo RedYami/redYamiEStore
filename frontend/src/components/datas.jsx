@@ -210,6 +210,7 @@ export const alphabet = [
 
 export const user_datas = [
   {
+    user_id: 0,
     user_name: "yami",
     email: "yami@gmail.com",
     password: "YAMI",
@@ -218,6 +219,7 @@ export const user_datas = [
     profile_picture: "/src/svgs/1.svg",
   },
   {
+    user_id: 1,
     user_name: "red",
     email: "red@gmail.com",
     password: "RED",
@@ -226,6 +228,7 @@ export const user_datas = [
     profile_picture: "/src/svgs/1.svg",
   },
   {
+    user_id: 2,
     user_name: "blue",
     email: "blue@gmail.com",
     password: "BLUE",

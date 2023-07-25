@@ -19,11 +19,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
-import { ThemeContext } from "./themeContext";
-export default function NavBarMobo({ user, allCarts, setTheme }) {
+import { CurrentUser, ThemeContext } from "./themeContext";
+export default function NavBarMobo({ allCarts, setTheme }) {
   const [currentNav, setCurrentNav] = useState("home");
   const myTheme = useContext(ThemeContext);
-  const userName = user !== null ? user.user_name : <span>guest</span>;
+  const currentUser = useContext(CurrentUser);
+  const userName =
+    currentUser !== null ? currentUser.user_name : <span>guest</span>;
 
   function selectedNav(nav) {
     if (currentNav === nav) {
@@ -55,21 +57,16 @@ export default function NavBarMobo({ user, allCarts, setTheme }) {
         <h3 className="">Hyena comerce store</h3>
         <div className="profileStatus d-flex justify-content-center flex-column">
           <img
-            src={user.profile_picture}
+            src={
+              currentUser !== null
+                ? currentUser.profile_picture
+                : "/src/svgs/default.svg"
+            }
             className="img-fluid rounded-circle"
-            style={{ maxWidth: "60px", maxHeight: "60px", cursor: "pointer" }}
+            style={{ maxWidth: "40px", maxHeight: "40px", cursor: "pointer" }}
           />
           <i>{userName}</i>
         </div>
-        {/* <div className="border border-danger d-flex">
-          <i className="border border-success" style={{ fontSize: "24px" }}>
-            {userName}
-          </i>
-          <img
-            src={user.profile_picture}
-            className="img-fluid border border-secondary"
-          />
-        </div> */}
       </nav>
       <nav className="mainNav bg-body-tertiary">
         <div className="navContent">

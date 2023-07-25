@@ -20,6 +20,7 @@ import Setting from "./components/setting";
 import PolicyTerms from "./components/eStorePolicy";
 import Privacy from "./components/privacyEdit";
 let orderId = 0;
+let userId = 2;
 export default function App() {
   const [selectedLi, setSelectedLi] = useState(10);
   const [userDatas, setUserDatas] = useState(user_datas);
@@ -28,7 +29,7 @@ export default function App() {
   const totalRef = useRef(0);
   const [pureData, setPureData] = useState(myDatas);
 
-  const [user, setUser] = useState(user_datas[0]);
+  const [user, setUser] = useState(userDatas[0]);
   const [messages, setMessages] = useState([]);
   const [myStaredItems, setMyStaredItems] = useState([]);
   const [myTheme, setMyTheme] = useState("aqua");
@@ -60,15 +61,25 @@ export default function App() {
     },
   ]);
   const [orderedList, setOrderedList] = useState([]);
-
   function setTheme(color) {
     setMyTheme(color);
   }
   function changeProfilePicture(picture) {
-    setUser((user) => ({
+    setUserDatas(
+      userDatas.map((user_data) => {
+        if (user_data.user_id === user.user_id) {
+          return {
+            ...user_data,
+            profile_picture: picture,
+          };
+        }
+        return user_data;
+      })
+    );
+    setUser({
       ...user,
       profile_picture: picture,
-    }));
+    });
   }
 
   totalRef.current = 0;
@@ -102,6 +113,7 @@ export default function App() {
     setUserDatas((userDatas) => [
       ...userDatas,
       {
+        user_id: userId++,
         user_name: newUser.user_name,
         email: newUser.email,
         password: newUser.password,

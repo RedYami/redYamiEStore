@@ -10,6 +10,7 @@ import {
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { CurrentUser, ThemeContext } from "./themeContext";
+import LoginError from "./loginFirstError";
 
 export default function Items({ cataType, addCart, removeCart, pureData }) {
   const [addWithoutLogin, setAddWithoutLogin] = useState(false);
@@ -64,7 +65,12 @@ export default function Items({ cataType, addCart, removeCart, pureData }) {
           />
         ))}
       </div>
-      {addWithoutLogin ? <LoginError handleIsLogin={handleIsLogin} /> : null}
+      {addWithoutLogin ? (
+        <LoginError
+          handleIsLogin={handleIsLogin}
+          ErrorMessage={"Login first to purchase"}
+        />
+      ) : null}
     </div>
   );
 }
@@ -154,38 +160,6 @@ function Images({ imgData, addCart, hidden, handleIsLogin }) {
             {imgData.value} kyats
           </div>
           <div className="theee">{buttonDisplay}</div>
-        </div>
-      </div>
-    </>
-  );
-}
-
-function LoginError({ handleIsLogin }) {
-  const navigate = useNavigate();
-  function loginFirst() {
-    return navigate("/setting/login");
-  }
-  return (
-    <>
-      <div className="confirmWidget-overlay">
-        <div className="container confirmWidget">
-          <div className="reminder">
-            <h4 className="text-center">Please Login first to order</h4>
-            <div className="buttons mt-2 ">
-              <button
-                onClick={() => handleIsLogin(false)}
-                className="cancel btn btn-outline-warning"
-              >
-                cancel
-              </button>
-              <button
-                className="confirm btn btn-outline-success "
-                onClick={() => loginFirst()}
-              >
-                Login
-              </button>
-            </div>
-          </div>
         </div>
       </div>
     </>

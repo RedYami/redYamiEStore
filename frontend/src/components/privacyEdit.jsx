@@ -4,6 +4,7 @@ import {
   faCircleUser,
   faCoins,
   faPenToSquare,
+  faStarOfLife,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
@@ -40,12 +41,19 @@ export default function Privacy({ changeProfilePicture }) {
   ];
   const profilesSelect = (
     <>
-      <div className="profilePics row mt-1 p-1">
+      <div
+        className="profilePics row p-1 rounded"
+        style={{ backgroundColor: "gold" }}
+      >
         {profileSvgs.map((profile) => (
           <img
             src={profile}
             className=" col"
-            style={{ maxWidth: "70px", maxHeight: "70px", cursor: "pointer" }}
+            style={{
+              maxWidth: "70px",
+              maxHeight: "70px",
+              cursor: "pointer",
+            }}
             onClick={() => changeProfilePicture(profile)}
             key={profile}
           />
@@ -61,12 +69,10 @@ export default function Privacy({ changeProfilePicture }) {
         style={{
           maxWidth: "500px",
           margin: "auto",
-          maxHeight: "600px",
-          overflow: "auto",
         }}
       >
         <div
-          className="rounded border d-flex justify-content-center flex-column p-1"
+          className="rounded d-flex justify-content-center flex-column p-1"
           style={{ margin: "auto" }}
         >
           <img
@@ -81,12 +87,12 @@ export default function Privacy({ changeProfilePicture }) {
             className=" rounded-circle"
           />
           <button
-            className=" transparentButton rounded"
+            className=" btn rounded"
             style={{
               fontFamily: "cursive",
               maxWidth: "120px",
               margin: "auto",
-              backgroundColor: myTheme,
+              backgroundColor: "gold",
               color: "white",
             }}
             onClick={() => setSelectingProfile(!selectingProfile)}
@@ -116,7 +122,7 @@ function EditMode({ firstLable, secondLable, thirdText }) {
     <>
       <div
         className="container p-3 mt-1 rounded border"
-        style={{ maxWidth: "370px" }}
+        style={{ maxWidth: "390px" }}
       >
         <label>{firstLable}</label>
         <input
@@ -147,19 +153,25 @@ function EditMode({ firstLable, secondLable, thirdText }) {
           className=" d-flex justify-content-between rounded"
           style={{ backgroundColor: myTheme, color: "white" }}
         >
-          <span className="p-1 rounded">{thirdText}</span>
+          <span className="p-1 rounded">
+            <FontAwesomeIcon
+              icon={faStarOfLife}
+              className="transparentButton"
+            />
+            {thirdText}
+          </span>
           <button
             style={{
               marginTop: "auto",
               marginBottom: "auto",
             }}
-            className="transparentButton"
+            className="transparentButton p-2"
             onClick={(e) => {
               e.stopPropagation();
               setIsEdit(!isEdit);
             }}
           >
-            <i style={{ color: "yellow", marginRight: "4px" }}>Edit</i>
+            <i style={{ marginRight: "4px", color: "white" }}>Edit</i>
             <FontAwesomeIcon
               icon={faPenToSquare}
               style={{
