@@ -98,7 +98,7 @@ export default function ItemDetail({ addNewCart }) {
               >
                 <FontAwesomeIcon
                   icon={faCartShopping}
-                  style={{ color: myTheme, fontSize: "24px", color: myTheme }}
+                  style={{ color: myTheme, fontSize: "24px" }}
                 />
               </button>
             </a>

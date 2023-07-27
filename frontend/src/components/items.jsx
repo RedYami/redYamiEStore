@@ -39,6 +39,19 @@ export default function Items({ cataType, addCart, removeCart, pureData }) {
       return type === cataType; //e.g cataType === fruits, show only the item that type is fruit
     }
   }
+
+  const imgItems = filteredImages.map((data, index) => (
+    <Images
+      imgData={data}
+      key={index}
+      addCart={addCart}
+      removeCart={removeCart}
+      hidden={shouldHiddenOrAll(data.type)}
+      handleIsLogin={handleIsLogin}
+      placeholderSrc={"/src/svgs/loadingAnimated.gif"}
+    />
+  ));
+
   return (
     <div className="itemContainer rounded">
       <div
@@ -47,7 +60,7 @@ export default function Items({ cataType, addCart, removeCart, pureData }) {
       >
         <form className="d-flex">
           <button
-            className=" btn btn-outline-success me-1"
+            className="btn me-1 rounded refreshButton"
             type="button"
             onClick={() => {
               setFilteredImages(pureData);
@@ -66,7 +79,7 @@ export default function Items({ cataType, addCart, removeCart, pureData }) {
           />
 
           <button
-            className="btn btn-outline-success"
+            className="btn btn-outline-success searchButton"
             type="button"
             onClick={handleSearch}
           >
@@ -75,16 +88,7 @@ export default function Items({ cataType, addCart, removeCart, pureData }) {
         </form>
       </div>
       <div className="row" style={{ overflowX: "hidden" }}>
-        {filteredImages.map((data, index) => (
-          <Images
-            imgData={data}
-            key={index}
-            addCart={addCart}
-            removeCart={removeCart}
-            hidden={shouldHiddenOrAll(data.type)}
-            handleIsLogin={handleIsLogin}
-          />
-        ))}
+        {imgItems}
         {filteredImages.length > 0 ? null : (
           <i className="text-center">There is no such item</i>
         )}
@@ -99,14 +103,24 @@ export default function Items({ cataType, addCart, removeCart, pureData }) {
   );
 }
 
-function Images({ imgData, addCart, hidden, handleIsLogin }) {
+function Images({ imgData, addCart, hidden, handleIsLogin, placeholderSrc }) {
   const currentUser = useContext(CurrentUser);
+  const [imgSrc, setImgSrc] = useState(placeholderSrc || imgData.source);
+  const customClass =
+    placeholderSrc && imgSrc === placeholderSrc ? "loading" : "loaded";
   function userExist() {
     if (currentUser !== null) {
       return addCart(imgData);
     }
     handleIsLogin(true);
   }
+  useEffect(() => {
+    const img = new Image();
+    img.src = imgData.source;
+    img.onload = () => {
+      setImgSrc(imgData.source);
+    };
+  }, [imgData.source]);
 
   const myTheme = useContext(ThemeContext);
   const buttonDisplay = (
@@ -127,10 +141,10 @@ function Images({ imgData, addCart, hidden, handleIsLogin }) {
       >
         <div className="">
           <img
-            src={imgData.source}
-            alt={imgData.name}
-            className="img-fluid itemImage rounded"
-            loading="lazy"
+            // style={imgSrc === placeholderSrc ? { opacity: "50px" } : null}
+            src={imgSrc}
+            alt={imgData.source}
+            className={"img-fluid rounded " + `${customClass}`}
           />
           <span
             style={{

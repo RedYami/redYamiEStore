@@ -1,17 +1,9 @@
 .itemDetailMain .transparentButton :hover{
     font-size: 70px;
   }
-  .itemImage {
-    position: relative;
-    height: 320px;
-  }
+
   
-  @media screen and (max-width: 480px){
-    .itemImage{
-      max-height: 100px;
-      text-align: center;
-    }
-  }
+  
   .taskContainer{
     max-height: 500px;
     overflow: auto;
@@ -65,4 +57,52 @@
   }
   .itemDetailMain img{
     height: 300px;
+  }
+  .refreshButton {
+    background-color: lightgreen;
+    color: aliceblue;
+    border: none;
+  }
+  .refreshButton:hover{
+    background-color: green;
+    color: white;
+    border: none;
+  }
+  .searchButton {
+    background-color: lightgreen;
+    color: aliceblue;
+    border: none;
+  }
+  .searchButton:hover{
+    background-color: green;
+    color: white;
+    border: none;
+  }
+  .loading {
+    /* filter: blur(10px); */
+    clip-path: inset(0);
+    position: relative;
+    padding: 100px;
+  }
+  .loaded {
+    filter: blur(0px);
+    transition: filter 0.5s linear;
+    position: relative;
+    height: 320px;
+  }
+  @media screen and (max-width: 480px){
+    .loading{
+      /* filter: blur(10px); */
+      clip-path: inset(0);
+      position: relative;
+      max-height: 100px;
+      text-align: center;
+    }
+    .loaded{
+      filter: blur(0px);
+      transition: filter 0.5s linear;
+      position: relative;
+      max-height: 100px;
+      text-align: center;
+    }
   }

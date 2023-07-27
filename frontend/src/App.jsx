@@ -26,6 +26,7 @@ import NavBarMobo from "./components/pureNav";
 import Setting from "./components/setting";
 import PolicyTerms from "./components/eStorePolicy";
 import Privacy from "./components/privacyEdit";
+import Loading from "./components/loadingMode";
 let orderId = 0;
 let userId = 2;
 export default function App() {
@@ -35,6 +36,7 @@ export default function App() {
   const [allCarts, setAllCarts] = useState([]);
   const totalRef = useRef(0);
   const [pureData, setPureData] = useState(myDatas);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [user, setUser] = useState(userDatas[0]);
   const [messages, setMessages] = useState([]);
@@ -199,10 +201,21 @@ export default function App() {
   }
   /////////Carts Functions End///////////
   /////////Catagories Functions Start///////////
+
   function changeCata(cataType, Id) {
-    setRequestCata(cataType);
-    setSelectedLi(Id);
+    setIsLoading(true);
+    async function updateCata() {
+      return new Promise((resolve) => {
+        setRequestCata(cataType);
+        setSelectedLi(Id);
+        resolve();
+      });
+    }
+    updateCata().then(() => {
+      setIsLoading(false);
+    });
   }
+
   /////////Catagories Functions End/////
   /////////Items Functions Start/////
   function addNewCart(object) {
@@ -276,6 +289,7 @@ export default function App() {
             />
 
             <Outlet />
+            {isLoading ? <Loading /> : null}
           </div>
 
           <Routes>
