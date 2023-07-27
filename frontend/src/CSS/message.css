@@ -16,16 +16,17 @@
   }
   .socialMedia{
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     max-width: 500px;
     margin:auto;
     margin-top: auto;
     margin-bottom: auto;
     align-items: center;
   }
-  .socialMedia span{
-    font-family: cursive;
-  }
+
   .messageLink{
     text-decoration: none;
+  }
+  .messageHead{
+    font-family: cursive;
   }
