@@ -5,10 +5,11 @@ import { useContext, useState } from "react";
 import { ThemeContext } from "./themeContext";
 import React from "react";
 
-export default function MessageBox({ onSendMessage, user }) {
+export default function MessageBox({ onSendMessage, user, changeNav }) {
   const myTheme = useContext(ThemeContext);
   const [inputMessage, setInputMessage] = useState("");
   const [title, setTitle] = useState("");
+  changeNav("sendBox");
   return (
     <>
       <div

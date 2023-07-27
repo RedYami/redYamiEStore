@@ -19,7 +19,6 @@ export default function Items({ cataType, addCart, removeCart, pureData }) {
 
   const myTheme = useContext(ThemeContext);
   const [filteredImages, setFilteredImages] = useState(pureData);
-
   function handleIsLogin(boolean) {
     setAddWithoutLogin(boolean);
   }

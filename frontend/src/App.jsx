@@ -42,6 +42,7 @@ export default function App() {
   const [messages, setMessages] = useState([]);
   const [currentNav, setCurrentNav] = useState("home");
   const [myTheme, setMyTheme] = useState("aqua");
+  const [redeemPoints, setRedeemPoints] = useState(79); //one redeem point equal to 500ks
   const [inboxMessage, setInboxMessage] = useState([
     {
       sender: "admin",
@@ -303,6 +304,7 @@ export default function App() {
                   pureData={pureData}
                   changeCata={changeCata}
                   selectedLi={selectedLi}
+                  changeNav={changeNav}
                 />
               }
               errorElement={<ErrorPage />}
@@ -318,12 +320,19 @@ export default function App() {
                   priceDown={priceDown}
                   totalPrice={totalRef.current}
                   addNewOrder={addNewOrder}
+                  changeNav={changeNav}
                 />
               }
             />
             <Route
               path="message"
-              element={<MessageBox user={user} onSendMessage={onSendMessage} />}
+              element={
+                <MessageBox
+                  user={user}
+                  onSendMessage={onSendMessage}
+                  changeNav={changeNav}
+                />
+              }
             />
             <Route
               path="order-list"
@@ -331,17 +340,28 @@ export default function App() {
                 <OrderList
                   orderedList={orderedList}
                   deleteOrder={deleteOrder}
+                  changeNav={changeNav}
                 />
               }
             />
             <Route
               path="setting/login"
-              element={<Login userDatas={userDatas} isLogin={successLogin} />}
+              element={
+                <Login
+                  userDatas={userDatas}
+                  isLogin={successLogin}
+                  changeNav={changeNav}
+                />
+              }
             />
             <Route
               path="setting/login/register"
               element={
-                <Register userDatas={userDatas} createUser={createUser} />
+                <Register
+                  userDatas={userDatas}
+                  createUser={createUser}
+                  changeNav={changeNav}
+                />
               }
             />
             <Route
@@ -351,23 +371,40 @@ export default function App() {
                   messages={inboxMessage}
                   watchedMessage={watchedMessage}
                   deleteMessage={deleteMessage}
+                  changeNav={changeNav}
                 />
               }
             />
             <Route
               path="detail/:id"
-              element={<ItemDetail addNewCart={addNewCart} />}
+              element={
+                <ItemDetail addNewCart={addNewCart} changeNav={changeNav} />
+              }
             />
             <Route
               path="setting"
               element={
-                <Setting onLogout={onLogout} changeApptheme={setTheme} />
+                <Setting
+                  onLogout={onLogout}
+                  changeApptheme={setTheme}
+                  redeemPoints={redeemPoints}
+                  changeNav={changeNav}
+                />
               }
             />
-            <Route path="setting/policy" element={<PolicyTerms />} />
+            <Route
+              path="setting/policy"
+              element={<PolicyTerms />}
+              changeNav={changeNav}
+            />
             <Route
               path="setting/privacy"
-              element={<Privacy changeProfilePicture={changeProfilePicture} />}
+              element={
+                <Privacy
+                  changeProfilePicture={changeProfilePicture}
+                  changeNav={changeNav}
+                />
+              }
             />
           </Routes>
         </CurrentUser.Provider>

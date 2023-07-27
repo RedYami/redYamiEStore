@@ -18,9 +18,11 @@ export default function Carts({
   priceDown,
   totalPrice,
   addNewOrder,
+  changeNav,
 }) {
   const [paying, setPaying] = useState(false);
   const myTheme = useContext(ThemeContext);
+  changeNav("cart");
   function isPaying(Boolean) {
     setPaying(Boolean);
   }

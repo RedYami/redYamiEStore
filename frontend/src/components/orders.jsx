@@ -9,10 +9,11 @@ import {
   faEye,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
-export default function OrderList({ orderedList, deleteOrder }) {
+export default function OrderList({ orderedList, deleteOrder, changeNav }) {
   const myTheme = useContext(ThemeContext);
   // const [isChecking, setIsChecking] = useState(false);
   const [detailId, setDetailId] = useState(null);
+  changeNav("orderList");
   function handleBack() {
     setDetailId(null);
   }

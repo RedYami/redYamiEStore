@@ -5,12 +5,18 @@ import { useContext, useState } from "react";
 import { ThemeContext } from "./themeContext";
 import React from "react";
 
-export default function UserInbox({ messages, watchedMessage, deleteMessage }) {
+export default function UserInbox({
+  messages,
+  watchedMessage,
+  deleteMessage,
+  changeNav,
+}) {
   const [selectedNavType, setSelectedNavType] = useState("primary");
   const myTheme = useContext(ThemeContext);
   const filteredMessage = messages.filter(
     (message) => message.type === selectedNavType
   );
+  changeNav("inbox");
 
   function checkAllWatched(type) {
     const unwatchedMessages = messages.filter(

@@ -14,7 +14,9 @@ export default function Home({
   pureData,
   changeCata,
   selectedLi,
+  changeNav,
 }) {
+  changeNav("home");
   return (
     <>
       <div className="components container-fluid row">

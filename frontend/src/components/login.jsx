@@ -2,11 +2,12 @@ import { useState } from "react";
 import React from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 
-export default function Login({ userDatas, isLogin }) {
+export default function Login({ userDatas, isLogin, changeNav }) {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [loginStatus, setLoginStatus] = useState(null);
   const navigate = useNavigate();
+  changeNav("setting");
   function onRegister() {
     navigate("/setting/login/register");
   }

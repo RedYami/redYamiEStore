@@ -20,7 +20,7 @@ import {
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import { CurrentUser, ThemeContext } from "./themeContext";
-export default function NavBarMobo({ allCarts, currentNav, setCurrentNav }) {
+export default function NavBarMobo({ allCarts, currentNav }) {
   const myTheme = useContext(ThemeContext);
   const currentUser = useContext(CurrentUser);
   const userName =
@@ -77,7 +77,6 @@ export default function NavBarMobo({ allCarts, currentNav, setCurrentNav }) {
                     icon={faHouse}
                     title="Home"
                     style={selectedNav("home")}
-                    onClick={() => setCurrentNav("home")}
                   />
                 </Link>
               </button>
@@ -90,7 +89,6 @@ export default function NavBarMobo({ allCarts, currentNav, setCurrentNav }) {
                 <Link to={"Cart"}>
                   <FontAwesomeIcon
                     icon={faCartShopping}
-                    onClick={() => setCurrentNav("cart")}
                     title="cart"
                     style={selectedNav("cart")}
                   />
@@ -117,7 +115,6 @@ export default function NavBarMobo({ allCarts, currentNav, setCurrentNav }) {
                 <Link to={"order-list"}>
                   <FontAwesomeIcon
                     icon={faListUl}
-                    onClick={() => setCurrentNav("orderList")}
                     title="order list"
                     style={selectedNav("orderList")}
                   />
@@ -129,20 +126,18 @@ export default function NavBarMobo({ allCarts, currentNav, setCurrentNav }) {
                 <Link to={"inbox"}>
                   <FontAwesomeIcon
                     icon={faEnvelope}
-                    onClick={() => setCurrentNav("inbox")}
                     title="inbox-message"
                     style={selectedNav("inbox")}
                   />
                 </Link>
               </button>
             </li>
-            <li className="col " style={selectedNav("profile")}>
+            <li className="col " style={selectedNav("sendBox")}>
               <button className="transparentButton">
                 <Link to={"message"}>
                   <FontAwesomeIcon
                     icon={faAddressCard}
-                    onClick={() => setCurrentNav("profile")}
-                    style={selectedNav("profile")}
+                    style={selectedNav("sendBox")}
                     title="contact"
                   />
                 </Link>
@@ -153,7 +148,6 @@ export default function NavBarMobo({ allCarts, currentNav, setCurrentNav }) {
                 <Link to={"setting"}>
                   <FontAwesomeIcon
                     icon={faUserCircle}
-                    onClick={() => setCurrentNav("setting")}
                     style={selectedNav("setting")}
                   />
                 </Link>

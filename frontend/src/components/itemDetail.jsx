@@ -11,11 +11,12 @@ import {
 import { useContext, useState } from "react";
 import { myDatas } from "./datas";
 import { CurrentUser, ThemeContext } from "./themeContext";
-export default function ItemDetail({ addNewCart }) {
+export default function ItemDetail({ addNewCart, changeNav }) {
   const { id } = useParams();
   const [index, setIndex] = useState(parseInt(id));
   const myTheme = useContext(ThemeContext);
   const currentUser = useContext(CurrentUser);
+  changeNav("home");
 
   const loginErrorLog =
     currentUser === null ? (

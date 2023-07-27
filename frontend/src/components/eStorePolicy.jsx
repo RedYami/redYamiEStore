@@ -1,4 +1,5 @@
-export default function PolicyTerms() {
+export default function PolicyTerms({ changeNav }) {
+  changeNav("setting");
   return (
     <>
       <div className="policyTerms overflow-auto mb-3">

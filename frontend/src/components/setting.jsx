@@ -14,11 +14,17 @@ import { CurrentUser, ThemeContext } from "./themeContext";
 import { Link, useNavigate } from "react-router-dom";
 import LoginError from "./loginFirstError";
 
-export default function Setting({ onLogout, changeApptheme }) {
+export default function Setting({
+  onLogout,
+  changeApptheme,
+  redeemPoints,
+  changeNav,
+}) {
   const myTheme = useContext(ThemeContext);
   const currentUser = useContext(CurrentUser);
   const [loginError, setLoginError] = useState(false);
   const navigate = useNavigate();
+  changeNav("setting");
   const logMode =
     currentUser === null ? (
       <Link to={"/setting/login"} className="fontAwesome">
@@ -55,7 +61,7 @@ export default function Setting({ onLogout, changeApptheme }) {
   }
   return (
     <>
-      <ReedemPoint />
+      <ReedemPoint redeemPoints={redeemPoints} />
       <ChangeTheme changeApptheme={changeApptheme} />
       <div className="settingDiv bg-body-tertiary">
         <div className="settingOption ">
@@ -101,7 +107,7 @@ export default function Setting({ onLogout, changeApptheme }) {
   );
 }
 
-function ReedemPoint() {
+function ReedemPoint({ redeemPoints }) {
   const myTheme = useContext(ThemeContext);
   const [showRedeem, setShowRedeem] = useState(false);
   const redeemCoin = (
@@ -110,7 +116,7 @@ function ReedemPoint() {
         icon={faCoins}
         style={{ fontSize: "50px", color: "gold" }}
       />
-      <span className="text-success text-center">79 points</span>
+      <span className="text-success text-center">{redeemPoints} points</span>
       <button
         className="btn btn-outline-warning mt-2"
         style={{ maxWidth: "60px", margin: "auto" }}

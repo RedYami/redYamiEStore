@@ -2,7 +2,7 @@ import { useEffect, useReducer, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import React from "react";
 
-export default function Register({ userDatas, createUser }) {
+export default function Register({ userDatas, createUser, changeNav }) {
   const [userName, setUserName] = useState("");
 
   const passwordRef = useRef("");
@@ -20,6 +20,7 @@ export default function Register({ userDatas, createUser }) {
   const [validToSubmit, setValidToSubmit] = useState(false);
   const navigate = useNavigate();
   //define passwordRef
+  changeNav("setting");
   function passwordSet(value) {
     passwordRef.current = value;
   }

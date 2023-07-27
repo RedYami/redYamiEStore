@@ -11,11 +11,12 @@ import React from "react";
 import { profileSvgs } from "./datas";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default function Privacy({ changeProfilePicture }) {
+export default function Privacy({ changeProfilePicture, changeNav }) {
   const [selectedProfile, setSelectedProfile] = useState(null);
   const [selectingProfile, setSelectingProfile] = useState(false);
   const currentUser = useContext(CurrentUser);
   const myTheme = useContext(ThemeContext);
+  changeNav("setting");
   const profileItems = [
     {
       name: "New name",

@@ -79,7 +79,7 @@
     border: none;
   }
   .loading {
-    /* filter: blur(10px); */
+    filter: blur(10px);
     clip-path: inset(0);
     position: relative;
     padding: 100px;
@@ -92,7 +92,7 @@
   }
   @media screen and (max-width: 480px){
     .loading{
-      /* filter: blur(10px); */
+      filter: blur(10px);
       clip-path: inset(0);
       position: relative;
       max-height: 100px;
