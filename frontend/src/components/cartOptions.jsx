@@ -3,6 +3,7 @@ import React from "react";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import {
   faCartShopping,
+  faCoins,
   faListUl,
   faMinus,
   faPlus,
@@ -19,6 +20,8 @@ export default function Carts({
   totalPrice,
   addNewOrder,
   changeNav,
+  redeemPoints,
+  setRedeemPoints,
 }) {
   const [paying, setPaying] = useState(false);
   const myTheme = useContext(ThemeContext);
@@ -110,7 +113,12 @@ export default function Carts({
             )}
           </div>
           <div className={allCarts.length > 0 ? "col" : "d-none"}>
-            <Cashier totalPrice={totalPrice} isPaying={isPaying} />
+            <Cashier
+              totalPrice={totalPrice}
+              isPaying={isPaying}
+              redeemPoints={redeemPoints}
+              setRedeemPoints={setRedeemPoints}
+            />
           </div>
         </div>
         {confirmNoti}
@@ -144,7 +152,8 @@ function Modifier({ cart, onPlusClick, onMinusClick }) {
     </>
   );
 }
-function Cashier({ totalPrice, isPaying }) {
+function Cashier({ totalPrice, isPaying, redeemPoints, setRedeemPoints }) {
+  const [addedRedeemPoints, setAddedRedeemPoints] = useState(0);
   const myTheme = useContext(ThemeContext);
   return (
     <>
@@ -164,11 +173,28 @@ function Cashier({ totalPrice, isPaying }) {
             <h5>Delivery fee</h5>
             <p>1000ks</p>
           </li>
+          <li className="list-group-item LRdisplay d-flex justify-content-between border">
+            <h5 className="">Redeem</h5>
+            <i>{addedRedeemPoints} point</i>
+            <button
+              className="btn btn-outline-success"
+              style={{ maxWidth: "90px" }}
+              onClick={() => {
+                setAddedRedeemPoints(
+                  (addedRedeemPoints) => addedRedeemPoints + 1
+                );
+                setRedeemPoints((points) => points - addedRedeemPoints);
+              }}
+            >
+              <FontAwesomeIcon icon={faPlus} />
+              <FontAwesomeIcon icon={faCoins} />
+            </button>
+          </li>
         </div>
         <hr />
         <div className="LRdisplay">
           <h2>Total</h2>
-          <h4>{totalPrice + parseInt(1000)}ks</h4>
+          <h4>{totalPrice + parseInt(1000) - addedRedeemPoints * 500}ks</h4>
         </div>
         <button className="btn btn-secondary " onClick={() => isPaying(true)}>
           Order Now

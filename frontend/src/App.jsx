@@ -43,6 +43,9 @@ export default function App() {
   const [currentNav, setCurrentNav] = useState("home");
   const [myTheme, setMyTheme] = useState("aqua");
   const [redeemPoints, setRedeemPoints] = useState(79); //one redeem point equal to 500ks
+  function editRedeemPoints(newPoints) {
+    setRedeemPoints(newPoints);
+  }
   const [inboxMessage, setInboxMessage] = useState([
     {
       sender: "admin",
@@ -321,6 +324,8 @@ export default function App() {
                   totalPrice={totalRef.current}
                   addNewOrder={addNewOrder}
                   changeNav={changeNav}
+                  redeemPoints={redeemPoints}
+                  setRedeemPoints={editRedeemPoints}
                 />
               }
             />
