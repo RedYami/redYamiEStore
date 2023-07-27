@@ -1,7 +1,29 @@
-export default function PolicyTerms({ changeNav }) {
-  changeNav("setting");
+import { faArrowAltCircleLeft } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { ThemeContext } from "./themeContext";
+
+export default function PolicyTerms() {
+  const myTheme = useContext(ThemeContext);
+  const navigate = useNavigate();
+  function backSetting() {
+    navigate("/setting");
+  }
   return (
     <>
+      <div
+        className="d-flex justify-content-start transparentButton "
+        onClick={backSetting}
+        style={{ maxWidth: "700px", margin: "auto" }}
+      >
+        <FontAwesomeIcon
+          className=""
+          icon={faArrowAltCircleLeft}
+          style={{ color: myTheme, fontSize: "30px" }}
+        />
+        back
+      </div>
       <div className="policyTerms overflow-auto mb-3">
         <h1 className="text-center">Policy Terms</h1>
 

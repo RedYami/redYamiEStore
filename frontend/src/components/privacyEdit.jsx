@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { CurrentUser, ThemeContext } from "./themeContext";
 import {
+  faArrowAltCircleLeft,
   faCircleUser,
   faCoins,
   faPenToSquare,
@@ -10,12 +11,16 @@ import {
 import React from "react";
 import { profileSvgs } from "./datas";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router-dom";
 
 export default function Privacy({ changeProfilePicture, changeNav }) {
-  const [selectedProfile, setSelectedProfile] = useState(null);
   const [selectingProfile, setSelectingProfile] = useState(false);
   const currentUser = useContext(CurrentUser);
   const myTheme = useContext(ThemeContext);
+  const navigate = useNavigate();
+  function backSetting() {
+    navigate("/setting");
+  }
   changeNav("setting");
   const profileItems = [
     {
@@ -78,6 +83,17 @@ export default function Privacy({ changeProfilePicture, changeNav }) {
           className="rounded d-flex justify-content-center flex-column p-1"
           style={{ margin: "auto" }}
         >
+          <div
+            className="d-flex justify-content-start transparentButton"
+            onClick={backSetting}
+          >
+            <FontAwesomeIcon
+              className=""
+              icon={faArrowAltCircleLeft}
+              style={{ color: myTheme, fontSize: "30px" }}
+            />
+            back
+          </div>
           <img
             src={currentUser.profile_picture}
             style={{

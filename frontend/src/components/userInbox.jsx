@@ -107,7 +107,10 @@ function Message({ message, watchedMessage, deleteMessage }) {
   );
   return (
     <>
-      <li className="messageList rounded m-2">
+      <li
+        className="messageList rounded m-2"
+        style={{ maxHeight: "500px", overflow: "auto" }}
+      >
         <button
           className="transparentButton "
           onClick={() => {

@@ -1,12 +1,13 @@
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useParams, useOutletContext } from "react-router-dom";
+import { useParams, useOutletContext, useNavigate } from "react-router-dom";
 import {
   faCartShopping,
   faCaretRight,
   faCaretLeft,
   faStar,
+  faArrowAltCircleLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import { useContext, useState } from "react";
 import { myDatas } from "./datas";
@@ -16,6 +17,10 @@ export default function ItemDetail({ addNewCart, changeNav }) {
   const [index, setIndex] = useState(parseInt(id));
   const myTheme = useContext(ThemeContext);
   const currentUser = useContext(CurrentUser);
+  const navigate = useNavigate();
+  function backSetting() {
+    navigate("/");
+  }
   changeNav("home");
 
   const loginErrorLog =
@@ -59,6 +64,18 @@ export default function ItemDetail({ addNewCart, changeNav }) {
 
   return (
     <>
+      <div
+        className="d-flex justify-content-start transparentButton"
+        onClick={backSetting}
+        style={{ maxWidth: "400px", margin: "auto" }}
+      >
+        <FontAwesomeIcon
+          className=""
+          icon={faArrowAltCircleLeft}
+          style={{ color: myTheme, fontSize: "30px" }}
+        />
+        back
+      </div>
       <div className="itemDetailMain">
         {decreaseButton}
         <div className="card mt-3" style={{ width: "18rem" }}>
