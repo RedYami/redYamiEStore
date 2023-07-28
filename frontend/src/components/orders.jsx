@@ -84,7 +84,7 @@ export default function OrderList({ orderedList, deleteOrder, changeNav }) {
 
 function CheckOrder({ order, handleBack, handleDelete }) {
   const myTheme = useContext(ThemeContext);
-  console.log("RDpoints in order " + order.used_RDpoints);
+
   return (
     <>
       <div className="confirmWidget-overlay">
@@ -108,7 +108,13 @@ function CheckOrder({ order, handleBack, handleDelete }) {
                 </li>
               ))}
               <li className="list-group-item active">
-                Total price = {order.totalPrice} kyats
+                Total price + 1000ks delivery fee{" -"}
+                <span style={{ color: "gold" }}>
+                  {order.used_RDpoints > 0
+                    ? order.used_RDpoints + " redeem point used"
+                    : null}
+                </span>
+                = {order.totalPrice} kyats
               </li>
             </ul>
             <div className="buttons mt-2 ">

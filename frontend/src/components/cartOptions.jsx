@@ -321,7 +321,11 @@ function ConfirmWidget({
                 </li>
               ))}
               <li className="list-group-item active">
-                Total price + delivery fee = {totalPrice + parseInt(1000)} kyats
+                Total price + delivery fee -{" "}
+                <span style={{ color: "gold" }}>
+                  {points > 0 ? points + " redeem point used" : null}
+                </span>{" "}
+                = {totalPrice + parseInt(1000)} kyats
               </li>
             </ul>
             <div className="buttons mt-2 ">
