@@ -38,6 +38,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      height: 100px;
     }
     .rounded-circle{
       font-size: 10px;
@@ -58,7 +59,7 @@
     overflow: auto;
   }
   .itemDetailMain img{
-    height: 300px;
+    height: 250px;
   }
   .refreshButton {
     background-color: lightgreen;
@@ -81,10 +82,10 @@
     border: none;
   }
   .loading {
-    filter: blur(10px);
+    filter: blur(20px);
     clip-path: inset(0);
     position: relative;
-    padding: 100px;
+    height: 320px;
   }
   .loaded {
     filter: blur(0px);
@@ -94,10 +95,10 @@
   }
   @media screen and (max-width: 480px){
     .loading{
-      filter: blur(10px);
+      filter: blur(20px);
       clip-path: inset(0);
       position: relative;
-      max-height: 100px;
+      height: 100px;
       text-align: center;
     }
     .loaded{

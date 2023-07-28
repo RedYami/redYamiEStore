@@ -135,7 +135,7 @@ function Images({ imgData, addCart, hidden, handleIsLogin, placeholderSrc }) {
   return (
     <>
       <div
-        className={"col-4 mb-3 image-container " + (hidden ? null : "d-none")} //if hidden is true show image else display none image
+        className={" col-4 mb-3 image-container " + (hidden ? null : "d-none")} //if hidden is true show image else display none image
         key={imgData.name}
       >
         <div className="">
@@ -173,7 +173,7 @@ function Images({ imgData, addCart, hidden, handleIsLogin, placeholderSrc }) {
         </div>
 
         <div
-          className="cartingFunction rounded mt-1 text-center"
+          className="cartingFunction rounded mt-1 text-center border border-success"
           style={{ backgroundColor: myTheme }}
         >
           <div
