@@ -13,7 +13,7 @@ export default function PolicyTerms() {
   return (
     <>
       <div
-        className="d-flex justify-content-start transparentButton "
+        className=" d-flex justify-content-start transparentButton"
         onClick={backSetting}
         style={{ maxWidth: "700px", margin: "auto" }}
       >

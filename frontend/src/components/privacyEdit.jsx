@@ -70,15 +70,7 @@ export default function Privacy({ changeProfilePicture, changeNav }) {
 
   return (
     <>
-      <div
-        className="rounded border "
-        style={{
-          maxWidth: "500px",
-          margin: "auto",
-          maxHeight: "500px",
-          overflow: "auto",
-        }}
-      >
+      <div className="rounded border profileEditor">
         <div
           className="rounded d-flex justify-content-center flex-column p-1"
           style={{ margin: "auto" }}

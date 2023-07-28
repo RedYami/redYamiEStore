@@ -6,9 +6,27 @@
     flex-direction: row;
     justify-content: space-evenly;
   }
-  
+  .policyTerms{
+    max-width: 700px;
+    max-height: 450px;
+    margin: auto;
+  }
+  .profileEditor{
+    max-width: 500px;
+    max-height: 500px;
+    margin: auto;
+    overflow: auto;
+  }
   @media screen and  (max-width: 480px){
     .settingDiv{
+      overflow: auto;
+    }
+    .policyTerms{
+      max-height: 700px;
+      overflow: auto;
+    }
+    .profileEditor{
+      max-height: 750px;
       overflow: auto;
     }
   }
@@ -42,8 +60,4 @@
     text-align: center;
     text-decoration: none;
     font-family: cursive;
-  }
-  .policyTerms{
-    max-width: 700px;
-    margin: auto;
   }
