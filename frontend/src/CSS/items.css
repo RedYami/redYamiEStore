@@ -43,6 +43,10 @@
     .rounded-circle{
       font-size: 10px;
     }
+    .taskContainer{
+      max-height: 720px;
+      overflow: auto;
+    }
   }
   .imageDetailCart{
     display: flex;
