@@ -7,7 +7,7 @@ export default function Login({ userDatas, isLogin, changeNav }) {
   const [password, setPassword] = useState("");
   const [loginStatus, setLoginStatus] = useState(null);
   const navigate = useNavigate();
-  useEffect(() => changeNav("setting"));
+
   function onRegister() {
     navigate("/setting/login/register");
   }
