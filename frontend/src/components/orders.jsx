@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import React from "react";
 import { useOutletContext } from "react-router-dom";
 import { ThemeContext } from "./themeContext";
@@ -13,12 +13,9 @@ export default function OrderList({ orderedList, deleteOrder, changeNav }) {
   const myTheme = useContext(ThemeContext);
   // const [isChecking, setIsChecking] = useState(false);
   const [detailId, setDetailId] = useState(null);
-  changeNav("orderList");
+  useEffect(() => changeNav("orderList"));
   function handleBack() {
     setDetailId(null);
-  }
-  function handleDelete(id) {
-    deleteOrder(id);
   }
 
   return (
@@ -49,7 +46,7 @@ export default function OrderList({ orderedList, deleteOrder, changeNav }) {
             <tbody>
               {orderedList.map((list, index) => (
                 <>
-                  <tr key={index}>
+                  <tr key={list.orderCode}>
                     <td>{list.quantity}</td>
                     <td>{list.orderCode}</td>
                     <td>{list.totalPrice} kyats</td>
@@ -71,7 +68,7 @@ export default function OrderList({ orderedList, deleteOrder, changeNav }) {
                   {detailId === index ? (
                     <CheckOrder
                       order={list}
-                      handleDelete={handleDelete}
+                      handleDelete={deleteOrder}
                       handleBack={handleBack}
                     />
                   ) : null}
@@ -87,6 +84,7 @@ export default function OrderList({ orderedList, deleteOrder, changeNav }) {
 
 function CheckOrder({ order, handleBack, handleDelete }) {
   const myTheme = useContext(ThemeContext);
+  console.log("RDpoints in order " + order.used_RDpoints);
   return (
     <>
       <div className="confirmWidget-overlay">
@@ -110,8 +108,7 @@ function CheckOrder({ order, handleBack, handleDelete }) {
                 </li>
               ))}
               <li className="list-group-item active">
-                Total price + delivery fee = {order.totalPrice + parseInt(1000)}{" "}
-                kyats
+                Total price = {order.totalPrice} kyats
               </li>
             </ul>
             <div className="buttons mt-2 ">
@@ -123,7 +120,7 @@ function CheckOrder({ order, handleBack, handleDelete }) {
               </button>
               <button
                 className="confirm btn btn-outline-danger"
-                onClick={() => handleDelete(order.id)}
+                onClick={() => handleDelete(order.id, order.used_RDpoints)}
               >
                 cancel order
               </button>

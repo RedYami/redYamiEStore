@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import Catagories from "/src/components/catagories";
 import Items from "/src/components/items";
@@ -16,7 +16,7 @@ export default function Home({
   selectedLi,
   changeNav,
 }) {
-  changeNav("home");
+  useEffect(() => changeNav("home"));
   return (
     <>
       <div className="components container-fluid row">

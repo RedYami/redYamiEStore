@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CurrentUser, ThemeContext } from "./themeContext";
 import {
   faArrowAltCircleLeft,
@@ -21,7 +21,7 @@ export default function Privacy({ changeProfilePicture, changeNav }) {
   function backSetting() {
     navigate("/setting");
   }
-  changeNav("setting");
+  useEffect(() => changeNav("setting"));
   const profileItems = [
     {
       name: "New name",

@@ -7,7 +7,7 @@ import {
   faRightToBracket,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext } from "react";
 import { CurrentUser, ThemeContext } from "./themeContext";
@@ -24,7 +24,7 @@ export default function Setting({
   const currentUser = useContext(CurrentUser);
   const [loginError, setLoginError] = useState(false);
   const navigate = useNavigate();
-  changeNav("setting");
+  useEffect(() => changeNav("setting"));
   const logMode =
     currentUser === null ? (
       <Link to={"/setting/login"} className="fontAwesome">

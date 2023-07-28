@@ -1,7 +1,7 @@
 import { faBookOpenReader, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@fortawesome/fontawesome-svg-core/styles.css";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "./themeContext";
 import React from "react";
 
@@ -16,7 +16,7 @@ export default function UserInbox({
   const filteredMessage = messages.filter(
     (message) => message.type === selectedNavType
   );
-  changeNav("inbox");
+  useEffect(() => changeNav("inbox"));
 
   function checkAllWatched(type) {
     const unwatchedMessages = messages.filter(

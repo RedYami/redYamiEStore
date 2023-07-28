@@ -1,10 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useEffect } from "react";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import {
   faCartShopping,
   faCoins,
   faListUl,
+  faMarsAndVenusBurst,
   faMinus,
   faPlus,
   faTrash,
@@ -25,7 +26,11 @@ export default function Carts({
 }) {
   const [paying, setPaying] = useState(false);
   const myTheme = useContext(ThemeContext);
-  changeNav("cart");
+  const [usedRedeemPoints, setUsedRedeemPoints] = useState(0);
+  function setUsedRDpoints(points) {
+    setUsedRedeemPoints(points);
+  }
+  useEffect(() => changeNav("cart"));
   function isPaying(Boolean) {
     setPaying(Boolean);
   }
@@ -35,7 +40,9 @@ export default function Carts({
       isPaying={isPaying}
       addNewOrder={addNewOrder}
       allCarts={allCarts}
-      totalPrice={totalPrice}
+      totalPrice={totalPrice - usedRedeemPoints * 100}
+      setRedeemPoints={setRedeemPoints}
+      points={usedRedeemPoints}
     />
   ); //this widget pop up to confirm the user's order
   return (
@@ -79,7 +86,7 @@ export default function Carts({
                         style={{ maxWidth: "100%", height: "auto" }}
                       />
                     </td>
-                    <td>{cart.name}</td>
+                    <td className="">{cart.name}</td>
                     <td>{cart.price}</td>
                     <Modifier
                       cart={cart}
@@ -117,7 +124,7 @@ export default function Carts({
               totalPrice={totalPrice}
               isPaying={isPaying}
               redeemPoints={redeemPoints}
-              setRedeemPoints={setRedeemPoints}
+              setRedeemPoints={setUsedRDpoints}
             />
           </div>
         </div>
@@ -130,23 +137,38 @@ export default function Carts({
 function Modifier({ cart, onPlusClick, onMinusClick }) {
   return (
     <>
-      <td className="quantity-cell">
-        <div className="input-group quantity-container ">
-          <button
-            className="btn btn-outline-info"
-            onClick={() => onMinusClick(cart)}
-          >
-            <FontAwesomeIcon icon={faMinus} />
-          </button>
-          <span style={{}} className="quantity-text">
-            {cart.quantity}
-          </span>
-          <button
-            className="btn btn-outline-info"
-            onClick={() => onPlusClick(cart)}
-          >
-            <FontAwesomeIcon icon={faPlus} />
-          </button>
+      <td className="quantity-cell ">
+        <div className="input-group quantity-container">
+          <div className="input-group-prepend">
+            <button
+              className="btn btn-warning"
+              type="button"
+              id="reduceButton"
+              onClick={() => onMinusClick(cart)}
+            >
+              -
+            </button>
+          </div>
+
+          <input
+            style={{ margin: "auto", width: "30px", padding: "2px" }}
+            type="text"
+            className="form-control text-center"
+            value={cart.quantity}
+            id="valueInput"
+            disabled
+          />
+
+          <div className="input-group-append">
+            <button
+              className="btn btn-success"
+              type="button"
+              id="addButton"
+              onClick={() => onPlusClick(cart)}
+            >
+              +
+            </button>
+          </div>
         </div>
       </td>
     </>
@@ -154,6 +176,20 @@ function Modifier({ cart, onPlusClick, onMinusClick }) {
 }
 function Cashier({ totalPrice, isPaying, redeemPoints, setRedeemPoints }) {
   const [addedRedeemPoints, setAddedRedeemPoints] = useState(0);
+  const [isRedeem, setIsRedeem] = useState(false);
+  function handleRedeem(Boolean) {
+    setIsRedeem(Boolean);
+  }
+  function handleAddRedeem() {
+    if (addedRedeemPoints < redeemPoints) {
+      setAddedRedeemPoints((point) => parseInt(point) + 1);
+    }
+  }
+  function handleRemoveRedeem() {
+    if (addedRedeemPoints > 0) {
+      setAddedRedeemPoints((point) => parseInt(point) - 1);
+    }
+  }
   const myTheme = useContext(ThemeContext);
   return (
     <>
@@ -173,30 +209,83 @@ function Cashier({ totalPrice, isPaying, redeemPoints, setRedeemPoints }) {
             <h5>Delivery fee</h5>
             <p>1000ks</p>
           </li>
-          <li className="list-group-item LRdisplay d-flex justify-content-between border">
-            <h5 className="">Redeem</h5>
-            <i>{addedRedeemPoints} point</i>
-            <button
-              className="btn btn-outline-success"
-              style={{ maxWidth: "90px" }}
-              onClick={() => {
-                setAddedRedeemPoints(
-                  (addedRedeemPoints) => addedRedeemPoints + 1
-                );
-                setRedeemPoints((points) => points - addedRedeemPoints);
-              }}
-            >
-              <FontAwesomeIcon icon={faPlus} />
-              <FontAwesomeIcon icon={faCoins} />
-            </button>
-          </li>
+
+          {isRedeem ? (
+            <>
+              <li className="list-group-item LRdisplay d-flex justify-content-between border">
+                <button
+                  className="btn btn-outline-success"
+                  style={{ maxWidth: "90px" }}
+                  onClick={() => {
+                    handleAddRedeem();
+                  }}
+                >
+                  <FontAwesomeIcon icon={faPlus} />
+                  <FontAwesomeIcon icon={faCoins} />
+                </button>
+                <i>{addedRedeemPoints} point</i>
+                <button
+                  className="btn btn-outline-warning"
+                  style={{ maxWidth: "90px" }}
+                  onClick={() => {
+                    handleRemoveRedeem();
+                  }}
+                >
+                  <FontAwesomeIcon icon={faMinus} />
+                  <FontAwesomeIcon icon={faCoins} />
+                </button>
+              </li>
+              {addedRedeemPoints > 0 ? (
+                <li className="list-group-item LRdisplay d-flex justify-content-center">
+                  <i style={{ marginRight: "3px" }}>
+                    Your redeem point will be deducted to{" "}
+                  </i>{" "}
+                  {redeemPoints - addedRedeemPoints}{" "}
+                  <FontAwesomeIcon
+                    icon={faCoins}
+                    style={{
+                      color: "gold",
+                      marginTop: "auto",
+                      marginBottom: "auto",
+                      marginLeft: "3px",
+                    }}
+                  />
+                  points
+                </li>
+              ) : null}
+            </>
+          ) : null}
+          <button
+            className="btn btn-success"
+            style={{
+              maxWidth: "130px",
+              margin: "auto",
+            }}
+            onClick={() => setIsRedeem(!isRedeem)}
+          >
+            {isRedeem ? "hide redeem" : "show redeem"}
+          </button>
         </div>
         <hr />
         <div className="LRdisplay">
           <h2>Total</h2>
-          <h4>{totalPrice + parseInt(1000) - addedRedeemPoints * 500}ks</h4>
+          <h4>
+            {totalPrice + parseInt(1000) - addedRedeemPoints * 100}
+            <span style={{ color: "gold" }}>
+              {addedRedeemPoints > 0
+                ? "(" + addedRedeemPoints + " redeem points )"
+                : null}
+            </span>
+            ks
+          </h4>
         </div>
-        <button className="btn btn-secondary " onClick={() => isPaying(true)}>
+        <button
+          className="btn btn-secondary "
+          onClick={() => {
+            isPaying(true);
+            setRedeemPoints(addedRedeemPoints);
+          }}
+        >
           Order Now
         </button>
       </div>
@@ -204,7 +293,14 @@ function Cashier({ totalPrice, isPaying, redeemPoints, setRedeemPoints }) {
   );
 }
 
-function ConfirmWidget({ isPaying, addNewOrder, allCarts, totalPrice }) {
+function ConfirmWidget({
+  isPaying,
+  addNewOrder,
+  allCarts,
+  totalPrice,
+  setRedeemPoints,
+  points,
+}) {
   return (
     <>
       <div className="confirmWidget-overlay">
@@ -238,7 +334,8 @@ function ConfirmWidget({ isPaying, addNewOrder, allCarts, totalPrice }) {
               <button
                 className="confirm btn btn-outline-success"
                 onClick={() => {
-                  addNewOrder();
+                  addNewOrder(points);
+                  setRedeemPoints(points);
                   isPaying(false);
                 }}
               >

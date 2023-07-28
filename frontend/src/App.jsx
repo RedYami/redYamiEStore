@@ -43,8 +43,12 @@ export default function App() {
   const [currentNav, setCurrentNav] = useState("home");
   const [myTheme, setMyTheme] = useState("aqua");
   const [redeemPoints, setRedeemPoints] = useState(79); //one redeem point equal to 500ks
-  function editRedeemPoints(newPoints) {
-    setRedeemPoints(newPoints);
+  const [usedRDpoints, setUsedRDpoints] = useState(0);
+  // function setRedemption(point) {
+  //   setUsedRDpoints(p);
+  // }
+  function editRedeemPoints(usedPoints) {
+    setRedeemPoints((point) => point - usedPoints);
   }
   const [inboxMessage, setInboxMessage] = useState([
     {
@@ -153,13 +157,18 @@ export default function App() {
     ]);
   }
   /////////Carts Functions Start///////////
-  function addNewOrder() {
-    setOrderedList((orderedList) => [...orderedList, orderCodeGen(allCarts)]);
+  function addNewOrder(RDpoints) {
+    setOrderedList((orderedList) => [
+      ...orderedList,
+      orderCodeGen(allCarts, RDpoints),
+    ]);
     setAllCarts([]); //clear all carts when addNewOrder is done
     setPureData(myDatas); //set all items to default mode (reset)
   }
-  function deleteOrder(id) {
+  function deleteOrder(id, RDpoints) {
+    console.log("rd point in delete function " + RDpoints);
     setOrderedList(orderedList.filter((order) => order.id !== id));
+    setRedeemPoints((points) => points + parseInt(RDpoints));
   }
   function addingRef() {
     for (let i = 0; i <= allCarts.length - 1; i++) {
@@ -242,16 +251,18 @@ export default function App() {
     setPureData(pureData.filter((data) => data.id !== object.id));
   }
 
-  function orderCodeGen(orderedList, min = 0, max = 9) {
+  function orderCodeGen(orderedList, RDpoints) {
     //this function generate the orderlist with order code
     let totalItems = 0;
     let totalPrice = 0;
+    let min = 0;
+    let max = 9;
     let user_name = user.user_name;
     function simpleCodeGen() {
       let code = "";
       const numOrAlphabet = ["num", "alpha"]; //we dont want alternatvie codes so we toogle number and alphabet
-      min = Math.ceil(min); // Round up the minimum value
-      max = Math.floor(max); // Round down the maximum value
+      min = Math.ceil(0); // Round up the minimum value
+      max = Math.floor(9); // Round down the maximum value
       for (let i = 0; i < 7; i++) {
         const alphaIndex = Math.floor(Math.random() * alphabet.length);
         const randomInt = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -271,12 +282,13 @@ export default function App() {
     });
     return {
       quantity: totalItems,
-      totalPrice: totalPrice + 1000,
+      totalPrice: totalPrice + 1000 - parseInt(RDpoints) * 100,
       user_name: user_name,
       orderCode: simpleCodeGen(),
       approved: false,
       id: orderId++,
       originalOrder: orderedList,
+      used_RDpoints: RDpoints,
     };
   }
   /////////Items Functions End/////

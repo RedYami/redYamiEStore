@@ -20,7 +20,7 @@ export default function Register({ userDatas, createUser, changeNav }) {
   const [validToSubmit, setValidToSubmit] = useState(false);
   const navigate = useNavigate();
   //define passwordRef
-  changeNav("setting");
+  useEffect(() => changeNav("setting"));
   function passwordSet(value) {
     passwordRef.current = value;
   }

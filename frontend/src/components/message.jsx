@@ -1,7 +1,7 @@
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@fortawesome/fontawesome-svg-core/styles.css";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "./themeContext";
 import React from "react";
 
@@ -9,7 +9,7 @@ export default function MessageBox({ onSendMessage, user, changeNav }) {
   const myTheme = useContext(ThemeContext);
   const [inputMessage, setInputMessage] = useState("");
   const [title, setTitle] = useState("");
-  changeNav("sendBox");
+  useEffect(() => changeNav("sendBox"));
   return (
     <>
       <div
@@ -38,7 +38,11 @@ export default function MessageBox({ onSendMessage, user, changeNav }) {
             style={{ fontSize: "30px", color: "aqua" }}
           ></i>
 
-          <i class="fa fa-instagram" style={{ fontSize: "30px" }}></i>
+          <i className="fa fa-instagram" style={{ fontSize: "30px" }}></i>
+          <i
+            className="fa fa-whatsapp"
+            style={{ fontSize: "32px", color: "lightgreen" }}
+          ></i>
         </div>
       </div>
       <div className="messageBox shadow rounded p-3 mt-3">

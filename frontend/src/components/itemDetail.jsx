@@ -1,5 +1,5 @@
 import "@fortawesome/fontawesome-svg-core/styles.css";
-import React from "react";
+import React, { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useParams, useOutletContext, useNavigate } from "react-router-dom";
 import {
@@ -21,7 +21,7 @@ export default function ItemDetail({ addNewCart, changeNav }) {
   function backSetting() {
     navigate("/");
   }
-  changeNav("home");
+  useEffect(() => changeNav("home"));
 
   const loginErrorLog =
     currentUser === null ? (
