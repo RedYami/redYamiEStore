@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 
@@ -7,6 +7,7 @@ export default function Login({ userDatas, isLogin, changeNav }) {
   const [password, setPassword] = useState("");
   const [loginStatus, setLoginStatus] = useState(null);
   const navigate = useNavigate();
+  useEffect(() => changeNav("/settting"));
 
   function onRegister() {
     navigate("/setting/login/register");

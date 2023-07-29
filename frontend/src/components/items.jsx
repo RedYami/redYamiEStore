@@ -173,7 +173,7 @@ function Images({ imgData, addCart, hidden, handleIsLogin, placeholderSrc }) {
         </div>
 
         <div
-          className="cartingFunction rounded mt-1 text-center border border-success"
+          className="cartingFunction rounded mt-1 text-center"
           style={{ backgroundColor: myTheme }}
         >
           <div

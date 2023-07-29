@@ -62,9 +62,32 @@
     max-height: 500px;
     overflow: auto;
   }
-  .itemDetailMain img{
+  .itemDetailMain .mainImg{
+    height: 320px;
+  }
+  .itemDetailMain .preImg{
+    width: 250px;
+    height: 250px;
+    filter: blur(0px);
+    transition: filter 0.5s linear;
+  }
+  .itemDetailMain .postImg{
+    width: 250px;
+    height: 250px;
+    filter: blur(0px);
+    transition: filter 0.5s linear;
+  }
+  .preImgDiv{
+    width: 250px;
     height: 250px;
   }
+  .postImgDiv{
+    width: 250px;
+    height: 250px;
+  }
+  /* .itemDetailMain img{
+    height: 320px;
+  } */
   .refreshButton {
     background-color: lightgreen;
     color: aliceblue;
@@ -111,5 +134,14 @@
       position: relative;
       max-height: 100px;
       text-align: center;
+    }
+    .preImgDiv{
+      display: none;
+    }
+    .postImgDiv{
+      display: none;
+    }
+    .itemDetailMain{
+      max-height: 100%;
     }
   }

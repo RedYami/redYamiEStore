@@ -2,7 +2,9 @@
 .col-4 {
   position: relative;
 }
-
+.mainApp{
+  z-index: -2;
+}
 
 .transparentButton{
   background: none;

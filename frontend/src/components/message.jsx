@@ -33,10 +33,17 @@ export default function MessageBox({ onSendMessage, user, changeNav }) {
               }}
             ></i>
           </a>
-          <i
-            className="fa fa-twitter"
-            style={{ fontSize: "30px", color: "aqua" }}
-          ></i>
+          <a
+            href="https://twitter.com/elonmusk"
+            className="  justify-content-center"
+            style={{ textDecoration: "none" }}
+            target="_blank"
+          >
+            <i
+              className="fa fa-twitter"
+              style={{ fontSize: "30px", color: "aqua" }}
+            ></i>
+          </a>
 
           <i className="fa fa-instagram" style={{ fontSize: "30px" }}></i>
           <i

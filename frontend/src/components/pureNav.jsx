@@ -1,5 +1,6 @@
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import React from "react";
+import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCartShopping,
@@ -53,7 +54,7 @@ export default function NavBarMobo({ allCarts, currentNav }) {
           fontFamily: "cursive",
         }}
       >
-        <h3 className="">Hyena comerce store</h3>
+        <h3 className="">Hyena comerce store App</h3>
         <div className="profileStatus d-flex justify-content-center flex-column">
           <img
             src={
@@ -71,7 +72,11 @@ export default function NavBarMobo({ allCarts, currentNav }) {
         <div className="navContent">
           <ul>
             <li className="col " style={selectedNav("home")}>
-              <button className=" transparentButton ">
+              <motion.button
+                whileHover={{ scale: 1.3 }}
+                whileTap={{ scale: 0.9 }}
+                className=" transparentButton "
+              >
                 <Link to={"/"}>
                   <FontAwesomeIcon
                     icon={faHouse}
@@ -79,10 +84,12 @@ export default function NavBarMobo({ allCarts, currentNav }) {
                     style={selectedNav("home")}
                   />
                 </Link>
-              </button>
+              </motion.button>
             </li>
             <li className="col CartNav " style={selectedNav("cart")}>
-              <button
+              <motion.button
+                whileHover={{ scale: 1.3 }}
+                whileTap={{ scale: 0.9 }}
                 className=" transparentButton"
                 style={{ position: "relative" }}
               >
@@ -93,7 +100,7 @@ export default function NavBarMobo({ allCarts, currentNav }) {
                     style={selectedNav("cart")}
                   />
                 </Link>
-              </button>
+              </motion.button>
               {allCarts.length > 0 && (
                 <span
                   className="bg-danger rounded-circle cartBadge"
@@ -111,7 +118,11 @@ export default function NavBarMobo({ allCarts, currentNav }) {
               )}
             </li>
             <li className="col " style={selectedNav("orderList")}>
-              <button className=" transparentButton ">
+              <motion.button
+                whileHover={{ scale: 1.3 }}
+                whileTap={{ scale: 0.9 }}
+                className=" transparentButton "
+              >
                 <Link to={"order-list"}>
                   <FontAwesomeIcon
                     icon={faListUl}
@@ -119,10 +130,14 @@ export default function NavBarMobo({ allCarts, currentNav }) {
                     style={selectedNav("orderList")}
                   />
                 </Link>
-              </button>
+              </motion.button>
             </li>
             <li className="col " style={selectedNav("inbox")}>
-              <button className=" transparentButton ">
+              <motion.button
+                whileHover={{ scale: 1.3 }}
+                whileTap={{ scale: 0.9 }}
+                className=" transparentButton "
+              >
                 <Link to={"inbox"}>
                   <FontAwesomeIcon
                     icon={faEnvelope}
@@ -130,10 +145,14 @@ export default function NavBarMobo({ allCarts, currentNav }) {
                     style={selectedNav("inbox")}
                   />
                 </Link>
-              </button>
+              </motion.button>
             </li>
             <li className="col " style={selectedNav("sendBox")}>
-              <button className="transparentButton">
+              <motion.button
+                whileHover={{ scale: 1.3 }}
+                whileTap={{ scale: 0.9 }}
+                className="transparentButton"
+              >
                 <Link to={"message"}>
                   <FontAwesomeIcon
                     icon={faAddressCard}
@@ -141,17 +160,21 @@ export default function NavBarMobo({ allCarts, currentNav }) {
                     title="contact"
                   />
                 </Link>
-              </button>
+              </motion.button>
             </li>
             <li className=" themeChanger col" style={selectedNav("setting")}>
-              <button className="transparentButton">
+              <motion.button
+                whileHover={{ scale: 1.3 }}
+                whileTap={{ scale: 0.9 }}
+                className="transparentButton"
+              >
                 <Link to={"setting"}>
                   <FontAwesomeIcon
                     icon={faUserCircle}
                     style={selectedNav("setting")}
                   />
                 </Link>
-              </button>
+              </motion.button>
             </li>
           </ul>
         </div>

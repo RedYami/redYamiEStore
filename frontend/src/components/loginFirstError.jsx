@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 export default function LoginError({ handleIsLogin, ErrorMessage }) {
   const navigate = useNavigate();
   function loginFirst() {
@@ -7,7 +8,13 @@ export default function LoginError({ handleIsLogin, ErrorMessage }) {
   return (
     <>
       <div className="confirmWidget-overlay">
-        <div className="container confirmWidget">
+        <motion.div
+          initial={{ x: "-200vw" }}
+          animate={{ x: 0 }}
+          transition={{ duration: 0.5 }}
+          exit={{ opacity: 0 }}
+          className="container confirmWidget "
+        >
           <div className="reminder">
             <h4 className="text-center">{ErrorMessage}</h4>
             <div className="buttons mt-2 ">
@@ -25,7 +32,7 @@ export default function LoginError({ handleIsLogin, ErrorMessage }) {
               </button>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </>
   );

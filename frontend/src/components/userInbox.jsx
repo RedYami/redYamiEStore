@@ -4,6 +4,7 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "./themeContext";
 import React from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function UserInbox({
   messages,
@@ -17,7 +18,6 @@ export default function UserInbox({
     (message) => message.type === selectedNavType
   );
   useEffect(() => changeNav("inbox"));
-
   function checkAllWatched(type) {
     const unwatchedMessages = messages.filter(
       (message) => message.type === type && message.watched === false
@@ -87,12 +87,14 @@ export default function UserInbox({
         </div>
         <ul className="mt-3 border ">
           {filteredMessage.map((message) => (
-            <Message
-              message={message}
-              key={message.id}
-              watchedMessage={watchedMessage}
-              deleteMessage={deleteMessage}
-            />
+            <>
+              <Message
+                key={message.id}
+                message={message}
+                watchedMessage={watchedMessage}
+                deleteMessage={deleteMessage}
+              />
+            </>
           ))}
         </ul>
       </div>
@@ -105,6 +107,12 @@ function Message({ message, watchedMessage, deleteMessage }) {
   const isNewMessage = message.watched ? null : (
     <i className="badge bg-success">new!</i>
   );
+  const isDelete = {
+    exit: {
+      opacity: 0,
+      x: 50,
+    },
+  };
   return (
     <>
       <li
@@ -126,7 +134,9 @@ function Message({ message, watchedMessage, deleteMessage }) {
         </button>
         <button
           className="transparentButton "
-          onClick={() => deleteMessage(message.id)}
+          onClick={() => {
+            deleteMessage(message.id);
+          }}
         >
           <FontAwesomeIcon icon={faTrash} style={{ color: "red" }} />
         </button>

@@ -38,7 +38,7 @@ export default function App() {
   const [pureData, setPureData] = useState(myDatas);
   const [isLoading, setIsLoading] = useState(false);
 
-  const [user, setUser] = useState(userDatas[0]);
+  const [user, setUser] = useState(null);
   const [messages, setMessages] = useState([]);
   const [currentNav, setCurrentNav] = useState("home");
   const [myTheme, setMyTheme] = useState("aqua");

@@ -10,6 +10,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext } from "react";
+import { motion } from "framer-motion";
 import { CurrentUser, ThemeContext } from "./themeContext";
 import { Link, useNavigate } from "react-router-dom";
 import LoginError from "./loginFirstError";
@@ -65,7 +66,10 @@ export default function Setting({
       <ChangeTheme changeApptheme={changeApptheme} />
       <div className="settingDiv bg-body-tertiary">
         <div className="settingOption ">
-          <div className="options rounded shadow mb-5">
+          <motion.div
+            whileTap={{ scale: 0.9 }}
+            className="options rounded shadow mb-5"
+          >
             <div className="fontAwesome" onClick={handleProfileRoute}>
               <FontAwesomeIcon
                 icon={faCircleUser}
@@ -73,8 +77,11 @@ export default function Setting({
               />
               <span>Profile</span>
             </div>
-          </div>
-          <div className="options rounded shadow">
+          </motion.div>
+          <motion.div
+            whileTap={{ scale: 0.9 }}
+            className="options rounded shadow"
+          >
             <div className="fontAwesome">
               <FontAwesomeIcon
                 icon={faCircleChevronDown}
@@ -82,10 +89,13 @@ export default function Setting({
               />
               <span>Activities</span>
             </div>
-          </div>
+          </motion.div>
         </div>
         <div className="settingOption  ">
-          <div className="options rounded shadow mb-5">
+          <motion.div
+            whileTap={{ scale: 0.9 }}
+            className="options rounded shadow mb-5"
+          >
             <Link to={"/setting/policy"} className="fontAwesome ">
               <FontAwesomeIcon
                 icon={faUser}
@@ -93,14 +103,25 @@ export default function Setting({
               />
               <span style={{ textDecoration: "none" }}>policy terms</span>
             </Link>
-          </div>
-          <div className="options rounded shadow">{logMode}</div>
+          </motion.div>
+          <motion.div
+            whileTap={{ scale: 0.9 }}
+            className="options rounded shadow"
+          >
+            {logMode}
+          </motion.div>
         </div>
         {loginError ? (
-          <LoginError
-            handleIsLogin={handleIsLogin}
-            ErrorMessage={"Login first to view profile"}
-          />
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <LoginError
+              handleIsLogin={handleIsLogin}
+              ErrorMessage={"Login first to view profile"}
+            />
+          </motion.div>
         ) : null}
       </div>
     </>
