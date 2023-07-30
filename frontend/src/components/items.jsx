@@ -9,6 +9,7 @@ import {
   faArrowsRotate,
 } from "@fortawesome/free-solid-svg-icons";
 import { useContext, useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import { CurrentUser, ThemeContext } from "./themeContext";
 import LoginError from "./loginFirstError";
@@ -105,6 +106,7 @@ export default function Items({ cataType, addCart, removeCart, pureData }) {
 function Images({ imgData, addCart, hidden, handleIsLogin, placeholderSrc }) {
   const currentUser = useContext(CurrentUser);
   const [imgSrc, setImgSrc] = useState(placeholderSrc || imgData.source);
+
   const customClass =
     placeholderSrc && imgSrc === placeholderSrc ? "loading" : "loaded";
   function userExist() {
@@ -135,12 +137,12 @@ function Images({ imgData, addCart, hidden, handleIsLogin, placeholderSrc }) {
   return (
     <>
       <div
-        className={" col-4 mb-3 image-container" + (hidden ? null : "d-none")} //if hidden is true show image else display none image
+        className={" col-4 mb-3 image-container " + (hidden ? null : "d-none")} //if hidden is true show image else display none image
         key={imgData.name}
       >
         <div className="">
-          <img
-            // style={imgSrc === placeholderSrc ? { opacity: "50px" } : null}
+          <motion.img
+            whileHover={{ scale: 0.9 }}
             src={imgSrc}
             alt={imgData.source}
             className={"img-fluid rounded " + `${customClass}`}

@@ -48,6 +48,7 @@ export default function Login({ userDatas, isLogin, changeNav }) {
         <label>Password</label>
         <input
           value={password}
+          type="password"
           className="form-control"
           placeholder="password"
           onChange={(e) => setPassword(e.target.value)}

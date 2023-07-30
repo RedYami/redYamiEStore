@@ -10,7 +10,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { CurrentUser, ThemeContext } from "./themeContext";
 import { Link, useNavigate } from "react-router-dom";
 import LoginError from "./loginFirstError";
@@ -62,68 +62,69 @@ export default function Setting({
   }
   return (
     <>
-      <ReedemPoint redeemPoints={redeemPoints} />
-      <ChangeTheme changeApptheme={changeApptheme} />
-      <div className="settingDiv bg-body-tertiary">
-        <div className="settingOption ">
-          <motion.div
-            whileTap={{ scale: 0.9 }}
-            className="options rounded shadow mb-5"
-          >
-            <div className="fontAwesome" onClick={handleProfileRoute}>
-              <FontAwesomeIcon
-                icon={faCircleUser}
-                style={{ fontSize: "40px", color: myTheme }}
-              />
-              <span>Profile</span>
-            </div>
-          </motion.div>
-          <motion.div
-            whileTap={{ scale: 0.9 }}
-            className="options rounded shadow"
-          >
-            <div className="fontAwesome">
-              <FontAwesomeIcon
-                icon={faCircleChevronDown}
-                style={{ fontSize: "40px", color: myTheme }}
-              />
-              <span>Activities</span>
-            </div>
-          </motion.div>
-        </div>
-        <div className="settingOption  ">
-          <motion.div
-            whileTap={{ scale: 0.9 }}
-            className="options rounded shadow mb-5"
-          >
-            <Link to={"/setting/policy"} className="fontAwesome ">
-              <FontAwesomeIcon
-                icon={faUser}
-                style={{ fontSize: "40px", color: myTheme }}
-              />
-              <span style={{ textDecoration: "none" }}>policy terms</span>
-            </Link>
-          </motion.div>
-          <motion.div
-            whileTap={{ scale: 0.9 }}
-            className="options rounded shadow"
-          >
-            {logMode}
-          </motion.div>
-        </div>
-        {loginError ? (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+        exit={{ opacity: 0 }}
+      >
+        <ReedemPoint redeemPoints={redeemPoints} />
+        <ChangeTheme changeApptheme={changeApptheme} />
+        <div className="settingDiv bg-body-tertiary">
+          <div className="settingOption ">
+            <motion.div
+              whileTap={{ scale: 0.9 }}
+              className="options rounded shadow mb-5"
+            >
+              <div className="fontAwesome" onClick={handleProfileRoute}>
+                <FontAwesomeIcon
+                  icon={faCircleUser}
+                  style={{ fontSize: "40px", color: myTheme }}
+                />
+                <span>Profile</span>
+              </div>
+            </motion.div>
+            <motion.div
+              whileTap={{ scale: 0.9 }}
+              className="options rounded shadow"
+            >
+              <div className="fontAwesome">
+                <FontAwesomeIcon
+                  icon={faCircleChevronDown}
+                  style={{ fontSize: "40px", color: myTheme }}
+                />
+                <span>Activities</span>
+              </div>
+            </motion.div>
+          </div>
+          <div className="settingOption  ">
+            <motion.div
+              whileTap={{ scale: 0.9 }}
+              className="options rounded shadow mb-5"
+            >
+              <Link to={"/setting/policy"} className="fontAwesome ">
+                <FontAwesomeIcon
+                  icon={faUser}
+                  style={{ fontSize: "40px", color: myTheme }}
+                />
+                <span style={{ textDecoration: "none" }}>policy terms</span>
+              </Link>
+            </motion.div>
+            <motion.div
+              whileTap={{ scale: 0.9 }}
+              className="options rounded shadow"
+            >
+              {logMode}
+            </motion.div>
+          </div>
+          {loginError ? (
             <LoginError
               handleIsLogin={handleIsLogin}
               ErrorMessage={"Login first to view profile"}
             />
-          </motion.div>
-        ) : null}
-      </div>
+          ) : null}
+        </div>
+      </motion.div>
     </>
   );
 }
@@ -132,7 +133,7 @@ function ReedemPoint({ redeemPoints }) {
   const myTheme = useContext(ThemeContext);
   const [showRedeem, setShowRedeem] = useState(false);
   const redeemCoin = (
-    <div className="d-flex flex-column p-3 justify-content-center">
+    <motion.div className="d-flex flex-column p-3 justify-content-center border shadow mt-1">
       <FontAwesomeIcon
         icon={faCoins}
         style={{ fontSize: "50px", color: "gold" }}
@@ -148,25 +149,35 @@ function ReedemPoint({ redeemPoints }) {
       >
         hide
       </button>
-    </div>
+    </motion.div>
   );
   return (
     <>
       <div
-        className="reedemPoints rounded shadow"
-        style={{ padding: "10px" }}
+        className="reedemPoints rounded "
         onClick={() => {
           setShowRedeem(true);
         }}
       >
-        <div className=" d-flex justify-content-center rounded">
+        <div className=" d-flex justify-content-center rounded shadow p-2">
           <span style={{ marginRight: "4px" }}>my Redeem points</span>
           <FontAwesomeIcon
             icon={faCoins}
             style={{ fontSize: "20px", color: myTheme }}
           />
         </div>
-        {showRedeem ? redeemCoin : null}
+        <AnimatePresence>
+          {showRedeem && (
+            <motion.div
+              initial={{ y: "-4vw" }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ type: "spring", stiffness: 90, duration: 0.5 }}
+              exit={{ opacity: 0, y: "-2vw", transition: { duration: 0.2 } }}
+            >
+              {redeemCoin}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </>
   );
@@ -188,7 +199,7 @@ function ChangeTheme({ changeApptheme }) {
   ];
   const myTheme = useContext(ThemeContext);
   const themeSelection = (
-    <div className="d-flex flex-column p-3 justify-content-center">
+    <div className="d-flex flex-column p-3 justify-content-center shadow">
       <div className="row">
         {themeColors.map((theme) => (
           <ColorButton
@@ -213,18 +224,28 @@ function ChangeTheme({ changeApptheme }) {
   return (
     <>
       <div
-        className="reedemPoints rounded shadow"
-        style={{ padding: "10px" }}
+        className="reedemPoints rounded "
         onClick={() => setShowColors(true)}
       >
-        <div className=" d-flex justify-content-center rounded">
+        <div className=" d-flex justify-content-center rounded p-2 shadow">
           <span style={{ marginRight: "4px" }}>Choose Theme</span>
           <FontAwesomeIcon
             icon={faDroplet}
             style={{ fontSize: "20px", color: myTheme }}
           />
         </div>
-        {showColors ? themeSelection : null}
+        <AnimatePresence>
+          {showColors && (
+            <motion.div
+              initial={{ y: "-4vw" }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ type: "spring", stiffness: 90, duration: 0.5 }}
+              exit={{ opacity: 0, y: "-2vw", transition: { duration: 0.2 } }}
+            >
+              {themeSelection}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </>
   );

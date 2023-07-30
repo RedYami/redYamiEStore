@@ -91,7 +91,7 @@ export default function Register({ userDatas, createUser, changeNav }) {
   return (
     <>
       <form
-        className="registerDiv container p-3 mt-4 shadow-lg rounded"
+        className="registerDiv container p-1 mt-0 shadow-lg rounded"
         style={{ maxWidth: "500px" }}
       >
         <label>User name</label>
@@ -142,8 +142,8 @@ export default function Register({ userDatas, createUser, changeNav }) {
         <br />
         <label>Password</label>
         <input
-          // type="password"
           value={passwordRef.current}
+          type="password"
           className="form-control"
           placeholder="at least 8 characters password"
           onChange={(e) => {
@@ -157,7 +157,7 @@ export default function Register({ userDatas, createUser, changeNav }) {
         <br />
         <label>Confirm password</label>
         <input
-          // type="password"
+          type="password"
           value={confirmPasswordRef.current}
           className="form-control"
           placeholder="confirm password"
@@ -177,7 +177,7 @@ export default function Register({ userDatas, createUser, changeNav }) {
           onClick={handleRegister}
           type="submit"
         >
-          login
+          register
         </button>
         <br />
       </form>

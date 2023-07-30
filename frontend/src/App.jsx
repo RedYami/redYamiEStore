@@ -11,7 +11,7 @@ import "./CSS/userInbox.css";
 import { alphabet, myDatas, user_datas } from "./components/datas";
 import { CurrentUser, ThemeContext } from "./components/themeContext";
 
-import { Outlet, Route, Routes } from "react-router-dom";
+import { Outlet, Route, Routes, useLocation } from "react-router-dom";
 import Home from "./components/home";
 import Carts from "./components/cartOptions";
 import MessageBox from "./components/message";
@@ -27,6 +27,10 @@ import Setting from "./components/setting";
 import PolicyTerms from "./components/eStorePolicy";
 import Privacy from "./components/privacyEdit";
 import Loading from "./components/loadingMode";
+import { useEffect } from "react";
+import DefaultPage from "./components/defaultPage";
+import { AnimatePresence, motion } from "framer-motion";
+
 let orderId = 0;
 let userId = 2;
 export default function App() {
@@ -37,16 +41,14 @@ export default function App() {
   const totalRef = useRef(0);
   const [pureData, setPureData] = useState(myDatas);
   const [isLoading, setIsLoading] = useState(false);
+  const [navbarLoading, setNavbarLoading] = useState(true); //show home page after nav bar is loaded
 
   const [user, setUser] = useState(null);
   const [messages, setMessages] = useState([]);
   const [currentNav, setCurrentNav] = useState("home");
   const [myTheme, setMyTheme] = useState("aqua");
   const [redeemPoints, setRedeemPoints] = useState(79); //one redeem point equal to 500ks
-  const [usedRDpoints, setUsedRDpoints] = useState(0);
-  // function setRedemption(point) {
-  //   setUsedRDpoints(p);
-  // }
+  const location = useLocation();
   function editRedeemPoints(usedPoints) {
     setRedeemPoints((point) => point - usedPoints);
   }
@@ -166,7 +168,6 @@ export default function App() {
     setPureData(myDatas); //set all items to default mode (reset)
   }
   function deleteOrder(id, RDpoints) {
-    console.log("rd point in delete function " + RDpoints);
     setOrderedList(orderedList.filter((order) => order.id !== id));
     setRedeemPoints((points) => points + parseInt(RDpoints));
   }
@@ -216,17 +217,8 @@ export default function App() {
   /////////Catagories Functions Start///////////
 
   function changeCata(cataType, Id) {
-    setIsLoading(true);
-    async function updateCata() {
-      return new Promise((resolve) => {
-        setRequestCata(cataType);
-        setSelectedLi(Id);
-        resolve();
-      });
-    }
-    updateCata().then(() => {
-      setIsLoading(false);
-    });
+    setRequestCata(cataType);
+    setSelectedLi(Id);
   }
 
   /////////Catagories Functions End/////
@@ -292,6 +284,9 @@ export default function App() {
     };
   }
   /////////Items Functions End/////
+  setTimeout(() => {
+    return setNavbarLoading(false);
+  }, 1500);
 
   return (
     <>
@@ -305,125 +300,131 @@ export default function App() {
             />
 
             <Outlet />
+
             {isLoading ? <Loading /> : null}
           </div>
+          <AnimatePresence>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  navbarLoading ? (
+                    <DefaultPage />
+                  ) : (
+                    <Home
+                      requestCata={requestCata}
+                      addNewCart={addNewCart}
+                      removeCart={removeCart}
+                      pureData={pureData}
+                      changeCata={changeCata}
+                      selectedLi={selectedLi}
+                      changeNav={changeNav}
+                    />
+                  )
+                }
+                errorElement={<ErrorPage />}
+              />
 
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <Home
-                  requestCata={requestCata}
-                  addNewCart={addNewCart}
-                  removeCart={removeCart}
-                  pureData={pureData}
-                  changeCata={changeCata}
-                  selectedLi={selectedLi}
-                  changeNav={changeNav}
-                />
-              }
-              errorElement={<ErrorPage />}
-            />
-
-            <Route
-              path="Cart"
-              element={
-                <Carts
-                  allCarts={allCarts}
-                  removeCart={removeCart}
-                  priceUp={priceUp}
-                  priceDown={priceDown}
-                  totalPrice={totalRef.current}
-                  addNewOrder={addNewOrder}
-                  changeNav={changeNav}
-                  redeemPoints={redeemPoints}
-                  setRedeemPoints={editRedeemPoints}
-                />
-              }
-            />
-            <Route
-              path="message"
-              element={
-                <MessageBox
-                  user={user}
-                  onSendMessage={onSendMessage}
-                  changeNav={changeNav}
-                />
-              }
-            />
-            <Route
-              path="order-list"
-              element={
-                <OrderList
-                  orderedList={orderedList}
-                  deleteOrder={deleteOrder}
-                  changeNav={changeNav}
-                />
-              }
-            />
-            <Route
-              path="setting/login"
-              element={
-                <Login
-                  userDatas={userDatas}
-                  isLogin={successLogin}
-                  changeNav={changeNav}
-                />
-              }
-            />
-            <Route
-              path="setting/login/register"
-              element={
-                <Register
-                  userDatas={userDatas}
-                  createUser={createUser}
-                  changeNav={changeNav}
-                />
-              }
-            />
-            <Route
-              path="inbox"
-              element={
-                <UserInbox
-                  messages={inboxMessage}
-                  watchedMessage={watchedMessage}
-                  deleteMessage={deleteMessage}
-                  changeNav={changeNav}
-                />
-              }
-            />
-            <Route
-              path="detail/:id"
-              element={
-                <ItemDetail addNewCart={addNewCart} changeNav={changeNav} />
-              }
-            />
-            <Route
-              path="setting"
-              element={
-                <Setting
-                  onLogout={onLogout}
-                  changeApptheme={setTheme}
-                  redeemPoints={redeemPoints}
-                  changeNav={changeNav}
-                />
-              }
-            />
-            <Route
-              path="setting/policy"
-              element={<PolicyTerms />}
-              changeNav={changeNav}
-            />
-            <Route
-              path="setting/privacy"
-              element={
-                <Privacy
-                  changeProfilePicture={changeProfilePicture}
-                  changeNav={changeNav}
-                />
-              }
-            />
-          </Routes>
+              <Route
+                path="Cart"
+                element={
+                  <Carts
+                    allCarts={allCarts}
+                    removeCart={removeCart}
+                    priceUp={priceUp}
+                    priceDown={priceDown}
+                    totalPrice={totalRef.current}
+                    addNewOrder={addNewOrder}
+                    changeNav={changeNav}
+                    redeemPoints={redeemPoints}
+                    setRedeemPoints={editRedeemPoints}
+                  />
+                }
+              />
+              <Route
+                path="message"
+                element={
+                  <MessageBox
+                    user={user}
+                    onSendMessage={onSendMessage}
+                    changeNav={changeNav}
+                  />
+                }
+              />
+              <Route
+                path="order-list"
+                element={
+                  <OrderList
+                    orderedList={orderedList}
+                    deleteOrder={deleteOrder}
+                    changeNav={changeNav}
+                  />
+                }
+              />
+              <Route
+                path="setting/login"
+                element={
+                  <Login
+                    userDatas={userDatas}
+                    isLogin={successLogin}
+                    changeNav={changeNav}
+                  />
+                }
+              />
+              <Route
+                path="setting/login/register"
+                element={
+                  <Register
+                    userDatas={userDatas}
+                    createUser={createUser}
+                    changeNav={changeNav}
+                  />
+                }
+              />
+              <Route
+                path="inbox"
+                element={
+                  <UserInbox
+                    messages={inboxMessage}
+                    watchedMessage={watchedMessage}
+                    deleteMessage={deleteMessage}
+                    changeNav={changeNav}
+                  />
+                }
+              />
+              <Route
+                path="detail/:id"
+                element={
+                  <ItemDetail addNewCart={addNewCart} changeNav={changeNav} />
+                }
+              />
+              <Route
+                path="setting"
+                element={
+                  <Setting
+                    onLogout={onLogout}
+                    changeApptheme={setTheme}
+                    redeemPoints={redeemPoints}
+                    changeNav={changeNav}
+                  />
+                }
+              />
+              <Route
+                path="setting/policy"
+                element={<PolicyTerms />}
+                changeNav={changeNav}
+              />
+              <Route
+                path="setting/privacy"
+                element={
+                  <Privacy
+                    changeProfilePicture={changeProfilePicture}
+                    changeNav={changeNav}
+                  />
+                }
+              />
+            </Routes>
+          </AnimatePresence>
         </CurrentUser.Provider>
       </ThemeContext.Provider>
     </>

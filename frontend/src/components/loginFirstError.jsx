@@ -9,10 +9,10 @@ export default function LoginError({ handleIsLogin, ErrorMessage }) {
     <>
       <div className="confirmWidget-overlay">
         <motion.div
-          initial={{ x: "-200vw" }}
-          animate={{ x: 0 }}
+          initial={{ y: "-200vw" }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          exit={{ opacity: 0 }}
+          exit={{ opacity: 0, y: "-200vw" }}
           className="container confirmWidget "
         >
           <div className="reminder">

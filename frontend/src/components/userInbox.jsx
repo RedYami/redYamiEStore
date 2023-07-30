@@ -49,7 +49,13 @@ export default function UserInbox({
   }
   return (
     <>
-      <div className="mainDivInboxMessage mt-5  container ">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+        exit={{ opacity: 0 }}
+        className="mainDivInboxMessage mt-5  container "
+      >
         <div className="messageHeadings row">
           <button
             className="col messageNav d-flex justify-content-center"
@@ -86,18 +92,30 @@ export default function UserInbox({
           </button>
         </div>
         <ul className="mt-3 border ">
-          {filteredMessage.map((message) => (
-            <>
-              <Message
-                key={message.id}
-                message={message}
-                watchedMessage={watchedMessage}
-                deleteMessage={deleteMessage}
-              />
-            </>
-          ))}
+          <AnimatePresence>
+            {filteredMessage.map((message) => (
+              <>
+                <motion.div
+                  key={message.message}
+                  animate={{ opacity: 1 }}
+                  exit={{
+                    opacity: 0,
+                  }}
+                >
+                  {
+                    <Message
+                      key={message.id}
+                      message={message}
+                      watchedMessage={watchedMessage}
+                      deleteMessage={deleteMessage}
+                    />
+                  }
+                </motion.div>
+              </>
+            ))}
+          </AnimatePresence>
         </ul>
-      </div>
+      </motion.div>
     </>
   );
 }
@@ -107,15 +125,16 @@ function Message({ message, watchedMessage, deleteMessage }) {
   const isNewMessage = message.watched ? null : (
     <i className="badge bg-success">new!</i>
   );
-  const isDelete = {
-    exit: {
-      opacity: 0,
-      x: 50,
-    },
-  };
   return (
     <>
-      <li
+      <motion.li
+        initial={{ x: "-4vw" }}
+        animate={{ opacity: 1, x: 0 }}
+        exit={{
+          opacity: 0,
+          x: "10vw",
+          transition: { duration: 0.5 },
+        }}
         className="messageList rounded m-2"
         style={{ maxHeight: "500px", overflow: "auto" }}
       >
@@ -140,7 +159,7 @@ function Message({ message, watchedMessage, deleteMessage }) {
         >
           <FontAwesomeIcon icon={faTrash} style={{ color: "red" }} />
         </button>
-      </li>
+      </motion.li>
       {reading ? <Watch message={message} /> : null}
     </>
   );

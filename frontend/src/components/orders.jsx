@@ -9,6 +9,7 @@ import {
   faEye,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
+import { motion } from "framer-motion";
 export default function OrderList({ orderedList, deleteOrder, changeNav }) {
   const myTheme = useContext(ThemeContext);
   // const [isChecking, setIsChecking] = useState(false);
@@ -20,7 +21,13 @@ export default function OrderList({ orderedList, deleteOrder, changeNav }) {
 
   return (
     <>
-      <div className="orderList container-fluid ">
+      <motion.div
+        className="orderList container-fluid "
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+        exit={{ opacity: 0 }}
+      >
         <div className="orderTable ">
           <table className="table text-center">
             <thead>
@@ -77,7 +84,7 @@ export default function OrderList({ orderedList, deleteOrder, changeNav }) {
             </tbody>
           </table>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 }

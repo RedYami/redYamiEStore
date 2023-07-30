@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-
+import { motion } from "framer-motion";
 import Catagories from "/src/components/catagories";
 import Items from "/src/components/items";
 // import { myDatas } from "./components/datas";
@@ -19,7 +19,12 @@ export default function Home({
   useEffect(() => changeNav("home"));
   return (
     <>
-      <div className="components container-fluid row">
+      <motion.div
+        className="components container-fluid row"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+      >
         <aside className="col-3">
           <Catagories onListClick={changeCata} Id={selectedLi} />
         </aside>
@@ -31,7 +36,7 @@ export default function Home({
             pureData={pureData}
           />
         </div>
-      </div>
+      </motion.div>
     </>
   );
 }

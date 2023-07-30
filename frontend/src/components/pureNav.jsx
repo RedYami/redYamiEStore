@@ -45,7 +45,10 @@ export default function NavBarMobo({ allCarts, currentNav }) {
   }
   return (
     <>
-      <nav
+      <motion.nav
+        initial={{ x: "-100vw" }}
+        animate={{ x: 0 }}
+        transition={{ duration: 0.5 }}
         className="navHeading "
         style={{
           backgroundColor: myTheme,
@@ -67,8 +70,13 @@ export default function NavBarMobo({ allCarts, currentNav }) {
           />
           <i>{userName}</i>
         </div>
-      </nav>
-      <nav className="mainNav bg-body-tertiary">
+      </motion.nav>
+      <motion.nav
+        className="mainNav bg-body-tertiary"
+        initial={{ x: "100vw" }}
+        animate={{ x: 0 }}
+        transition={{ duration: 0.5 }}
+      >
         <div className="navContent">
           <ul>
             <li className="col " style={selectedNav("home")}>
@@ -178,7 +186,7 @@ export default function NavBarMobo({ allCarts, currentNav }) {
             </li>
           </ul>
         </div>
-      </nav>
+      </motion.nav>
     </>
   );
 }

@@ -12,6 +12,7 @@ import React from "react";
 import { profileSvgs } from "./datas";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function Privacy({ changeProfilePicture, changeNav }) {
   const [selectingProfile, setSelectingProfile] = useState(false);
@@ -47,7 +48,11 @@ export default function Privacy({ changeProfilePicture, changeNav }) {
   ];
   const profilesSelect = (
     <>
-      <div
+      <motion.div
+        initial={{ y: "-1vw" }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ type: "spring", stiffness: 90, duration: 0.3 }}
+        exit={{ opacity: 0, y: "-1vw", transition: { duration: 0.2 } }}
         className="profilePics row p-1 rounded"
         style={{ backgroundColor: "gold" }}
       >
@@ -64,7 +69,7 @@ export default function Privacy({ changeProfilePicture, changeNav }) {
             key={profile}
           />
         ))}
-      </div>
+      </motion.div>
     </>
   );
 
@@ -97,7 +102,9 @@ export default function Privacy({ changeProfilePicture, changeNav }) {
             }}
             className=" rounded-circle"
           />
-          <button
+          <motion.button
+            whileHover={{ scale: 0.9 }}
+            whileTap={{ scale: 0.8 }}
             className=" btn rounded"
             style={{
               fontFamily: "cursive",
@@ -109,8 +116,11 @@ export default function Privacy({ changeProfilePicture, changeNav }) {
             onClick={() => setSelectingProfile(!selectingProfile)}
           >
             {selectingProfile ? "okay" : "edit profile"}
-          </button>
-          {selectingProfile ? profilesSelect : null}
+          </motion.button>
+          <AnimatePresence>
+            {" "}
+            {selectingProfile ? profilesSelect : null}
+          </AnimatePresence>
         </div>
         {profileItems.map((item) => (
           <EditMode

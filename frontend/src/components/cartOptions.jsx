@@ -12,6 +12,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useContext, useState } from "react";
 import { ThemeContext } from "./themeContext";
+import { motion } from "framer-motion";
 
 export default function Carts({
   allCarts,
@@ -47,7 +48,11 @@ export default function Carts({
   ); //this widget pop up to confirm the user's order
   return (
     <>
-      <div
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+        exit={{ opacity: 0 }}
         className="mainDiv"
         style={paying ? { pointerEvents: "none", zIndex: "-1" } : null}
       >
@@ -129,7 +134,7 @@ export default function Carts({
           </div>
         </div>
         {confirmNoti}
-      </div>
+      </motion.div>
     </>
   );
 }

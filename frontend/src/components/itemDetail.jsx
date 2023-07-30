@@ -11,22 +11,19 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useContext, useState } from "react";
 import { myDatas } from "./datas";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { CurrentUser, ThemeContext } from "./themeContext";
 export default function ItemDetail({ addNewCart, changeNav }) {
   const { id } = useParams();
   const [index, setIndex] = useState(parseInt(id));
   const myTheme = useContext(ThemeContext);
   const currentUser = useContext(CurrentUser);
-  const [loadingPre, setLoadingPre] = useState(true);
-  const [loadingPost, setLoadingPost] = useState(true);
   const [loadingMain, setLoadingMain] = useState(true);
   const navigate = useNavigate();
   function backSetting() {
     navigate("/");
   }
-  console.log(index);
-  console.log(myDatas[index].source);
+
   useEffect(() => changeNav("home"));
   useEffect(() => {
     const img = new Image();
@@ -34,24 +31,6 @@ export default function ItemDetail({ addNewCart, changeNav }) {
     img.onload = () => {
       setLoadingMain(false);
     };
-  }, [index]);
-  useEffect(() => {
-    if (index !== 0) {
-      const img = new Image();
-      img.src = myDatas[index - 1].source;
-      img.onload = () => {
-        setLoadingPre(false);
-      };
-    }
-  }, [index]);
-  useEffect(() => {
-    if (index !== myDatas.length - 1) {
-      const img = new Image();
-      img.src = myDatas[index + 1].source;
-      img.onload = () => {
-        setLoadingPost(false);
-      };
-    }
   }, [index]);
 
   const loginErrorLog =
@@ -120,36 +99,41 @@ export default function ItemDetail({ addNewCart, changeNav }) {
         back
       </div>
       <div className="itemDetailMain">
-        <div className="preImgDiv shadow">
-          {loadingPre ? (
-            <div className="spinner-grow border text-center"></div>
-          ) : index === 0 ? null : (
-            <motion.img
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              src={myDatas[index - 1].source}
-              className="img-fluid preImg"
-              key={myDatas[index - 1].source}
-            />
-          )}
-        </div>
+        <AnimatePresence>
+          <div className="preImgDiv shadow">
+            {index === 0 ? (
+              <h3
+                className=" text-warning text-center"
+                style={{ marginTop: "100px" }}
+              >
+                No more Item
+              </h3>
+            ) : (
+              <motion.img
+                src={myDatas[index - 1].source}
+                className="img-fluid preImg rounded"
+                key={myDatas[index - 1].source}
+              />
+            )}
+          </div>
+        </AnimatePresence>
 
         {decreaseButton}
-        <div className="card mt-3 " style={{ width: "18rem" }}>
-          {loadingMain ? (
-            <div className="spinner-grow" style={{ margin: "auto" }}></div>
-          ) : (
-            <motion.img
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              src={myDatas[index].source}
-              className="card-img-top mainImg"
-              alt="..."
-              key={myDatas[index].id}
-            />
-          )}
+        <div className="card " style={{ maxWidth: "300px" }}>
+          <AnimatePresence>
+            {loadingMain ? (
+              <div className="card-img-top mainImg "></div>
+            ) : (
+              <motion.div className="card">
+                <img
+                  src={myDatas[index].source}
+                  className="card-img-top mainImg"
+                  alt="..."
+                  key={myDatas[index].id}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           <div className="card-body">
             <h5 className="card-title">{myDatas[index].name}</h5>
@@ -191,20 +175,24 @@ export default function ItemDetail({ addNewCart, changeNav }) {
         </div>
         {increaseButton}
 
-        <div className="postImgDiv shadow">
-          {loadingPre ? (
-            <div className="spinner-grow border text-center"></div>
-          ) : index === myDatas.length - 1 ? null : (
-            <motion.img
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              src={myDatas[index + 1].source}
-              className="img-fluid postImg"
-              key={myDatas[index + 1].source}
-            />
-          )}
-        </div>
+        <AnimatePresence>
+          <div className="postImgDiv shadow">
+            {index === myDatas.length - 1 ? (
+              <h3
+                className=" text-warning text-center"
+                style={{ marginTop: "100px" }}
+              >
+                No more Item
+              </h3>
+            ) : (
+              <motion.img
+                src={myDatas[index + 1].source}
+                className="img-fluid postImg rounded shadow"
+                key={myDatas[index + 1].source}
+              />
+            )}
+          </div>
+        </AnimatePresence>
       </div>
     </>
   );
