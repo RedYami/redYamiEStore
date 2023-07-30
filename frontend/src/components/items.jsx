@@ -130,7 +130,12 @@ function Images({ imgData, addCart, hidden, handleIsLogin, placeholderSrc }) {
       title="add to cart"
       onClick={() => userExist()}
     >
-      <FontAwesomeIcon icon={faCartShopping} style={{ color: "whitesmoke" }} />
+      <motion.div whileHover={{ scale: 1.4 }} whileTap={{ scale: 1.3 }}>
+        <FontAwesomeIcon
+          icon={faCartShopping}
+          style={{ color: "whitesmoke" }}
+        />
+      </motion.div>
     </button>
   );
 

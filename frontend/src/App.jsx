@@ -142,6 +142,7 @@ export default function App() {
         password: newUser.password,
         address: newUser.address,
         phone_number: newUser.phone_number,
+        profile_picture: "/src/svgs/1.svg",
       },
     ]);
     setUser(newUser);
