@@ -82,7 +82,7 @@ export default function NavBarMobo({ allCarts, currentNav }) {
                 whileTap={{ scale: 0.9 }}
                 className=" transparentButton "
               >
-                <Link to={"/"}>
+                <Link to={"/redYamiStore"}>
                   <FontAwesomeIcon
                     icon={faHouse}
                     title="Home"
