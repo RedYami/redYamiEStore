@@ -30,6 +30,7 @@ import Loading from "./components/loadingMode";
 import { useEffect } from "react";
 import DefaultPage from "./components/defaultPage";
 import { AnimatePresence, motion } from "framer-motion";
+import ThemePen, { SelectTheme } from "./components/themeChanger";
 
 let orderId = 0;
 let userId = 2;
@@ -43,12 +44,16 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [navbarLoading, setNavbarLoading] = useState(true); //show home page after nav bar is loaded
 
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(userDatas[0]);
   const [messages, setMessages] = useState([]);
   const [currentNav, setCurrentNav] = useState("home");
   const [myTheme, setMyTheme] = useState("aqua");
   const [redeemPoints, setRedeemPoints] = useState(79); //one redeem point equal to 500ks
+  const [showTheme, setShowTheme] = useState(false);
   const location = useLocation();
+  function ThemeVisible() {
+    setShowTheme(!showTheme);
+  }
   function editRedeemPoints(usedPoints) {
     setRedeemPoints((point) => point - usedPoints);
   }
@@ -301,8 +306,10 @@ export default function App() {
             />
 
             <Outlet />
-
-            {isLoading ? <Loading /> : null}
+            <AnimatePresence>
+              {showTheme ? <SelectTheme setTheme={setTheme} /> : null}
+            </AnimatePresence>
+            <ThemePen showOrHideTheme={ThemeVisible} />
           </div>
           <AnimatePresence>
             <Routes>
@@ -404,7 +411,6 @@ export default function App() {
                 element={
                   <Setting
                     onLogout={onLogout}
-                    changeApptheme={setTheme}
                     redeemPoints={redeemPoints}
                     changeNav={changeNav}
                   />

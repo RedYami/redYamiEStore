@@ -15,12 +15,7 @@ import { CurrentUser, ThemeContext } from "./themeContext";
 import { Link, useNavigate } from "react-router-dom";
 import LoginError from "./loginFirstError";
 
-export default function Setting({
-  onLogout,
-  changeApptheme,
-  redeemPoints,
-  changeNav,
-}) {
+export default function Setting({ onLogout, redeemPoints, changeNav }) {
   const myTheme = useContext(ThemeContext);
   const currentUser = useContext(CurrentUser);
   const [loginError, setLoginError] = useState(false);
@@ -69,7 +64,6 @@ export default function Setting({
         exit={{ opacity: 0 }}
       >
         <ReedemPoint redeemPoints={redeemPoints} />
-        <ChangeTheme changeApptheme={changeApptheme} />
         <div className="settingDiv bg-body-tertiary">
           <div className="settingOption ">
             <motion.div

@@ -99,40 +99,56 @@ export default function ItemDetail({ addNewCart, changeNav }) {
         back
       </div>
       <div className="itemDetailMain">
-        <AnimatePresence>
-          <div className="preImgDiv shadow">
-            {index === 0 ? (
-              <h3
-                className=" text-warning text-center"
-                style={{ marginTop: "100px" }}
-              >
-                No more Item
-              </h3>
-            ) : (
-              <motion.img
-                src={myDatas[index - 1].source}
-                className="img-fluid preImg rounded"
-                key={myDatas[index - 1].source}
-              />
-            )}
-          </div>
-        </AnimatePresence>
-
+        <div className="preImgDiv shadow">
+          <AnimatePresence>
+            <motion.div
+              key={myDatas[index]}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              {index === 0 ? (
+                <h3
+                  className=" text-warning text-center"
+                  style={{ marginTop: "100px" }}
+                >
+                  No more Item
+                </h3>
+              ) : (
+                <motion.img
+                  src={myDatas[index - 1].source}
+                  className="img-fluid preImg rounded"
+                  key={myDatas[index - 1].source}
+                />
+              )}
+            </motion.div>
+          </AnimatePresence>
+        </div>
         {decreaseButton}
         <div className="card " style={{ maxWidth: "300px" }}>
           <AnimatePresence>
-            {loadingMain ? (
-              <div className="card-img-top mainImg "></div>
-            ) : (
-              <motion.div className="card">
-                <img
-                  src={myDatas[index].source}
-                  className="card-img-top mainImg"
-                  alt="..."
-                  key={myDatas[index].id}
-                />
-              </motion.div>
-            )}
+            <motion.div
+              key={myDatas[index] + "main"}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              {loadingMain ? (
+                <div
+                  className="card-img-top mainImg "
+                  key={myDatas[index]}
+                ></div>
+              ) : (
+                <motion.div className="card">
+                  <img
+                    src={myDatas[index].source}
+                    className="card-img-top mainImg"
+                    alt="..."
+                    key={myDatas[index].id}
+                  />
+                </motion.div>
+              )}
+            </motion.div>
           </AnimatePresence>
 
           <div className="card-body">
@@ -175,24 +191,31 @@ export default function ItemDetail({ addNewCart, changeNav }) {
         </div>
         {increaseButton}
 
-        <AnimatePresence>
-          <div className="postImgDiv shadow">
-            {index === myDatas.length - 1 ? (
-              <h3
-                className=" text-warning text-center"
-                style={{ marginTop: "100px" }}
-              >
-                No more Item
-              </h3>
-            ) : (
-              <motion.img
-                src={myDatas[index + 1].source}
-                className="img-fluid postImg rounded shadow"
-                key={myDatas[index + 1].source}
-              />
-            )}
-          </div>
-        </AnimatePresence>
+        <div className="postImgDiv shadow">
+          <AnimatePresence>
+            <motion.div
+              key={myDatas[index] + "pre"}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              {index === myDatas.length - 1 ? (
+                <h3
+                  className=" text-warning text-center"
+                  style={{ marginTop: "100px" }}
+                >
+                  No more Item
+                </h3>
+              ) : (
+                <motion.img
+                  src={myDatas[index + 1].source}
+                  className="img-fluid postImg rounded shadow"
+                  key={myDatas[index + 1].source}
+                />
+              )}
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </div>
     </>
   );

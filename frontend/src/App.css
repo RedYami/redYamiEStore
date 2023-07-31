@@ -12,6 +12,27 @@
   cursor: pointer;
   font-family: cursive;
 }
+.themePen{
+  position: fixed;
+  bottom: 3%;
+  left: 3%;
+  max-width: 40px;
+  max-height: 40px;
+  padding: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.themeContainer{
+  position: fixed;
+  bottom: 8%;
+  left: 3%;
+  max-width: 120px;
+  height: auto;
+  padding: 14px;
+  z-index: 9999;
+}
 
 /*///////// css for detail ///////*/
 

@@ -8,15 +8,9 @@ import {
   faGear,
   faHouse,
   faListUl,
-  faMagnifyingGlass,
-  faPaperPlane,
-  faRightFromBracket,
-  faRightToBracket,
-  faCircleUser,
-  faFolderOpen,
   faAddressCard,
-  faPersonCircleCheck,
   faUserCircle,
+  faChartPie,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
@@ -57,7 +51,10 @@ export default function NavBarMobo({ allCarts, currentNav }) {
           fontFamily: "cursive",
         }}
       >
-        <h3 className="">Hyena comerce store App</h3>
+        <h3 className="">
+          <FontAwesomeIcon icon={faChartPie} />
+          <span>E-App</span>
+        </h3>
         <div className="profileStatus d-flex justify-content-center flex-column">
           <img
             src={
