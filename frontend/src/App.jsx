@@ -41,7 +41,7 @@ export default function App() {
   const [allCarts, setAllCarts] = useState([]);
   const totalRef = useRef(0);
   const [pureData, setPureData] = useState(myDatas);
-  const [isLoading, setIsLoading] = useState(false);
+
   const [navbarLoading, setNavbarLoading] = useState(true); //show home page after nav bar is loaded
 
   const [user, setUser] = useState(userDatas[0]);
@@ -50,7 +50,7 @@ export default function App() {
   const [myTheme, setMyTheme] = useState("aqua");
   const [redeemPoints, setRedeemPoints] = useState(79); //one redeem point equal to 500ks
   const [showTheme, setShowTheme] = useState(false);
-  const location = useLocation();
+
   function ThemeVisible() {
     setShowTheme(!showTheme);
   }
