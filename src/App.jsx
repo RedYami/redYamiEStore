@@ -314,7 +314,7 @@ export default function App() {
           <AnimatePresence>
             <Routes>
               <Route
-                path="/redYamiEStore"
+                path="/"
                 element={
                   navbarLoading ? (
                     <DefaultPage />
